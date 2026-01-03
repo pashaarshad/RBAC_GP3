@@ -27,8 +27,8 @@ const defaultTasks = [
     },
     {
         id: 2,
-        title: 'Clone GitHub Repository',
-        description: 'Clone the Fintech-data repository from https://github.com/springboardmentor441p-coderr/Fintech-data',
+        title: 'Clone GitHub Repository (Step-by-Step Guide)',
+        description: 'BEGINNER GUIDE:\n1. Open your browser and go to: https://git-scm.com/downloads\n2. Download and install "Git" for Windows.\n3. Open "VS Code" (Visual Studio Code).\n4. In VS Code, look at the top menu, click "Terminal" > "New Terminal".\n5. A black box will appear at the bottom. Click inside it.\n6. Type this exact command: git clone https://github.com/springboardmentor441p-coderr/Fintech-data\n7. Press the "Enter" key on your keyboard.\n8. Wait for 100% done.\n9. Go to "File" > "Open Folder" and select the "Fintech-data" folder you just downloaded.',
         assignee: 'Depuru Joshika Reddy',
         priority: 'high',
         milestone: 'Milestone 1',
@@ -38,8 +38,8 @@ const defaultTasks = [
     },
     {
         id: 3,
-        title: 'Explore Markdown Documents',
-        description: 'Explore all markdown files in the repository and understand their content structure.',
+        title: 'Explore Markdown Documents (Reading Task)',
+        description: 'BEGINNER GUIDE:\n1. Open your browser.\n2. Go to this link: https://github.com/springboardmentor441p-coderr/Fintech-data\n3. Scroll down the file list. Look for files ending with ".md" (Example: README.md, DATA.md).\n4. Click on the file name to open it.\n5. Read the content carefully to understand what the project is about.\n6. Open a Notepad on your computer.\n7. Write down 3 key points you understood from the files.\n8. Send these points to the group chat.',
         assignee: 'Guru Karthik Reddy Marthala',
         priority: 'medium',
         milestone: 'Milestone 1',
