@@ -236,19 +236,15 @@
 
             try {
                 // SECURITY UPGRADE: Check against Supabase Database (Backend)
-                // Using .ilike() for username makes it case-insensitive (Arshad = arshad = ARSHAD)
                 const { data, error } = await supabase
                     .from('admins')
                     .select('*')
                     .ilike('username', u)
-                    .eq('password', p); // Password is case-sensitive (or exact match)
+                    .eq('password', p);
 
                 if (error) {
                     console.error('Supabase Error:', error);
-                    // Check if error is because table doesn't exist
-                    if (error.code === '42P01') {
-                        throw new Error('Database not accepted. Admin table missing.');
-                    }
+                    // Provide detailed error
                     throw error;
                 }
 
@@ -272,7 +268,16 @@
 
                 // UI: Error State
                 msg.style.display = 'block';
-                msg.textContent = err.message.includes('Database') ? err.message : '⚠️ Invalid Username or Password';
+
+                if (err.message === 'Invalid credentials') {
+                    msg.textContent = '⚠️ Invalid Username or Password';
+                } else if (err.code === '42501') {
+                    msg.textContent = '⚠️ Error: RLS Policy Blocked Access. Please disable RLS in Supabase.';
+                } else if (err.code === '42P01') {
+                    msg.textContent = '⚠️ Error: Table "admins" does not exist.';
+                } else {
+                    msg.textContent = '⚠️ Error: ' + err.message;
+                }
 
                 // Shake animation
                 const card = document.querySelector('.login-card');
