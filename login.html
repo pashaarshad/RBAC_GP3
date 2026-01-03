@@ -211,35 +211,79 @@
         <a href="index.html" class="back-link">← Back to Home Page</a>
     </div>
 
+    <!-- Supabase Client -->
+    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+
     <script>
-        document.getElementById('loginForm').addEventListener('submit', function (e) {
+        // Config matching tasks.js
+        const SUPABASE_URL = 'https://tnmcaqnsstvumpdcxasl.supabase.co';
+        const SUPABASE_KEY = 'sb_publishable_bnfb-4IdAN4brgMftH_FYg_SSE5T2Xi';
+
+        // Initialize Supabase
+        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+        document.getElementById('loginForm').addEventListener('submit', async function (e) {
             e.preventDefault();
-            const u = document.getElementById('username').value;
+            const u = document.getElementById('username').value.trim();
             const p = document.getElementById('password').value;
             const msg = document.getElementById('errorMsg');
             const btn = document.querySelector('.btn-login');
 
-            // Add loading state
+            // UI: Loading State
             btn.innerHTML = 'Verifying...';
             btn.style.opacity = '0.7';
+            msg.style.display = 'none';
 
-            setTimeout(() => {
-                if (u === 'Arshad' && p === 'Arshad') {
-                    sessionStorage.setItem('isAdmin', 'true');
-                    window.location.href = 'admin.html';
-                } else {
-                    msg.style.display = 'block';
-                    // Shake animation for error
-                    const card = document.querySelector('.login-card');
-                    card.style.animation = 'none';
-                    card.offsetHeight; /* trigger reflow */
-                    card.style.animation = 'shake 0.5s';
+            try {
+                // SECURITY UPGRADE: Check against Supabase Database (Backend)
+                // Using .ilike() for username makes it case-insensitive (Arshad = arshad = ARSHAD)
+                const { data, error } = await supabase
+                    .from('admins')
+                    .select('*')
+                    .ilike('username', u)
+                    .eq('password', p); // Password is case-sensitive (or exact match)
 
-                    // Reset button
-                    btn.innerHTML = 'Login Access';
-                    btn.style.opacity = '1';
+                if (error) {
+                    console.error('Supabase Error:', error);
+                    // Check if error is because table doesn't exist
+                    if (error.code === '42P01') {
+                        throw new Error('Database not accepted. Admin table missing.');
+                    }
+                    throw error;
                 }
-            }, 800); // Fake delay for realism
+
+                if (data && data.length > 0) {
+                    // Success! Found a matching admin
+                    sessionStorage.setItem('isAdmin', 'true');
+                    sessionStorage.setItem('adminUser', data[0].username);
+
+                    // Small delay for UX
+                    btn.innerHTML = 'Success! Redirecting...';
+                    setTimeout(() => {
+                        window.location.href = 'admin.html';
+                    }, 500);
+                } else {
+                    // No match found
+                    throw new Error('Invalid credentials');
+                }
+
+            } catch (err) {
+                console.error('Login failed:', err);
+
+                // UI: Error State
+                msg.style.display = 'block';
+                msg.textContent = err.message.includes('Database') ? err.message : '⚠️ Invalid Username or Password';
+
+                // Shake animation
+                const card = document.querySelector('.login-card');
+                card.style.animation = 'none';
+                card.offsetHeight; /* trigger reflow */
+                card.style.animation = 'shake 0.5s';
+
+                // Reset button
+                btn.innerHTML = 'Login Access';
+                btn.style.opacity = '1';
+            }
         });
     </script>
     <style>
