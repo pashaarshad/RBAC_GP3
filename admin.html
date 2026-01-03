@@ -10,17 +10,14 @@
     <link rel="stylesheet" href="tasks.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
-    <style>
-        /* View Only Mode Overrides */
-        #addTaskBtn,
-        .task-actions,
-        .modal-overlay {
-            display: none !important;
-        }
-    </style>
 </head>
 
 <body>
+    <script>
+        if (!sessionStorage.getItem('isAdmin')) {
+            window.location.href = 'login.html';
+        }
+    </script>
     <!-- Navigation -->
     <nav class="navbar">
         <div class="nav-brand">
@@ -34,7 +31,7 @@
             <li><a href="index.html#project" class="nav-link">Project</a></li>
             <li><a href="index.html#team" class="nav-link">Team</a></li>
             <li><a href="index.html#milestones" class="nav-link">Milestones</a></li>
-            <li><a href="tasks.html" class="nav-link task-link active">📋 Tasks View</a></li>
+            <li><a href="tasks.html" class="nav-link task-link active">📋 Assign Tasks</a></li>
         </ul>
         <div class="nav-toggle" id="navToggle">
             <span></span>
@@ -48,13 +45,13 @@
         <div class="container">
             <div class="tasks-header">
                 <div class="header-content">
-                    <span class="section-badge">Public Dashboard</span>
-                    <h1 class="section-title">📋 Team Tasks (View Only)</h1>
-                    <p class="section-description">Track progress and deadlines. Login to assign or edit tasks.</p>
+                    <span class="section-badge">Task Management</span>
+                    <h1 class="section-title">📋 Assign & Track Tasks</h1>
+                    <p class="section-description">Manage tasks for all team members. Track progress and deadlines.</p>
                 </div>
-                <a href="login.html" class="btn btn-secondary">
-                    <span>🔒</span> Admin Login
-                </a>
+                <button class="btn btn-primary" id="addTaskBtn">
+                    <span>➕</span> Add New Task
+                </button>
             </div>
 
             <!-- Task Stats -->
