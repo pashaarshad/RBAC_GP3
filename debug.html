@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Login DEBUG v2</title>
+    <style>
+        body {
+            background: #000;
+            color: #0f0;
+            font-family: monospace;
+            padding: 20px;
+        }
+
+        #log {
+            border: 1px solid #0f0;
+            padding: 10px;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Last Resort Debugger</h1>
+    <div id="log">Waiting for JS...</div>
+
+    <!-- Try different CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script>
+        const logDiv = document.getElementById('log');
+        function print(msg) {
+            logDiv.innerHTML += '\n' + msg;
+        }
+
+        print('Script started...');
+
+        try {
+            if (typeof window.supabase === 'undefined') {
+                print('❌ CRITICAL: Supabase Library failed to load!');
+                print('Please check your internet connection.');
+            } else {
+                print('✅ Library Loaded.');
+
+                const SUPABASE_URL = 'https://tnmcaqnsstvumpdcxasl.supabase.co';
+                const SUPABASE_KEY = 'sb_publishable_bnfb-4IdAN4brgMftH_FYg_SSE5T2Xi';
+                const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+                print('Connecting to DB...');
+
+                supabase.from('admins').select('*').then(result => {
+                    const { data, error } = result;
+                    if (error) {
+                        print('❌ DB Error: ' + JSON.stringify(error));
+
+                        if (error.code === "42501") print("👉 CAUSE: RLS is Enabled. Turn it OFF.");
+                        if (error.code === "42P01") print("👉 CAUSE: Table 'admins' not found.");
+
+                    } else {
+                        print('✅ SUCCESS! Found users: ' + JSON.stringify(data));
+                        if (data.length === 0) print('⚠️ WARNING: 0 users found. RLS might be ON?');
+                    }
+                }).catch(err => {
+                    print('❌ Fetch Error: ' + err.message);
+                });
+            }
+        } catch (e) {
+            print('❌ GLOBAL CRASH: ' + e.message);
+        }
+    </script>
+</body>
+
+</html>

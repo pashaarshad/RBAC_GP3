@@ -14,10 +14,15 @@
 
 <body>
     <script>
-        if (!sessionStorage.getItem('isAdmin')) {
+        // --- 🔒 MANUAL SECURITY CHECK ---
+        // We only allow access if the login page said "YES"
+        const access = localStorage.getItem('canAccessAdmin');
+
+        if (access !== 'YES') {
             window.location.href = 'login.html';
         }
     </script>
+
     <!-- Navigation -->
     <nav class="navbar">
         <div class="nav-brand">
@@ -49,9 +54,14 @@
                     <h1 class="section-title">📋 Assign & Track Tasks</h1>
                     <p class="section-description">Manage tasks for all team members. Track progress and deadlines.</p>
                 </div>
-                <button class="btn btn-primary" id="addTaskBtn">
-                    <span>➕</span> Add New Task
-                </button>
+                <div class="header-actions">
+                    <button class="btn btn-secondary" onclick="seedDatabase()" title="Restore Default Data">
+                        <span>🔄</span> Restore Defaults
+                    </button>
+                    <button class="btn btn-primary" id="addTaskBtn">
+                        <span>➕</span> Add New Task
+                    </button>
+                </div>
             </div>
 
             <!-- Task Stats -->
@@ -196,8 +206,8 @@
         </div>
     </footer>
 
-    <!-- Supabase Client -->
-    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+    <!-- Supabase Client (Using jsDelivr) -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
     <script src="tasks.js"></script>
 </body>
