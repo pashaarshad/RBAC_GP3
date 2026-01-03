@@ -7,63 +7,208 @@
     <title>Admin Login | RBAC Group 3</title>
     <link rel="stylesheet" href="styles.css">
     <style>
-        .login-container {
+        body {
+            background-color: var(--bg-primary);
+            background-image:
+                linear-gradient(var(--bg-secondary) 1px, transparent 1px),
+                linear-gradient(90deg, var(--bg-secondary) 1px, transparent 1px);
+            background-size: 40px 40px;
             display: flex;
             align-items: center;
             justify-content: center;
             min-height: 100vh;
-            padding: 1rem;
+            margin: 0;
+            font-family: var(--font-family);
         }
 
         .login-card {
-            background: var(--bg-card);
-            padding: 2.5rem;
-            border-radius: var(--radius-lg);
+            background: rgba(17, 25, 40, 0.75);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
             border: 1px solid var(--glass-border);
+            padding: 3rem 2.5rem;
+            border-radius: var(--radius-xl);
             width: 100%;
-            max-width: 400px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            max-width: 420px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            animation: slideUp 0.5s ease-out;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Subtle glowing border effect */
+        .login-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--primary), transparent);
+            animation: scan 2s linear infinite;
+        }
+
+        @keyframes scan {
+            0% {
+                transform: translateX(-100%);
+            }
+
+            100% {
+                transform: translateX(100%);
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .login-header {
             text-align: center;
-            margin-bottom: 2rem;
+            margin-bottom: 2.5rem;
         }
 
-        .login-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
+        .login-icon-wrapper {
+            width: 80px;
+            height: 80px;
+            background: var(--bg-tertiary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            border: 1px solid var(--glass-border);
+            color: var(--warning);
+            font-size: 2.5rem;
+            box-shadow: 0 0 20px rgba(255, 200, 60, 0.2);
+        }
+
+        .login-header h2 {
+            font-size: 1.75rem;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        .login-header p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
             display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.875rem 1rem;
+            background: var(--bg-primary);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-md);
+            color: var(--text-primary);
+            font-size: 1rem;
+            transition: 0.3s;
+            box-sizing: border-box;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px hsla(175, 70%, 41%, 0.2);
+        }
+
+        .btn-login {
+            width: 100%;
+            padding: 1rem;
+            background: var(--gradient-primary);
+            border: none;
+            border-radius: var(--radius-md);
+            color: white;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-login:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px -5px rgba(20, 184, 166, 0.4);
+        }
+
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 2rem;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            transition: 0.3s;
+        }
+
+        .back-link:hover {
+            color: var(--primary);
+        }
+
+        #errorMsg {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.2);
+            color: var(--danger);
+            padding: 0.75rem;
+            border-radius: var(--radius-md);
+            text-align: center;
+            margin-top: 1.5rem;
+            font-size: 0.9rem;
+            display: none;
         }
     </style>
 </head>
 
 <body>
-    <div class="login-container">
-        <div class="login-card">
-            <div class="login-header">
-                <span class="login-icon">🔒</span>
-                <h2>Admin Login</h2>
-                <p style="color: var(--text-secondary)">Task Management System</p>
+    <div class="login-card">
+        <div class="login-header">
+            <div class="login-icon-wrapper">
+                🔒
             </div>
-            <form id="loginForm">
-                <div class="form-group">
-                    <label>Username</label>
-                    <input type="text" id="username" required>
-                </div>
-                <div class="form-group" style="margin-bottom: 2rem;">
-                    <label>Password</label>
-                    <input type="password" id="password" required>
-                </div>
-                <button type="submit" class="btn btn-primary" style="width: 100%">Login</button>
-            </form>
-            <div id="errorMsg" style="color: #ff4b4b; text-align: center; margin-top: 1rem; display: none;">
-                Invalid credentials
-            </div>
-            <div style="text-align: center; margin-top: 1.5rem;">
-                <a href="index.html" style="color: var(--text-secondary); font-size: 0.9rem;">← Back to Home</a>
-            </div>
+            <h2>Admin Login</h2>
+            <p>Task Management System</p>
         </div>
+
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" placeholder="Enter your username" required autocomplete="off">
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" placeholder="Enter your password" required>
+            </div>
+
+            <button type="submit" class="btn-login">Login Access</button>
+
+            <div id="errorMsg">
+                ⚠️ Invalid Username or Password
+            </div>
+        </form>
+
+        <a href="index.html" class="back-link">← Back to Home Page</a>
     </div>
 
     <script>
@@ -72,17 +217,48 @@
             const u = document.getElementById('username').value;
             const p = document.getElementById('password').value;
             const msg = document.getElementById('errorMsg');
+            const btn = document.querySelector('.btn-login');
 
-            // Simple check as requested
-            if (u === 'Arshad' && p === 'Arshad') {
-                sessionStorage.setItem('isAdmin', 'true');
-                window.location.href = 'admin.html';
-            } else {
-                msg.style.display = 'block';
-                msg.textContent = 'Invalid Username or Password';
-            }
+            // Add loading state
+            btn.innerHTML = 'Verifying...';
+            btn.style.opacity = '0.7';
+
+            setTimeout(() => {
+                if (u === 'Arshad' && p === 'Arshad') {
+                    sessionStorage.setItem('isAdmin', 'true');
+                    window.location.href = 'admin.html';
+                } else {
+                    msg.style.display = 'block';
+                    // Shake animation for error
+                    const card = document.querySelector('.login-card');
+                    card.style.animation = 'none';
+                    card.offsetHeight; /* trigger reflow */
+                    card.style.animation = 'shake 0.5s';
+
+                    // Reset button
+                    btn.innerHTML = 'Login Access';
+                    btn.style.opacity = '1';
+                }
+            }, 800); // Fake delay for realism
         });
     </script>
+    <style>
+        @keyframes shake {
+
+            0%,
+            100% {
+                transform: translateX(0);
+            }
+
+            25% {
+                transform: translateX(-10px);
+            }
+
+            75% {
+                transform: translateX(10px);
+            }
+        }
+    </style>
 </body>
 
 </html>
