@@ -1,108 +1,26 @@
-// RBAC Group 3 - Task Manager JavaScript
+// RBAC Group 3 - Task Manager JavaScript with Supabase
 
-// Team members data
-const teamMembers = [
-    { name: 'Arshad Pasha', email: 'arshadpashaintern@gmail.com', role: 'Leader' },
-    { name: 'Depuru Joshika Reddy', email: 'joshikareddy07@gmail.com', role: 'Member' },
-    { name: 'Guru Karthik Reddy Marthala', email: 'marthalagurukarthikreddy11@gmail.com', role: 'Member' },
-    { name: 'Kavya Ghantasala', email: 'vtu24677@veltech.edu.in', role: 'Member' },
-    { name: 'Kushagra Bhargava', email: 'kushagra.23bai10987@vitbhopal.ac.in', role: 'Member' },
-    { name: 'Mandha Shirisha', email: 'mandhashirisha90@gmail.com', role: 'Member' },
-    { name: 'Sri Saranya Chandrapati', email: 'srnya0986@gmail.com', role: 'Member' },
-    { name: 'Vinuthna Jangam', email: 'vinuthnaaj@gmail.com', role: 'Member' }
-];
+// ---------------------------------------------------------
+// ⚡ SETUP INSTRUCTIONS:
+// 1. Create a project at https://supabase.com
+// 2. Create a table named 'tasks' with columns:
+//    - id (int8, primary key)
+//    - title (text)
+//    - description (text)
+//    - assignee (text)
+//    - priority (text)
+//    - milestone (text)
+//    - due_date (date)
+//    - status (text)
+//    - created_at (timestamptz)
+// 3. Copy your project URL and Key below.
+// ---------------------------------------------------------
 
-// Sample initial tasks for Week 1
-const defaultTasks = [
-    {
-        id: 1,
-        title: 'Set up Python Virtual Environment',
-        description: 'Install Python 3.8+, create virtual environment, install FastAPI, Streamlit, LangChain, sentence-transformers, and pandas.',
-        assignee: 'Arshad Pasha',
-        priority: 'high',
-        milestone: 'Milestone 1',
-        dueDate: '2026-01-10',
-        status: 'in-progress',
-        createdAt: new Date().toISOString()
-    },
-    {
-        id: 2,
-        title: 'Clone GitHub Repository (Step-by-Step Guide)',
-        description: 'BEGINNER GUIDE:\n1. Open your browser and go to: https://git-scm.com/downloads\n2. Download and install "Git" for Windows.\n3. Open "VS Code" (Visual Studio Code).\n4. In VS Code, look at the top menu, click "Terminal" > "New Terminal".\n5. A black box will appear at the bottom. Click inside it.\n6. Type this exact command: git clone https://github.com/springboardmentor441p-coderr/Fintech-data\n7. Press the "Enter" key on your keyboard.\n8. Wait for 100% done.\n9. Go to "File" > "Open Folder" and select the "Fintech-data" folder you just downloaded.',
-        assignee: 'Depuru Joshika Reddy',
-        priority: 'high',
-        milestone: 'Milestone 1',
-        dueDate: '2026-01-07',
-        status: 'pending',
-        createdAt: new Date().toISOString()
-    },
-    {
-        id: 3,
-        title: 'Explore Markdown Documents (Reading Task)',
-        description: 'BEGINNER GUIDE:\n1. Open your browser.\n2. Go to this link: https://github.com/springboardmentor441p-coderr/Fintech-data\n3. Scroll down the file list. Look for files ending with ".md" (Example: README.md, DATA.md).\n4. Click on the file name to open it.\n5. Read the content carefully to understand what the project is about.\n6. Open a Notepad on your computer.\n7. Write down 3 key points you understood from the files.\n8. Send these points to the group chat.',
-        assignee: 'Guru Karthik Reddy Marthala',
-        priority: 'medium',
-        milestone: 'Milestone 1',
-        dueDate: '2026-01-08',
-        status: 'pending',
-        createdAt: new Date().toISOString()
-    },
-    {
-        id: 4,
-        title: 'Explore CSV Documents',
-        description: 'Explore all CSV files and understand the data format and columns.',
-        assignee: 'Kavya Ghantasala',
-        priority: 'medium',
-        milestone: 'Milestone 1',
-        dueDate: '2026-01-08',
-        status: 'pending',
-        createdAt: new Date().toISOString()
-    },
-    {
-        id: 5,
-        title: 'Create Role-to-Document Mapping',
-        description: 'Create documentation mapping: Finance → financial reports; Marketing → marketing reports; HR → employee data; Engineering → tech docs; C-Level → all docs.',
-        assignee: 'Kushagra Bhargava',
-        priority: 'high',
-        milestone: 'Milestone 1',
-        dueDate: '2026-01-10',
-        status: 'pending',
-        createdAt: new Date().toISOString()
-    },
-    {
-        id: 6,
-        title: 'Create Project Folder Structure',
-        description: 'Initialize project folder structure on local system with proper organization.',
-        assignee: 'Mandha Shirisha',
-        priority: 'medium',
-        milestone: 'Milestone 1',
-        dueDate: '2026-01-07',
-        status: 'pending',
-        createdAt: new Date().toISOString()
-    },
-    {
-        id: 7,
-        title: 'Create requirements.txt',
-        description: 'Document all Python dependencies in requirements.txt file for team members.',
-        assignee: 'Sri Saranya Chandrapati',
-        priority: 'medium',
-        milestone: 'Milestone 1',
-        dueDate: '2026-01-08',
-        status: 'pending',
-        createdAt: new Date().toISOString()
-    },
-    {
-        id: 8,
-        title: 'Write Data Exploration Report',
-        description: 'Write a summary report documenting the content and structure of all documents explored.',
-        assignee: 'Vinuthna Jangam',
-        priority: 'low',
-        milestone: 'Milestone 1',
-        dueDate: '2026-01-12',
-        status: 'pending',
-        createdAt: new Date().toISOString()
-    }
-];
+const SUPABASE_URL = 'https://tnmcaqnsstvumpdcxasl.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_bnfb-4IdAN4brgMftH_FYg_SSE5T2Xi';
+
+// Initialize Supabase Client
+const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
 // State
 let tasks = [];
@@ -122,9 +40,7 @@ const filterTabs = document.querySelectorAll('.filter-tab');
 
 // Initialize
 document.addEventListener('DOMContentLoaded', function () {
-    loadTasks();
-    renderTasks();
-    updateStats();
+    fetchTasks();
     setupEventListeners();
     setupNavigation();
 });
@@ -141,21 +57,106 @@ function setupNavigation() {
     }
 }
 
-// Load tasks from localStorage or use defaults
-function loadTasks() {
-    const storedTasks = localStorage.getItem('rbac_gp3_tasks');
-    if (storedTasks) {
-        tasks = JSON.parse(storedTasks);
-    } else {
-        tasks = [...defaultTasks];
-        saveTasks();
+// --- SUPABASE OPERATIONS ---
+
+// 1. Fetch Tasks (Read)
+async function fetchTasks() {
+    tasksContainer.innerHTML = '<div style="text-align: center; color: var(--text-secondary); padding: 2rem;">Loading tasks...</div>';
+
+    try {
+        const { data, error } = await supabase
+            .from('tasks')
+            .select('*')
+            .order('created_at', { ascending: false });
+
+        if (error) throw error;
+
+        tasks = data || [];
+        renderTasks();
+        updateStats();
+    } catch (error) {
+        console.error('Error fetching tasks:', error);
+        // Fallback or error message if keys aren't set
+        if (SUPABASE_URL.includes('YOUR_SUPABASE')) {
+            tasksContainer.innerHTML = `
+                <div style="text-align: center; color: var(--warning); padding: 2rem; background: var(--bg-card); border-radius: var(--radius-lg); border: 1px solid var(--warning);">
+                    <h3>⚠️ Configuration Required</h3>
+                    <p>Please connect Supabase by adding your <strong>URL</strong> and <strong>KEY</strong> in <code>tasks.js</code>.</p>
+                </div>`;
+        } else {
+            tasksContainer.innerHTML = '<div style="text-align: center; color: var(--warning);">Error loading tasks. Please try again.</div>';
+        }
     }
 }
 
-// Save tasks to localStorage
-function saveTasks() {
-    localStorage.setItem('rbac_gp3_tasks', JSON.stringify(tasks));
+// 2. Add Task (Create)
+async function createTask(taskData) {
+    try {
+        const { data, error } = await supabase
+            .from('tasks')
+            .insert([taskData])
+            .select();
+
+        if (error) throw error;
+
+        // Add to local state (optimistic update or re-fetch)
+        if (data) {
+            tasks.unshift(data[0]);
+            renderTasks();
+            updateStats();
+        }
+    } catch (error) {
+        console.error('Error adding task:', error);
+        alert('Failed to add task: ' + error.message);
+    }
 }
+
+// 3. Update Task (Update)
+async function updateTask(id, updates) {
+    try {
+        const { error } = await supabase
+            .from('tasks')
+            .update(updates)
+            .eq('id', id);
+
+        if (error) throw error;
+
+        // Update local state
+        const index = tasks.findIndex(t => t.id === id);
+        if (index !== -1) {
+            tasks[index] = { ...tasks[index], ...updates };
+            renderTasks();
+            updateStats();
+        }
+    } catch (error) {
+        console.error('Error updating task:', error);
+        alert('Failed to update task: ' + error.message);
+    }
+}
+
+// 4. Delete Task (Delete)
+async function deleteTask(id) {
+    if (!confirm('Are you sure you want to delete this task?')) return;
+
+    try {
+        const { error } = await supabase
+            .from('tasks')
+            .delete()
+            .eq('id', id);
+
+        if (error) throw error;
+
+        // Update local state
+        tasks = tasks.filter(t => t.id !== id);
+        renderTasks();
+        updateStats();
+    } catch (error) {
+        console.error('Error deleting task:', error);
+        alert('Failed to delete task: ' + error.message);
+    }
+}
+
+// ---------------------------
 
 // Setup event listeners
 function setupEventListeners() {
@@ -207,7 +208,7 @@ function openModal(task = null) {
         document.getElementById('assignee').value = task.assignee;
         document.getElementById('priority').value = task.priority;
         document.getElementById('milestone').value = task.milestone;
-        document.getElementById('dueDate').value = task.dueDate || '';
+        document.getElementById('dueDate').value = task.due_date || ''; // Note: due_date
         document.getElementById('status').value = task.status;
     } else {
         // Add mode
@@ -234,65 +235,26 @@ function handleFormSubmit(e) {
         assignee: document.getElementById('assignee').value,
         priority: document.getElementById('priority').value,
         milestone: document.getElementById('milestone').value,
-        dueDate: document.getElementById('dueDate').value,
+        due_date: document.getElementById('dueDate').value, // match DB column due_date
         status: document.getElementById('status').value
+        // created_at is handled by DB default
     };
 
     if (editingTaskId) {
-        // Update existing task
-        const index = tasks.findIndex(t => t.id === editingTaskId);
-        if (index !== -1) {
-            tasks[index] = { ...tasks[index], ...taskData };
-        }
+        updateTask(editingTaskId, taskData);
     } else {
-        // Add new task
-        const newTask = {
-            id: Date.now(),
-            ...taskData,
-            createdAt: new Date().toISOString()
-        };
-        tasks.unshift(newTask);
+        createTask(taskData);
     }
 
-    saveTasks();
-    renderTasks();
-    updateStats();
     closeModal();
-}
-
-// Delete task
-function deleteTask(id) {
-    if (confirm('Are you sure you want to delete this task?')) {
-        tasks = tasks.filter(t => t.id !== id);
-        saveTasks();
-        renderTasks();
-        updateStats();
-    }
 }
 
 // Toggle task status
 function toggleComplete(id) {
     const task = tasks.find(t => t.id === id);
     if (task) {
-        if (task.status === 'completed') {
-            task.status = 'pending';
-        } else {
-            task.status = 'completed';
-        }
-        saveTasks();
-        renderTasks();
-        updateStats();
-    }
-}
-
-// Update task status
-function updateStatus(id, newStatus) {
-    const task = tasks.find(t => t.id === id);
-    if (task) {
-        task.status = newStatus;
-        saveTasks();
-        renderTasks();
-        updateStats();
+        const newStatus = task.status === 'completed' ? 'pending' : 'completed';
+        updateTask(id, { status: newStatus });
     }
 }
 
@@ -327,7 +289,7 @@ function renderTasks() {
                     <h3 class="task-title">
                         ${getStatusIcon(task.status)} ${task.title}
                     </h3>
-                    <span class="task-milestone">${task.milestone}</span>
+                    <span class="task-milestone">${task.milestone || 'No Milestone'}</span>
                 </div>
                 <div class="task-actions">
                     <button class="task-action-btn complete" onclick="toggleComplete(${task.id})" title="${task.status === 'completed' ? 'Mark as Pending' : 'Mark as Complete'}">
@@ -337,16 +299,16 @@ function renderTasks() {
                     <button class="task-action-btn delete" onclick="deleteTask(${task.id})" title="Delete Task">🗑️</button>
                 </div>
             </div>
-            ${task.description ? `<p class="task-description">${task.description}</p>` : ''}
+            ${task.description ? `<p class="task-description">${escapeHtml(task.description)}</p>` : ''}
             <div class="task-meta">
                 <div class="task-meta-item">
                     <span>👤</span>
                     <strong>${task.assignee}</strong>
                 </div>
-                ${task.dueDate ? `
+                ${task.due_date ? `
                     <div class="task-meta-item">
                         <span>📅</span>
-                        <strong>${formatDate(task.dueDate)}</strong>
+                        <strong>${formatDate(task.due_date)}</strong>
                     </div>
                 ` : ''}
                 <span class="priority-badge ${task.priority}">${task.priority}</span>
@@ -354,6 +316,17 @@ function renderTasks() {
             </div>
         </div>
     `).join('');
+}
+
+// Helper: Escape HTML to prevent XSS
+function escapeHtml(text) {
+    if (!text) return '';
+    return text
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
 }
 
 // Get status icon
@@ -367,11 +340,13 @@ function getStatusIcon(status) {
 
 // Format status
 function formatStatus(status) {
+    if (!status) return 'Unknown';
     return status.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase());
 }
 
 // Format date
 function formatDate(dateStr) {
+    if (!dateStr) return '';
     const date = new Date(dateStr);
     return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
 }
@@ -394,4 +369,4 @@ window.deleteTask = deleteTask;
 window.editTask = editTask;
 window.toggleComplete = toggleComplete;
 
-console.log('RBAC Group 3 - Task Manager Loaded Successfully! 📋');
+console.log('RBAC Group 3 - Task Manager (Supabase Edition) Loaded! 🚀');
