@@ -25,6 +25,47 @@
     align-items: center;
 }
 
+/* --- NOTICE BOARD (New) --- */
+.notice-board {
+    background: rgba(255, 200, 60, 0.1);
+    border: 1px solid rgba(255, 200, 60, 0.4);
+    border-left: 4px solid #ffc83c;
+    border-radius: var(--radius-md);
+    padding: 1.5rem;
+    margin-bottom: 3rem;
+    color: var(--text-primary);
+}
+
+.notice-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #ffc83c;
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.notice-list {
+    margin: 0;
+    padding-left: 1.5rem;
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+.notice-list li {
+    margin-bottom: 0.5rem;
+}
+
+.notice-item-highlight {
+    color: var(--text-primary);
+    font-weight: 600;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 0 4px;
+    border-radius: 4px;
+}
+
 /* Task Stats */
 .task-stats {
     display: grid;
