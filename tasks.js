@@ -343,7 +343,6 @@ function createTaskHTML(task) {
                     <div class="assignee-avatar">${initials}</div>
                     ${task.assignee}
                 </div>
-                <div class="task-date">📅 Due: ${task.due_date || 'No Date'}</div>
             </div>
         </div>
     </div>
