@@ -46,56 +46,17 @@
     <!-- Tasks Section -->
     <section class="tasks-section">
         <div class="container">
+            <!-- Simplified Header (No Login) -->
             <div class="tasks-header">
                 <div class="header-content">
                     <span class="section-badge">Public Dashboard</span>
-                    <h1 class="section-title">📋 Team Tasks (View Only)</h1>
-                    <p class="section-description">Track progress and deadlines. Login to assign or edit tasks.</p>
-                </div>
-                <a href="login.html" class="btn btn-secondary">
-                    <span>🔒</span> Admin Login
-                </a>
-            </div>
-
-            <!-- Task Stats -->
-            <div class="task-stats">
-                <div class="task-stat-card">
-                    <span class="stat-icon">📊</span>
-                    <div class="stat-details">
-                        <span class="stat-value" id="totalTasks">0</span>
-                        <span class="stat-name">Total Tasks</span>
-                    </div>
-                </div>
-                <div class="task-stat-card pending">
-                    <span class="stat-icon">⏳</span>
-                    <div class="stat-details">
-                        <span class="stat-value" id="pendingTasks">0</span>
-                        <span class="stat-name">Pending</span>
-                    </div>
-                </div>
-                <div class="task-stat-card progress">
-                    <span class="stat-icon">🔄</span>
-                    <div class="stat-details">
-                        <span class="stat-value" id="inProgressTasks">0</span>
-                        <span class="stat-name">In Progress</span>
-                    </div>
-                </div>
-                <div class="task-stat-card completed">
-                    <span class="stat-icon">✅</span>
-                    <div class="stat-details">
-                        <span class="stat-value" id="completedTasks">0</span>
-                        <span class="stat-name">Completed</span>
-                    </div>
+                    <h1 class="section-title">📋 Week 1 Task Assignments</h1>
+                    <p class="section-description">Project: Financial Domain Internal Chatbot</p>
                 </div>
             </div>
 
-            <!-- Filter Tabs -->
-            <div class="filter-tabs">
-                <button class="filter-tab active" data-filter="all">All Tasks</button>
-                <button class="filter-tab" data-filter="pending">Pending</button>
-                <button class="filter-tab" data-filter="in-progress">In Progress</button>
-                <button class="filter-tab" data-filter="completed">Completed</button>
-            </div>
+            <!-- Stats & Filters Removed as per request -->
+
 
             <!-- Tasks List -->
             <div class="tasks-container" id="tasksContainer">
@@ -199,8 +160,8 @@
         </div>
     </footer>
 
-    <!-- Supabase Client (Using jsDelivr) -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <!-- Supabase Removed for Manual Mode -->
+
 
     <script src="tasks.js"></script>
 </body>

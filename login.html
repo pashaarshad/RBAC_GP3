@@ -192,7 +192,7 @@
             <p>Task Management System</p>
         </div>
 
-        <!-- NO FORM TAG: Prevents Reloads -->
+        <!-- MANUAL LOGIN SECTION -->
         <div id="loginSection">
             <div class="form-group">
                 <label for="username">Username</label>
@@ -213,10 +213,10 @@
         <a href="index.html" class="back-link">← Back to Home Page</a>
     </div>
 
-    <!-- PURE MANUAL JAVASCRIPT LOGIN -->
+    <!-- PURE MANUAL JAVASCRIPT LOGIN (No Supabase) -->
     <script>
         function manualLogin() {
-            // 1. Get Values & Trim
+            // 1. Get Values
             const u = document.getElementById('username').value.trim();
             const p = document.getElementById('password').value.trim();
 
@@ -229,37 +229,24 @@
             btn.style.opacity = '0.7';
             msg.style.display = 'none';
 
-            // 3. MANUAL CHECK (Hardcoded credentials)
-            // Username: Arshad (Case Insensitive)
-            // Password: Arshad (Case Sensitive)
-
-            setTimeout(() => { // Small fake delay for effect
+            // 3. MANUAL CHECK
+            setTimeout(() => {
                 if (u.toLowerCase() === 'arshad' && p === 'Arshad') {
-
-                    // --- SUCCESS ---
+                    // Success
                     console.log("Login Successful!");
-
-                    // Set Access Token in LocalStorage
                     localStorage.setItem('canAccessAdmin', 'YES');
 
                     btn.innerHTML = 'Success! Redirecting...';
-
-                    // Redirect
                     window.location.href = 'admin.html';
-
                 } else {
-
-                    // --- FAIL ---
+                    // Fail
                     console.error("Login Failed");
-
                     msg.style.display = 'block';
                     msg.textContent = '⚠️ Invalid Username or Password';
 
-                    // Reset Button
                     btn.innerHTML = 'Login Access';
                     btn.style.opacity = '1';
 
-                    // Shake Animation
                     card.style.animation = 'none';
                     card.offsetHeight; /* trigger reflow */
                     card.style.animation = 'shake 0.5s';
