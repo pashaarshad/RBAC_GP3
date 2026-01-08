@@ -27,57 +27,79 @@ const week2Tasks = [
 4. Preserve context overlap between chunks.<br>
 5. Test tokenization accuracy.<br><br>
 <strong>📌 Output:</strong> Chunked document files with token counts.`,
-        deepExplanation: `<h3>📘 Step-by-Step Guide: Document Chunking & Tokenization</h3>
+        deepExplanation: `
+<h3>📘 Complete Guide: Document Chunking & Tokenization</h3>
+<p style="color: #f87171; font-weight: bold;">⚠️ YOU ARE THE LEAD - This is the HARDEST task. You will coordinate with others.</p>
 <hr>
-<h4>Step 1: Understand Token Limits</h4>
-<p>RAG systems work best with chunks of 300-512 tokens. A "token" is roughly 4 characters or 0.75 words.</p>
-<ul>
-    <li>300 tokens ≈ 225 words</li>
-    <li>512 tokens ≈ 384 words</li>
-</ul>
 
-<h4>Step 2: Install Required Libraries</h4>
-<pre><code>pip install tiktoken langchain sentence-transformers</code></pre>
+<h4>🔹 STEP 1: Create Your Branch</h4>
+<pre><code>git checkout main
+git pull origin main
+git checkout -b arshad/week2</code></pre>
 
-<h4>Step 3: Load Documents</h4>
-<pre><code>from langchain.document_loaders import DirectoryLoader
-loader = DirectoryLoader('./data/cleaned/', glob="**/*.md")
-documents = loader.load()</code></pre>
+<h4>🔹 STEP 2: Understand Your Folder Structure</h4>
+<p>Below is the project structure. <span style="background: #22c55e; color: black; padding: 2px 6px; border-radius: 4px;">GREEN = YOUR FILES (Create these)</span></p>
+<pre style="background: #1e293b; padding: 1rem; border-radius: 8px;">
+RBAC_GP3/
+├── week 1/
+│   └── data/                    ← Source data (DON'T MODIFY)
+│       ├── Finance/
+│       ├── HR/
+│       ├── marketing/
+│       ├── engineering/
+│       └── general/
+├── week 2/                      ← Create this folder
+│   ├── src/                     ← Create this folder
+│   │   └── <span style="background: #22c55e; color: black; padding: 2px 4px;">chunking.py</span>         ← YOUR FILE
+│   ├── output/                  ← Create this folder
+│   │   └── <span style="background: #22c55e; color: black; padding: 2px 4px;">chunked_documents.json</span> ← YOUR OUTPUT
+│   └── README.md
+└── requirements.txt
+</pre>
 
-<h4>Step 4: Implement Chunking</h4>
-<pre><code>from langchain.text_splitter import RecursiveCharacterTextSplitter
+<h4>🔹 STEP 3: Create the Folders</h4>
+<pre><code># In your terminal, navigate to project root
+cd RBAC_GP3
+mkdir -p "week 2/src"
+mkdir -p "week 2/output"</code></pre>
 
-splitter = RecursiveCharacterTextSplitter(
-    chunk_size=400,  # ~300-512 tokens
-    chunk_overlap=50,
-    length_function=len,
-    separators=["\\n\\n", "\\n", " ", ""]
-)
+<h4>🔹 STEP 4: Create chunking.py</h4>
+<p>Create file: <code>week 2/src/chunking.py</code></p>
 
-chunks = splitter.split_documents(documents)</code></pre>
+<p><strong>📋 Copy this ChatGPT Prompt to generate the code:</strong></p>
+<div style="background: #3b82f6; color: white; padding: 1rem; border-radius: 8px; margin: 1rem 0;">
+<strong>ChatGPT Prompt (Copy-Paste This):</strong><br><br>
+"Write a Python script that:
+1. Reads all markdown (.md) files from a folder called '../week 1/data/' recursively
+2. Uses tiktoken library to count tokens
+3. Splits each document into chunks of 300-512 tokens
+4. Adds overlap of 50 tokens between chunks
+5. Assigns a unique chunk_id like 'chunk_0001', 'chunk_0002'
+6. Saves output as JSON with structure: {chunk_id, content, source_file, token_count}
+7. Uses RecursiveCharacterTextSplitter from langchain
 
-<h4>Step 5: Add Sequential IDs</h4>
-<pre><code>for i, chunk in enumerate(chunks):
-    chunk.metadata['chunk_id'] = f"chunk_{i:04d}"
-    chunk.metadata['source_doc'] = chunk.metadata.get('source', 'unknown')</code></pre>
+Include proper error handling and progress printing."
+</div>
 
-<h4>Step 6: Save Chunked Output</h4>
-<pre><code>import json
-with open('chunked_documents.json', 'w') as f:
-    json.dump([{
-        'id': c.metadata['chunk_id'],
-        'content': c.page_content,
-        'metadata': c.metadata
-    } for c in chunks], f, indent=2)</code></pre>
+<h4>🔹 STEP 5: Install Required Libraries</h4>
+<pre><code>pip install tiktoken langchain langchain-text-splitters</code></pre>
 
-<h4>Step 7: Validate Token Counts</h4>
-<pre><code>import tiktoken
-enc = tiktoken.get_encoding("cl100k_base")
-for chunk in chunks[:5]:
-    tokens = len(enc.encode(chunk.page_content))
-    print(f"{chunk.metadata['chunk_id']}: {tokens} tokens")</code></pre>
+<h4>🔹 STEP 6: Run Your Script</h4>
+<pre><code>cd "week 2/src"
+python chunking.py</code></pre>
 
-<p><strong>✅ Success Criteria:</strong> All chunks are between 300-512 tokens with proper IDs.</p>`
+<h4>🔹 STEP 7: Verify Output</h4>
+<p>Check that <code>week 2/output/chunked_documents.json</code> exists and contains chunks.</p>
+
+<h4>🔹 STEP 8: Commit & Push</h4>
+<pre><code>git add .
+git commit -m "Add document chunking module - Week 2"
+git push origin arshad/week2</code></pre>
+
+<hr>
+<p style="color: #22c55e; font-weight: bold;">✅ SUCCESS: You have chunked_documents.json with all chunks between 300-512 tokens.</p>
+<p style="color: #f87171;">❌ DON'T TOUCH: Other team members' files or the original data in week 1/data/</p>
+`
     },
 
     // 2. Bhargava (Medium) - Parse Markdown Documents
@@ -87,58 +109,83 @@ for chunk in chunks[:5]:
         assignee: 'Kushagra Bhargava',
         priority: 'medium',
         description: `<strong>Goal:</strong> Extract content from all .md files.<br><br>
-1. Clone the Fintech-data repository.<br>
-2. Identify all markdown files in the repo.<br>
-3. Parse titles, headings, and content.<br>
-4. Save extracted data in structured format.<br><br>
-<strong>📌 Output:</strong> Parsed markdown data (JSON/CSV).`,
-        deepExplanation: `<h3>📘 Step-by-Step Guide: Parse Markdown Documents</h3>
+1. Read all markdown files from week 1/data/.<br>
+2. Parse titles, headings, and content.<br>
+3. Save extracted data in structured format.<br><br>
+<strong>📌 Output:</strong> parsed_markdown.json`,
+        deepExplanation: `
+<h3>📘 Complete Guide: Parse Markdown Documents</h3>
+<p style="color: #fbbf24; font-weight: bold;">📁 Your task: Extract all .md files into structured JSON</p>
 <hr>
-<h4>Step 1: Clone the Repository</h4>
-<pre><code>git clone https://github.com/springboardmentor441p-coderr/Fintech-data.git
-cd Fintech-data</code></pre>
 
-<h4>Step 2: Find All Markdown Files</h4>
-<pre><code>import os
-import glob
+<h4>🔹 STEP 1: Create Your Branch</h4>
+<pre><code>git checkout main
+git pull origin main
+git checkout -b bhargava/week2</code></pre>
 
-md_files = glob.glob('**/*.md', recursive=True)
-print(f"Found {len(md_files)} markdown files")</code></pre>
+<h4>🔹 STEP 2: Your Folder Structure</h4>
+<p><span style="background: #22c55e; color: black; padding: 2px 6px; border-radius: 4px;">GREEN = YOUR FILES</span></p>
+<pre style="background: #1e293b; padding: 1rem; border-radius: 8px;">
+RBAC_GP3/
+├── week 1/
+│   └── data/                    ← READ FROM HERE (DON'T MODIFY)
+│       ├── Finance/
+│       │   └── *.md files
+│       ├── HR/
+│       │   └── *.md files
+│       ├── marketing/
+│       ├── engineering/
+│       └── general/
+├── week 2/
+│   ├── src/
+│   │   └── <span style="background: #22c55e; color: black; padding: 2px 4px;">parse_markdown.py</span>    ← YOUR FILE
+│   └── output/
+│       └── <span style="background: #22c55e; color: black; padding: 2px 4px;">parsed_markdown.json</span>  ← YOUR OUTPUT
+└── requirements.txt
+</pre>
 
-<h4>Step 3: Parse Each File</h4>
-<pre><code>import re
+<h4>🔹 STEP 3: Create the Folders (if not exists)</h4>
+<pre><code>cd RBAC_GP3
+mkdir -p "week 2/src"
+mkdir -p "week 2/output"</code></pre>
 
-def parse_markdown(filepath):
-    with open(filepath, 'r', encoding='utf-8') as f:
-        content = f.read()
-    
-    # Extract title (first H1)
-    title_match = re.search(r'^# (.+)$', content, re.MULTILINE)
-    title = title_match.group(1) if title_match else os.path.basename(filepath)
-    
-    # Extract sections
-    sections = re.split(r'^## ', content, flags=re.MULTILINE)
-    
-    return {
-        'filename': filepath,
-        'title': title,
-        'content': content,
-        'sections': len(sections)
-    }</code></pre>
+<h4>🔹 STEP 4: Create parse_markdown.py</h4>
+<p>Create file: <code>week 2/src/parse_markdown.py</code></p>
 
-<h4>Step 4: Process All Files</h4>
-<pre><code>parsed_docs = []
-for md_file in md_files:
-    parsed = parse_markdown(md_file)
-    parsed_docs.append(parsed)
-    print(f"Parsed: {parsed['title']}")</code></pre>
+<p><strong>📋 Copy this ChatGPT Prompt:</strong></p>
+<div style="background: #3b82f6; color: white; padding: 1rem; border-radius: 8px; margin: 1rem 0;">
+<strong>ChatGPT Prompt (Copy-Paste This):</strong><br><br>
+"Write a Python script that:
+1. Recursively finds all .md (markdown) files in '../week 1/data/' folder
+2. For each file, extracts:
+   - filename
+   - full file path
+   - title (first # heading)
+   - all section headings (## headings)
+   - full content
+   - department (based on folder: Finance, HR, marketing, engineering, general)
+3. Saves everything to a JSON file called '../output/parsed_markdown.json'
+4. Prints progress: 'Parsed: filename.md'
 
-<h4>Step 5: Save Output</h4>
-<pre><code>import json
-with open('parsed_markdown.json', 'w') as f:
-    json.dump(parsed_docs, f, indent=2)</code></pre>
+Use glob for file finding and proper UTF-8 encoding."
+</div>
 
-<p><strong>✅ Success Criteria:</strong> All markdown files parsed with titles and content extracted.</p>`
+<h4>🔹 STEP 5: Run Your Script</h4>
+<pre><code>cd "week 2/src"
+python parse_markdown.py</code></pre>
+
+<h4>🔹 STEP 6: Verify Output</h4>
+<p>Open <code>week 2/output/parsed_markdown.json</code> and verify it has all markdown files.</p>
+
+<h4>🔹 STEP 7: Commit & Push</h4>
+<pre><code>git add .
+git commit -m "Add markdown parsing module - Week 2"
+git push origin bhargava/week2</code></pre>
+
+<hr>
+<p style="color: #22c55e; font-weight: bold;">✅ SUCCESS: parsed_markdown.json contains all markdown files with titles and content.</p>
+<p style="color: #f87171;">❌ DON'T TOUCH: CSV files (that's Karthik's job), original data files, other folders.</p>
+`
     },
 
     // 3. Karthik (Medium) - Parse CSV Documents
@@ -148,54 +195,81 @@ with open('parsed_markdown.json', 'w') as f:
         assignee: 'Guru Karthik Reddy Marthala',
         priority: 'medium',
         description: `<strong>Goal:</strong> Extract and structure CSV data.<br><br>
-1. Identify all CSV files in Fintech-data repo.<br>
+1. Find all CSV files in week 1/data/.<br>
 2. Load each CSV using pandas.<br>
-3. Analyze columns and data types.<br>
-4. Convert to text format for RAG ingestion.<br><br>
-<strong>📌 Output:</strong> Processed CSV data ready for embedding.`,
-        deepExplanation: `<h3>📘 Step-by-Step Guide: Parse CSV Documents</h3>
+3. Convert to text format for RAG.<br><br>
+<strong>📌 Output:</strong> parsed_csv.json`,
+        deepExplanation: `
+<h3>📘 Complete Guide: Parse CSV Documents</h3>
+<p style="color: #fbbf24; font-weight: bold;">📁 Your task: Convert all CSV files to text format for RAG</p>
 <hr>
-<h4>Step 1: Find All CSV Files</h4>
-<pre><code>import glob
-csv_files = glob.glob('Fintech-data/**/*.csv', recursive=True)
-print(f"Found {len(csv_files)} CSV files")</code></pre>
 
-<h4>Step 2: Load with Pandas</h4>
-<pre><code>import pandas as pd
+<h4>🔹 STEP 1: Create Your Branch</h4>
+<pre><code>git checkout main
+git pull origin main
+git checkout -b karthik/week2</code></pre>
 
-def load_csv(filepath):
-    df = pd.read_csv(filepath)
-    return {
-        'filename': filepath,
-        'columns': list(df.columns),
-        'rows': len(df),
-        'data': df
-    }</code></pre>
+<h4>🔹 STEP 2: Your Folder Structure</h4>
+<p><span style="background: #22c55e; color: black; padding: 2px 6px; border-radius: 4px;">GREEN = YOUR FILES</span></p>
+<pre style="background: #1e293b; padding: 1rem; border-radius: 8px;">
+RBAC_GP3/
+├── week 1/
+│   └── data/                    ← READ CSV FROM HERE
+│       ├── Finance/
+│       │   └── *.csv files      ← Your source
+│       ├── HR/
+│       │   └── *.csv files      ← Your source
+│       └── ...
+├── week 2/
+│   ├── src/
+│   │   └── <span style="background: #22c55e; color: black; padding: 2px 4px;">parse_csv.py</span>         ← YOUR FILE
+│   └── output/
+│       └── <span style="background: #22c55e; color: black; padding: 2px 4px;">parsed_csv.json</span>       ← YOUR OUTPUT
+└── requirements.txt
+</pre>
 
-<h4>Step 3: Convert to Text Format</h4>
-<pre><code>def csv_to_text(df, filename):
-    text_rows = []
-    for idx, row in df.iterrows():
-        row_text = "; ".join([f"{col}: {val}" for col, val in row.items()])
-        text_rows.append(row_text)
-    return "\\n".join(text_rows)</code></pre>
+<h4>🔹 STEP 3: Create the Folders</h4>
+<pre><code>cd RBAC_GP3
+mkdir -p "week 2/src"
+mkdir -p "week 2/output"</code></pre>
 
-<h4>Step 4: Process and Save</h4>
-<pre><code>csv_docs = []
-for csv_file in csv_files:
-    data = load_csv(csv_file)
-    text = csv_to_text(data['data'], csv_file)
-    csv_docs.append({
-        'filename': csv_file,
-        'text_content': text,
-        'columns': data['columns']
-    })
+<h4>🔹 STEP 4: Create parse_csv.py</h4>
 
-import json
-with open('parsed_csv.json', 'w') as f:
-    json.dump(csv_docs, f, indent=2)</code></pre>
+<p><strong>📋 Copy this ChatGPT Prompt:</strong></p>
+<div style="background: #3b82f6; color: white; padding: 1rem; border-radius: 8px; margin: 1rem 0;">
+<strong>ChatGPT Prompt (Copy-Paste This):</strong><br><br>
+"Write a Python script using pandas that:
+1. Finds all .csv files recursively in '../week 1/data/' folder
+2. For each CSV file:
+   - Load with pandas
+   - Get column names
+   - Get row count
+   - Convert each row to text format: 'Column1: value1; Column2: value2; ...'
+   - Determine department from folder path (Finance, HR, etc.)
+3. Save to JSON with structure:
+   {filename, filepath, department, columns, row_count, text_content}
+4. Output file: '../output/parsed_csv.json'
+5. Print: 'Processed: filename.csv (X rows)'
 
-<p><strong>✅ Success Criteria:</strong> All CSV data converted to text format for embedding.</p>`
+Handle encoding issues with errors='ignore'."
+</div>
+
+<h4>🔹 STEP 5: Install pandas (if needed)</h4>
+<pre><code>pip install pandas</code></pre>
+
+<h4>🔹 STEP 6: Run & Verify</h4>
+<pre><code>cd "week 2/src"
+python parse_csv.py</code></pre>
+
+<h4>🔹 STEP 7: Commit & Push</h4>
+<pre><code>git add .
+git commit -m "Add CSV parsing module - Week 2"
+git push origin karthik/week2</code></pre>
+
+<hr>
+<p style="color: #22c55e; font-weight: bold;">✅ SUCCESS: parsed_csv.json with all CSV data as text.</p>
+<p style="color: #f87171;">❌ DON'T TOUCH: Markdown files (Bhargava's job), anything else.</p>
+`
     },
 
     // 4. Kavya (Medium) - Text Cleaning
@@ -205,58 +279,71 @@ with open('parsed_csv.json', 'w') as f:
         assignee: 'Kavya Ghantasala',
         priority: 'medium',
         description: `<strong>Goal:</strong> Clean all extracted text data.<br><br>
-1. Normalize whitespace (remove extra spaces/newlines).<br>
-2. Remove special characters that break encoding.<br>
-3. Handle UTF-8 encoding issues.<br>
-4. Standardize formatting across documents.<br><br>
-<strong>📌 Output:</strong> Cleaned text files ready for chunking.`,
-        deepExplanation: `<h3>📘 Step-by-Step Guide: Text Cleaning</h3>
+1. Normalize whitespace.<br>
+2. Remove special characters.<br>
+3. Handle encoding issues.<br><br>
+<strong>📌 Output:</strong> cleaned_documents.json`,
+        deepExplanation: `
+<h3>📘 Complete Guide: Text Cleaning & Normalization</h3>
+<p style="color: #fbbf24; font-weight: bold;">📁 Your task: Clean the parsed data from Bhargava & Karthik</p>
 <hr>
-<h4>Step 1: Create Cleaning Function</h4>
-<pre><code>import re
-import unicodedata
 
-def clean_text(text):
-    # Normalize unicode
-    text = unicodedata.normalize('NFKC', text)
-    
-    # Remove special characters (keep basic punctuation)
-    text = re.sub(r'[^\\w\\s.,!?;:\\-\\n]', '', text)
-    
-    # Normalize whitespace
-    text = re.sub(r'\\s+', ' ', text)
-    text = re.sub(r'\\n\\s*\\n', '\\n\\n', text)
-    
-    return text.strip()</code></pre>
+<h4>🔹 STEP 1: Create Your Branch</h4>
+<pre><code>git checkout main
+git pull origin main
+git checkout -b kavya/week2</code></pre>
 
-<h4>Step 2: Handle Encoding Issues</h4>
-<pre><code>def fix_encoding(text):
-    try:
-        # Try to fix common encoding issues
-        text = text.encode('utf-8', errors='ignore').decode('utf-8')
-    except:
-        pass
-    return text</code></pre>
+<h4>🔹 STEP 2: Your Folder Structure</h4>
+<p><span style="background: #22c55e; color: black; padding: 2px 6px; border-radius: 4px;">GREEN = YOUR FILES</span></p>
+<pre style="background: #1e293b; padding: 1rem; border-radius: 8px;">
+RBAC_GP3/
+├── week 2/
+│   ├── src/
+│   │   ├── parse_markdown.py    ← Bhargava's (INPUT)
+│   │   ├── parse_csv.py         ← Karthik's (INPUT)
+│   │   └── <span style="background: #22c55e; color: black; padding: 2px 4px;">text_cleaning.py</span>     ← YOUR FILE
+│   └── output/
+│       ├── parsed_markdown.json ← Your INPUT
+│       ├── parsed_csv.json      ← Your INPUT
+│       └── <span style="background: #22c55e; color: black; padding: 2px 4px;">cleaned_documents.json</span> ← YOUR OUTPUT
+</pre>
 
-<h4>Step 3: Process All Documents</h4>
-<pre><code>import json
+<p style="color: #fbbf24;">⚠️ NOTE: You need Bhargava & Karthik's output first. Coordinate with them!</p>
 
-with open('parsed_markdown.json', 'r') as f:
-    docs = json.load(f)
+<h4>🔹 STEP 3: Create text_cleaning.py</h4>
 
-cleaned_docs = []
-for doc in docs:
-    cleaned = {
-        'filename': doc['filename'],
-        'title': doc['title'],
-        'content': clean_text(fix_encoding(doc['content']))
-    }
-    cleaned_docs.append(cleaned)
+<p><strong>📋 Copy this ChatGPT Prompt:</strong></p>
+<div style="background: #3b82f6; color: white; padding: 1rem; border-radius: 8px; margin: 1rem 0;">
+<strong>ChatGPT Prompt (Copy-Paste This):</strong><br><br>
+"Write a Python script that:
+1. Loads '../output/parsed_markdown.json' and '../output/parsed_csv.json'
+2. For each document's content, apply these cleaning steps:
+   - Normalize unicode using unicodedata.normalize('NFKC', text)
+   - Remove special characters except basic punctuation (.,!?;:-)
+   - Normalize whitespace (multiple spaces → single space)
+   - Normalize newlines (multiple newlines → double newline)
+   - Strip leading/trailing whitespace
+3. Combine both into one list
+4. Save as '../output/cleaned_documents.json' with structure:
+   {id, source_type (markdown/csv), filename, department, cleaned_content, original_length, cleaned_length}
+5. Print statistics: 'Total docs: X, Characters removed: Y'
 
-with open('cleaned_documents.json', 'w') as f:
-    json.dump(cleaned_docs, f, indent=2)</code></pre>
+Use re (regex) and unicodedata libraries."
+</div>
 
-<p><strong>✅ Success Criteria:</strong> All documents cleaned with consistent formatting.</p>`
+<h4>🔹 STEP 4: Run After Getting Input Files</h4>
+<pre><code>cd "week 2/src"
+python text_cleaning.py</code></pre>
+
+<h4>🔹 STEP 5: Commit & Push</h4>
+<pre><code>git add .
+git commit -m "Add text cleaning module - Week 2"
+git push origin kavya/week2</code></pre>
+
+<hr>
+<p style="color: #22c55e; font-weight: bold;">✅ SUCCESS: cleaned_documents.json with all text normalized.</p>
+<p style="color: #f87171;">❌ DON'T TOUCH: Original parsing scripts, other files.</p>
+`
     },
 
     // 5. Shirisha (Medium) - Role-based Metadata
@@ -266,61 +353,85 @@ with open('cleaned_documents.json', 'w') as f:
         assignee: 'Mandha Shirisha',
         priority: 'medium',
         description: `<strong>Goal:</strong> Tag each chunk with role permissions.<br><br>
-1. Create role definitions (Finance, HR, Marketing, etc.).<br>
-2. Analyze document content to determine department.<br>
-3. Assign accessible_roles metadata to each chunk.<br>
-4. Handle C-Level (all access) and Employee (general) roles.<br><br>
-<strong>📌 Output:</strong> Chunks with role-based metadata tags.`,
-        deepExplanation: `<h3>📘 Step-by-Step Guide: Role-based Metadata</h3>
+1. Create role definitions.<br>
+2. Analyze document to determine department.<br>
+3. Assign accessible_roles metadata.<br><br>
+<strong>📌 Output:</strong> tagged_chunks.json`,
+        deepExplanation: `
+<h3>📘 Complete Guide: Role-based Metadata Assignment</h3>
+<p style="color: #fbbf24; font-weight: bold;">📁 Your task: Add RBAC permissions to each document chunk</p>
 <hr>
-<h4>Step 1: Define Role Mappings</h4>
-<pre><code>ROLE_KEYWORDS = {
-    'finance': ['financial', 'budget', 'revenue', 'expense', 'profit'],
-    'hr': ['employee', 'salary', 'policy', 'leave', 'benefits'],
-    'marketing': ['campaign', 'marketing', 'brand', 'customer'],
-    'engineering': ['technical', 'api', 'code', 'system', 'architecture']
-}
 
-ROLE_ACCESS = {
-    'finance': ['finance', 'c-level'],
-    'hr': ['hr', 'c-level'],
-    'marketing': ['marketing', 'c-level'],
-    'engineering': ['engineering', 'c-level'],
-    'general': ['employees', 'c-level', 'finance', 'hr', 'marketing', 'engineering']
+<h4>🔹 STEP 1: Create Your Branch</h4>
+<pre><code>git checkout main
+git pull origin main
+git checkout -b shirisha/week2</code></pre>
+
+<h4>🔹 STEP 2: Your Folder Structure</h4>
+<p><span style="background: #22c55e; color: black; padding: 2px 6px; border-radius: 4px;">GREEN = YOUR FILES</span></p>
+<pre style="background: #1e293b; padding: 1rem; border-radius: 8px;">
+RBAC_GP3/
+├── week 2/
+│   ├── src/
+│   │   ├── chunking.py           ← Arshad's (wait for his output)
+│   │   └── <span style="background: #22c55e; color: black; padding: 2px 4px;">metadata_tagging.py</span>   ← YOUR FILE
+│   ├── output/
+│   │   ├── chunked_documents.json ← Your INPUT
+│   │   └── <span style="background: #22c55e; color: black; padding: 2px 4px;">tagged_chunks.json</span>     ← YOUR OUTPUT
+│   └── config/
+│       └── <span style="background: #22c55e; color: black; padding: 2px 4px;">role_mappings.json</span>     ← YOUR CONFIG FILE
+</pre>
+
+<h4>🔹 STEP 3: Create config folder and role_mappings.json</h4>
+<pre><code>mkdir -p "week 2/config"</code></pre>
+
+<p>Create <code>week 2/config/role_mappings.json</code>:</p>
+<pre><code>{
+  "departments": {
+    "Finance": ["finance", "c-level"],
+    "HR": ["hr", "c-level"],
+    "marketing": ["marketing", "c-level"],
+    "engineering": ["engineering", "c-level"],
+    "general": ["employees", "finance", "hr", "marketing", "engineering", "c-level"]
+  },
+  "keywords": {
+    "finance": ["financial", "budget", "revenue", "quarterly", "profit", "expense"],
+    "hr": ["employee", "salary", "policy", "leave", "benefits", "hiring"],
+    "marketing": ["campaign", "marketing", "brand", "customer", "sales"],
+    "engineering": ["technical", "api", "code", "system", "architecture", "deploy"]
+  }
 }</code></pre>
 
-<h4>Step 2: Detect Document Department</h4>
-<pre><code>def detect_department(content, filename):
-    content_lower = content.lower()
-    filename_lower = filename.lower()
-    
-    for dept, keywords in ROLE_KEYWORDS.items():
-        for keyword in keywords:
-            if keyword in content_lower or keyword in filename_lower:
-                return dept
-    return 'general'</code></pre>
+<h4>🔹 STEP 4: Create metadata_tagging.py</h4>
 
-<h4>Step 3: Assign Metadata</h4>
-<pre><code>def assign_role_metadata(chunk):
-    dept = detect_department(chunk['content'], chunk['filename'])
-    chunk['metadata'] = {
-        'department': dept,
-        'accessible_roles': ROLE_ACCESS.get(dept, ROLE_ACCESS['general']),
-        'source': chunk['filename']
-    }
-    return chunk</code></pre>
+<p><strong>📋 Copy this ChatGPT Prompt:</strong></p>
+<div style="background: #3b82f6; color: white; padding: 1rem; border-radius: 8px; margin: 1rem 0;">
+<strong>ChatGPT Prompt (Copy-Paste This):</strong><br><br>
+"Write a Python script that:
+1. Loads '../output/chunked_documents.json' (list of chunks with content, source_file)
+2. Loads '../config/role_mappings.json' for department→roles mapping
+3. For each chunk:
+   - Detect department from source_file path or keywords in content
+   - Add metadata: {department, accessible_roles: [...], source, chunk_id}
+4. Save as '../output/tagged_chunks.json'
+5. Print summary: 'Finance: X chunks, HR: Y chunks, ...'
 
-<h4>Step 4: Process All Chunks</h4>
-<pre><code>import json
-with open('chunked_documents.json', 'r') as f:
-    chunks = json.load(f)
+Use keyword matching and folder path detection."
+</div>
 
-tagged_chunks = [assign_role_metadata(c) for c in chunks]
+<h4>🔹 STEP 5: Run & Verify</h4>
+<pre><code>cd "week 2/src"
+python metadata_tagging.py</code></pre>
 
-with open('tagged_chunks.json', 'w') as f:
-    json.dump(tagged_chunks, f, indent=2)</code></pre>
+<h4>🔹 STEP 6: Commit & Push</h4>
+<pre><code>git add .
+git commit -m "Add role-based metadata tagging - Week 2"
+git push origin shirisha/week2</code></pre>
 
-<p><strong>✅ Success Criteria:</strong> All chunks tagged with correct role permissions.</p>`
+<hr>
+<p style="color: #22c55e; font-weight: bold;">✅ SUCCESS: tagged_chunks.json with accessible_roles for each chunk.</p>
+<p style="color: #f87171;">❌ DON'T TOUCH: Chunking logic, parsing scripts, other files.</p>
+`
     },
 
     // 6. Saranya (Medium) - Metadata Mapping Document
@@ -330,47 +441,79 @@ with open('tagged_chunks.json', 'w') as f:
         assignee: 'Sri Saranya Chandrapati',
         priority: 'medium',
         description: `<strong>Goal:</strong> Document the metadata structure.<br><br>
-1. Create a mapping table (chunk ID → roles).<br>
-2. Document department classification criteria.<br>
-3. List all source documents with their tags.<br>
-4. Create a visual diagram of role hierarchy.<br><br>
-<strong>📌 Output:</strong> METADATA_MAPPING.md documentation file.`,
-        deepExplanation: `<h3>📘 Step-by-Step Guide: Metadata Mapping Document</h3>
+1. Create mapping table (chunk → roles).<br>
+2. Document department classification.<br>
+3. Create role hierarchy visual.<br><br>
+<strong>📌 Output:</strong> METADATA_MAPPING.md`,
+        deepExplanation: `
+<h3>📘 Complete Guide: Metadata Mapping Documentation</h3>
+<p style="color: #fbbf24; font-weight: bold;">📁 Your task: Create comprehensive RBAC documentation</p>
 <hr>
-<h4>Step 1: Create Structure</h4>
-<p>Create a file called <code>METADATA_MAPPING.md</code> in the docs folder.</p>
 
-<h4>Step 2: Document Role Hierarchy</h4>
-<pre><code># Role-Based Access Control Mapping
+<h4>🔹 STEP 1: Create Your Branch</h4>
+<pre><code>git checkout main
+git pull origin main
+git checkout -b saranya/week2</code></pre>
 
-## Role Hierarchy
-| Role | Access Level | Documents |
-|------|-------------|-----------|
-| C-Level | Full | All documents |
-| Finance | Department | Financial reports |
-| HR | Department | Employee data |
-| Marketing | Department | Marketing docs |
-| Engineering | Department | Tech docs |
-| Employees | Basic | General handbook |</code></pre>
+<h4>🔹 STEP 2: Your Folder Structure</h4>
+<p><span style="background: #22c55e; color: black; padding: 2px 6px; border-radius: 4px;">GREEN = YOUR FILE</span></p>
+<pre style="background: #1e293b; padding: 1rem; border-radius: 8px;">
+RBAC_GP3/
+├── week 2/
+│   ├── docs/                     ← Create this folder
+│   │   └── <span style="background: #22c55e; color: black; padding: 2px 4px;">METADATA_MAPPING.md</span>   ← YOUR FILE
+│   ├── output/
+│   │   └── tagged_chunks.json    ← Reference this (Shirisha's output)
+│   └── config/
+│       └── role_mappings.json    ← Reference this (Shirisha's config)
+</pre>
 
-<h4>Step 3: List Document-Role Mappings</h4>
-<pre><code>## Document Classifications
+<h4>🔹 STEP 3: Create docs folder</h4>
+<pre><code>mkdir -p "week 2/docs"</code></pre>
 
-| Document | Department | Accessible By |
-|----------|------------|---------------|
-| financial_report.md | Finance | Finance, C-Level |
-| employee_handbook.md | General | All Roles |
-| api_docs.md | Engineering | Engineering, C-Level |</code></pre>
+<h4>🔹 STEP 4: Create METADATA_MAPPING.md</h4>
 
-<h4>Step 4: Add Classification Criteria</h4>
-<pre><code>## Classification Rules
-1. Documents containing "financial", "budget" → Finance
-2. Documents containing "employee", "salary" → HR
-3. Documents containing "marketing", "campaign" → Marketing
-4. Documents containing "technical", "api" → Engineering
-5. All other documents → General (accessible by all)</code></pre>
+<p><strong>📋 Copy this ChatGPT Prompt:</strong></p>
+<div style="background: #3b82f6; color: white; padding: 1rem; border-radius: 8px; margin: 1rem 0;">
+<strong>ChatGPT Prompt (Copy-Paste This):</strong><br><br>
+"Create a comprehensive Markdown documentation file for RBAC metadata mapping that includes:
 
-<p><strong>✅ Success Criteria:</strong> Complete documentation of all metadata mappings.</p>`
+1. **Role Hierarchy Section**
+   - Visual ASCII diagram showing: C-Level → Department Heads → Employees
+   - Table: Role | Access Level | Description
+
+2. **Department-Role Mapping Table**
+   - Columns: Department | Documents | Accessible Roles
+   - Rows for: Finance, HR, Marketing, Engineering, General
+
+3. **Document Classification Rules**
+   - How documents are classified by folder path
+   - Keyword-based classification rules
+   - Default classification for unmatched docs
+
+4. **Chunk Metadata Schema**
+   - JSON schema example showing: chunk_id, content, department, accessible_roles, source
+
+5. **Access Control Matrix**
+   - Matrix showing which role can access which department's docs
+   - Use ✅ and ❌ symbols
+
+6. **Examples Section**
+   - Example: Finance user querying → what they see vs don't see
+   - Example: C-Level user → sees everything
+
+Make it professional with proper Markdown formatting."
+</div>
+
+<h4>🔹 STEP 5: Commit & Push</h4>
+<pre><code>git add .
+git commit -m "Add RBAC metadata mapping documentation - Week 2"
+git push origin saranya/week2</code></pre>
+
+<hr>
+<p style="color: #22c55e; font-weight: bold;">✅ SUCCESS: Complete METADATA_MAPPING.md documentation.</p>
+<p style="color: #f87171;">❌ DON'T TOUCH: Code files, config files (just reference them).</p>
+`
     },
 
     // 7. Vinuthna (Medium) - Validation Report
@@ -380,55 +523,78 @@ with open('tagged_chunks.json', 'w') as f:
         assignee: 'Vinuthna Jangam',
         priority: 'medium',
         description: `<strong>Goal:</strong> Validate all preprocessing work.<br><br>
-1. Check chunk counts and token ranges.<br>
-2. Validate metadata assignments are correct.<br>
-3. Test role-based filtering logic.<br>
-4. Document any issues found.<br><br>
-<strong>📌 Output:</strong> PREPROCESSING_QA_REPORT.md`,
-        deepExplanation: `<h3>📘 Step-by-Step Guide: Preprocessing Validation</h3>
+1. Check chunk token ranges.<br>
+2. Validate metadata assignments.<br>
+3. Document issues found.<br><br>
+<strong>📌 Output:</strong> PREPROCESSING_QA_REPORT.md + validation.py`,
+        deepExplanation: `
+<h3>📘 Complete Guide: Preprocessing Validation & QA</h3>
+<p style="color: #fbbf24; font-weight: bold;">📁 Your task: Test everyone's work and create QA report</p>
 <hr>
-<h4>Step 1: Load Processed Data</h4>
-<pre><code>import json
-with open('tagged_chunks.json', 'r') as f:
-    chunks = json.load(f)</code></pre>
 
-<h4>Step 2: Validate Token Counts</h4>
-<pre><code>import tiktoken
-enc = tiktoken.get_encoding("cl100k_base")
+<h4>🔹 STEP 1: Create Your Branch</h4>
+<pre><code>git checkout main
+git pull origin main
+git checkout -b vinuthna/week2</code></pre>
 
-issues = []
-for chunk in chunks:
-    tokens = len(enc.encode(chunk['content']))
-    if tokens < 300 or tokens > 512:
-        issues.append(f"Chunk {chunk['id']}: {tokens} tokens (out of range)")
+<h4>🔹 STEP 2: Your Folder Structure</h4>
+<p><span style="background: #22c55e; color: black; padding: 2px 6px; border-radius: 4px;">GREEN = YOUR FILES</span></p>
+<pre style="background: #1e293b; padding: 1rem; border-radius: 8px;">
+RBAC_GP3/
+├── week 2/
+│   ├── src/
+│   │   └── <span style="background: #22c55e; color: black; padding: 2px 4px;">validation.py</span>          ← YOUR FILE
+│   ├── output/
+│   │   ├── tagged_chunks.json     ← Test this
+│   │   ├── cleaned_documents.json ← Test this
+│   │   └── <span style="background: #22c55e; color: black; padding: 2px 4px;">validation_results.json</span> ← YOUR OUTPUT
+│   └── docs/
+│       └── <span style="background: #22c55e; color: black; padding: 2px 4px;">PREPROCESSING_QA_REPORT.md</span> ← YOUR REPORT
+</pre>
 
-print(f"Token validation: {len(issues)} issues found")</code></pre>
+<h4>🔹 STEP 3: Create validation.py</h4>
 
-<h4>Step 3: Validate Metadata</h4>
-<pre><code>missing_metadata = []
-for chunk in chunks:
-    if 'metadata' not in chunk or 'accessible_roles' not in chunk.get('metadata', {}):
-        missing_metadata.append(chunk['id'])
+<p><strong>📋 Copy this ChatGPT Prompt:</strong></p>
+<div style="background: #3b82f6; color: white; padding: 1rem; border-radius: 8px; margin: 1rem 0;">
+<strong>ChatGPT Prompt (Copy-Paste This):</strong><br><br>
+"Write a Python validation script that:
+1. Loads '../output/tagged_chunks.json'
+2. Performs these validations:
+   - Token count check: all chunks should be 300-512 tokens (use tiktoken)
+   - Metadata check: all chunks have 'department' and 'accessible_roles'
+   - Role check: accessible_roles is not empty
+   - Content check: no empty content
+3. Counts issues by type
+4. Saves results to '../output/validation_results.json':
+   {total_chunks, passed, failed, issues: [{chunk_id, issue_type, details}]}
+5. Prints summary with pass/fail counts
 
-print(f"Metadata validation: {len(missing_metadata)} missing")</code></pre>
+Install tiktoken if needed for token counting."
+</div>
 
-<h4>Step 4: Create QA Report</h4>
-<pre><code># PREPROCESSING_QA_REPORT.md
+<h4>🔹 STEP 4: Run Validation</h4>
+<pre><code>pip install tiktoken
+cd "week 2/src"
+python validation.py</code></pre>
 
-## Summary
-- Total chunks: {len(chunks)}
-- Token range issues: {len(issues)}
-- Missing metadata: {len(missing_metadata)}
+<h4>🔹 STEP 5: Create QA Report</h4>
+<p>Create <code>week 2/docs/PREPROCESSING_QA_REPORT.md</code> with:</p>
+<ul>
+<li>Summary statistics</li>
+<li>Pass/Fail counts</li>
+<li>List of issues found</li>
+<li>Recommendations</li>
+</ul>
 
-## Token Distribution
-- Min tokens: X
-- Max tokens: Y
-- Average: Z
+<h4>🔹 STEP 6: Commit & Push</h4>
+<pre><code>git add .
+git commit -m "Add preprocessing validation and QA report - Week 2"
+git push origin vinuthna/week2</code></pre>
 
-## Issues Found
-(List any problems here)</code></pre>
-
-<p><strong>✅ Success Criteria:</strong> Complete QA report with all validations passed.</p>`
+<hr>
+<p style="color: #22c55e; font-weight: bold;">✅ SUCCESS: Validation script + QA report completed.</p>
+<p style="color: #f87171;">❌ DON'T TOUCH: Other team's code files.</p>
+`
     },
 
     // 8. Joshika (EASIEST) - Summary Report
@@ -438,54 +604,95 @@ print(f"Metadata validation: {len(missing_metadata)} missing")</code></pre>
         assignee: 'Depuru Joshika Reddy',
         priority: 'low',
         description: `<strong>Goal:</strong> Compile the Week 2 summary.<br><br>
-1. Collect all deliverables from team members.<br>
-2. Summarize preprocessing pipeline results.<br>
-3. Document chunk statistics and metadata coverage.<br>
-4. Create WEEK2_SUMMARY.md report.<br><br>
+1. Collect all deliverables.<br>
+2. Summarize preprocessing results.<br>
+3. Create WEEK2_SUMMARY.md.<br><br>
 <strong>📌 Output:</strong> WEEK2_SUMMARY.md`,
-        deepExplanation: `<h3>📘 Step-by-Step Guide: Week 2 Summary Report</h3>
+        deepExplanation: `
+<h3>📘 Complete Guide: Week 2 Summary Report</h3>
+<p style="color: #22c55e; font-weight: bold;">📁 This is the EASIEST task - Just compile everyone's work!</p>
 <hr>
-<h4>Step 1: Collect Information</h4>
-<p>Gather the following from team members:</p>
-<ul>
-    <li>Number of documents parsed (Bhargava, Karthik)</li>
-    <li>Number of chunks created (Arshad)</li>
-    <li>Cleaning statistics (Kavya)</li>
-    <li>Metadata coverage (Shirisha)</li>
-    <li>QA results (Vinuthna)</li>
-</ul>
 
-<h4>Step 2: Create Report Structure</h4>
-<pre><code># Week 2 Summary Report
-## Module 2: Document Preprocessing & Metadata Tagging
+<h4>🔹 STEP 1: Create Your Branch</h4>
+<pre><code>git checkout main
+git pull origin main
+git checkout -b joshika/week2</code></pre>
 
-### Team Contributions
-| Member | Task | Status |
-|--------|------|--------|
-| Arshad | Chunking & Tokenization | ✅ |
-| Bhargava | Markdown Parsing | ✅ |
-| ... | ... | ... |
+<h4>🔹 STEP 2: Your Folder Structure</h4>
+<p><span style="background: #22c55e; color: black; padding: 2px 6px; border-radius: 4px;">GREEN = YOUR FILE</span></p>
+<pre style="background: #1e293b; padding: 1rem; border-radius: 8px;">
+RBAC_GP3/
+├── week 2/
+│   ├── docs/
+│   │   ├── METADATA_MAPPING.md        ← Saranya's
+│   │   ├── PREPROCESSING_QA_REPORT.md ← Vinuthna's
+│   │   └── <span style="background: #22c55e; color: black; padding: 2px 4px;">WEEK2_SUMMARY.md</span>          ← YOUR FILE
+│   ├── output/
+│   │   ├── parsed_markdown.json       ← Bhargava's
+│   │   ├── parsed_csv.json            ← Karthik's
+│   │   ├── cleaned_documents.json     ← Kavya's
+│   │   ├── chunked_documents.json     ← Arshad's
+│   │   └── tagged_chunks.json         ← Shirisha's
+│   └── src/
+│       └── (all scripts)
+</pre>
 
-### Statistics
-- Total documents processed: X
-- Total chunks created: X
-- Average tokens per chunk: X
+<h4>🔹 STEP 3: Wait for Team Members</h4>
+<p>Ask each person for their status. This is YOUR job as report writer.</p>
 
-### Deliverables
-1. ✅ chunked_documents.json
-2. ✅ tagged_chunks.json
-3. ✅ METADATA_MAPPING.md
-4. ✅ PREPROCESSING_QA_REPORT.md</code></pre>
+<h4>🔹 STEP 4: Create WEEK2_SUMMARY.md</h4>
 
-<h4>Step 3: Save the Report</h4>
-<p>Save as <code>docs/WEEK2_SUMMARY.md</code> in the repository.</p>
+<p><strong>📋 Copy this ChatGPT Prompt:</strong></p>
+<div style="background: #3b82f6; color: white; padding: 1rem; border-radius: 8px; margin: 1rem 0;">
+<strong>ChatGPT Prompt (Copy-Paste This):</strong><br><br>
+"Create a Week 2 Summary Report in Markdown format for Module 2: Document Preprocessing & Metadata Tagging. Include:
 
-<p><strong>✅ Success Criteria:</strong> Complete summary combining all Week 2 work.</p>`
+1. **Module Overview**
+   - Objective: Parse documents, clean text, chunk, assign metadata
+
+2. **Team Contributions Table**
+   | Member | Task | Output File | Status |
+   |--------|------|-------------|--------|
+   | Arshad | Chunking | chunked_documents.json | ✅ |
+   | Bhargava | Markdown Parsing | parsed_markdown.json | ✅ |
+   ... (all 8 members)
+
+3. **Statistics Section**
+   - Total documents processed: X
+   - Total chunks created: X
+   - Average tokens per chunk: X
+   - Departments covered: 5
+
+4. **Deliverables Checklist**
+   - [x] Preprocessing module
+   - [x] Cleaned document chunks
+   - [x] Role-based metadata
+   - [x] QA report
+
+5. **Issues & Resolutions**
+   - Any problems encountered
+
+6. **Next Steps (Week 3 Preview)**
+   - Vector embeddings
+   - Database indexing
+
+Use professional formatting, emojis for visual appeal."
+</div>
+
+<h4>🔹 STEP 5: Commit & Push</h4>
+<pre><code>git add .
+git commit -m "Add Week 2 Summary Report"
+git push origin joshika/week2</code></pre>
+
+<hr>
+<p style="color: #22c55e; font-weight: bold;">✅ SUCCESS: Complete WEEK2_SUMMARY.md with all contributions.</p>
+<p style="color: #f87171;">❌ DON'T TOUCH: Any code files, just read and summarize.</p>
+`
     }
 ];
 
 // =====================================================
-// WEEK 1 TASKS (Module 1: Environment Setup)
+// WEEK 1 TASKS (Module 1: Environment Setup) - COMPLETED
 // =====================================================
 const week1Tasks = [
     {
@@ -493,85 +700,64 @@ const week1Tasks = [
         title: 'Module 1 Lead: Monitoring & Supervision',
         assignee: 'Arshad Pasha',
         priority: 'high',
-        description: `<strong>Goal:</strong> Monitor Week 1 deliverables.<br><br>
-1. Verify Python Env setup for the team.<br>
-2. Review the Repository structure.<br>
-3. Review Document Analysis.<br>
-4. Validate the Role-Mapping matrix.`,
-        deepExplanation: `<h3>Leadership & Monitoring Guide</h3><p>Oversee all team activities, ensure deadlines are met, and verify quality of deliverables.</p>`
+        description: `<strong>Goal:</strong> Monitor Week 1 deliverables.<br>✅ COMPLETED`,
+        deepExplanation: `<h3>✅ Week 1 Completed</h3><p>Environment setup and data exploration done.</p>`
     },
     {
         id: 102,
         title: 'Repository & Folder Structure',
         assignee: 'Kushagra Bhargava',
         priority: 'high',
-        description: `<strong>Goal:</strong> Initialize project foundation.<br><br>
-1. Clone GitHub repository.<br>
-2. Create folder structure.<br>
-3. Setup .gitignore and requirements.txt.`,
-        deepExplanation: `<h3>Repository Setup Guide</h3><p>Clone the Fintech-data repo and organize folders for data, source code, and documentation.</p>`
+        description: `<strong>Goal:</strong> Initialize project.<br>✅ COMPLETED`,
+        deepExplanation: `<h3>✅ Week 1 Completed</h3><p>Folder structure created in week 1/data/</p>`
     },
     {
         id: 103,
         title: 'Finance & CSV Data Exploration',
         assignee: 'Guru Karthik Reddy Marthala',
         priority: 'medium',
-        description: `<strong>Goal:</strong> Explore financial data files.<br><br>
-1. Explore all CSV files.<br>
-2. Identify content and structure.<br>
-3. Note sensitive information.`,
-        deepExplanation: `<h3>Data Exploration Guide</h3><p>Use pandas to load and analyze CSV files. Document column names, data types, and sample values.</p>`
+        description: `<strong>Goal:</strong> Explore financial data.<br>✅ COMPLETED`,
+        deepExplanation: `<h3>✅ Week 1 Completed</h3>`
     },
     {
         id: 104,
         title: 'HR Documentation Analysis',
         assignee: 'Depuru Joshika Reddy',
         priority: 'medium',
-        description: `<strong>Goal:</strong> Explore HR documents.<br><br>
-1. Read HR policy documents.<br>
-2. Identify employee data files.<br>
-3. Note privacy requirements.`,
-        deepExplanation: `<h3>HR Analysis Guide</h3><p>Review employee handbooks, policy documents, and identify what data needs protection.</p>`
+        description: `<strong>Goal:</strong> Explore HR documents.<br>✅ COMPLETED`,
+        deepExplanation: `<h3>✅ Week 1 Completed</h3>`
     },
     {
         id: 105,
         title: 'Marketing Documentation',
         assignee: 'Kavya Ghantasala',
         priority: 'low',
-        description: `<strong>Goal:</strong> Explore Marketing data.<br><br>
-1. Read marketing reports.<br>
-2. Identify public vs internal docs.`,
-        deepExplanation: `<h3>Marketing Analysis Guide</h3><p>Review campaign documents and classify them by confidentiality level.</p>`
+        description: `<strong>Goal:</strong> Explore Marketing data.<br>✅ COMPLETED`,
+        deepExplanation: `<h3>✅ Week 1 Completed</h3>`
     },
     {
         id: 106,
         title: 'Engineering & Tech Docs',
         assignee: 'Mandha Shirisha',
         priority: 'medium',
-        description: `<strong>Goal:</strong> Explore technical documentation.<br><br>
-1. Review API docs and architecture.<br>
-2. Summarize tech stack.`,
-        deepExplanation: `<h3>Tech Docs Guide</h3><p>Identify API documentation, system architecture diagrams, and technical specifications.</p>`
+        description: `<strong>Goal:</strong> Explore tech docs.<br>✅ COMPLETED`,
+        deepExplanation: `<h3>✅ Week 1 Completed</h3>`
     },
     {
         id: 107,
         title: 'Role-to-Document Mapping',
         assignee: 'Sri Saranya Chandrapati',
         priority: 'high',
-        description: `<strong>Goal:</strong> Create RBAC foundation.<br><br>
-1. Map roles to document types.<br>
-2. Create access matrix.`,
-        deepExplanation: `<h3>Role Mapping Guide</h3><p>Create a table showing which roles can access which document types.</p>`
+        description: `<strong>Goal:</strong> Create RBAC foundation.<br>✅ COMPLETED`,
+        deepExplanation: `<h3>✅ Week 1 Completed</h3>`
     },
     {
         id: 108,
         title: 'Week 1 Summary Report',
         assignee: 'Vinuthna Jangam',
         priority: 'high',
-        description: `<strong>Goal:</strong> Consolidate Week 1 findings.<br><br>
-1. Combine all summaries.<br>
-2. Create WEEK1_SUMMARY.md.`,
-        deepExplanation: `<h3>Summary Report Guide</h3><p>Compile all team deliverables into a single comprehensive report.</p>`
+        description: `<strong>Goal:</strong> Consolidate findings.<br>✅ COMPLETED`,
+        deepExplanation: `<h3>✅ Week 1 Completed</h3>`
     }
 ];
 
@@ -595,8 +781,6 @@ const tasksContainer = document.getElementById('tasksContainer');
 const emptyState = document.getElementById('emptyState');
 const modalTitle = document.getElementById('modalTitle');
 const filterTabs = document.querySelectorAll('.filter-tab');
-
-// Deep Explanation Modal
 const deepModal = document.getElementById('deepExplanationModal');
 
 // INITIALIZE
@@ -607,7 +791,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 function loadTasks() {
-    const stored = localStorage.getItem('rbac_tasks_milestone1_v2');
+    const stored = localStorage.getItem('rbac_tasks_milestone1_v3');
     if (stored) {
         tasks = JSON.parse(stored);
     } else {
@@ -619,16 +803,16 @@ function loadTasks() {
 }
 
 function saveTasks() {
-    localStorage.setItem('rbac_tasks_milestone1_v2', JSON.stringify(tasks));
+    localStorage.setItem('rbac_tasks_milestone1_v3', JSON.stringify(tasks));
     renderTasks();
     updateStats();
 }
 
 function seedDatabase() {
-    if (confirm("Reload Milestone 1 tasks (Week 1 + Week 2)? This resets current changes.")) {
+    if (confirm("Reload Milestone 1 tasks with NEW detailed guides? This resets changes.")) {
         tasks = [...defaultTasks];
         saveTasks();
-        alert("Milestone 1 Tasks Loaded!");
+        alert("Tasks reloaded with detailed Deep Explanations!");
     }
 }
 window.seedDatabase = seedDatabase;
@@ -676,14 +860,13 @@ function toggleDescription(id) {
 }
 window.toggleDescription = toggleDescription;
 
-// Deep Explanation Popup
 function showDeepExplanation(id) {
     const task = tasks.find(t => t.id === id);
     if (task && task.deepExplanation) {
         document.getElementById('deepModalContent').innerHTML = task.deepExplanation;
         document.getElementById('deepExplanationModal').classList.add('active');
     } else {
-        alert('No deep explanation available for this task.');
+        alert('No deep explanation available.');
     }
 }
 window.showDeepExplanation = showDeepExplanation;
@@ -693,7 +876,6 @@ function closeDeepModal() {
 }
 window.closeDeepModal = closeDeepModal;
 
-// Toggle Week Sections
 function toggleWeek(weekNum) {
     if (weekNum === 1) {
         week1Collapsed = !week1Collapsed;
@@ -740,6 +922,7 @@ function renderTasks() {
         <div class="week-header" onclick="toggleWeek(2)">
             <span class="week-toggle">${week2Collapsed ? '▶' : '▼'}</span>
             <h3>📅 Week 2: Document Preprocessing & Metadata Tagging</h3>
+            <span class="week-status active">🔵 In Progress</span>
             <span class="task-count">${week2.length} tasks</span>
         </div>
         <div class="week-tasks ${week2Collapsed ? 'collapsed' : ''}">
@@ -788,7 +971,7 @@ function createTaskHTML(task) {
             <button class="read-more-btn" id="btn-${task.id}" onclick="toggleDescription(${task.id})">See Full Description ⬇</button>
         </div>
 
-        ${task.deepExplanation ? `<button class="deep-explain-btn" onclick="showDeepExplanation(${task.id})">📘 Deep Explanation</button>` : ''}
+        ${task.deepExplanation ? `<button class="deep-explain-btn" onclick="showDeepExplanation(${task.id})">📘 Deep Explanation (Step-by-Step)</button>` : ''}
 
         <div class="task-footer">
             <div class="task-meta">
@@ -808,7 +991,6 @@ function updateStats() {
     totalEl.textContent = tasks.length;
 }
 
-// Helpers
 function setupNavigation() {
     const navToggle = document.getElementById('navToggle');
     const navLinks = document.querySelector('.nav-links');
@@ -823,8 +1005,6 @@ function setupEventListeners() {
     if (cancelBtn) cancelBtn.addEventListener('click', closeModal);
     if (taskModal) taskModal.addEventListener('click', (e) => { if (e.target === taskModal) closeModal(); });
     if (taskForm) taskForm.addEventListener('submit', handleFormSubmit);
-
-    // Deep modal close
     if (deepModal) {
         deepModal.addEventListener('click', (e) => { if (e.target === deepModal) closeDeepModal(); });
     }
