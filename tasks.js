@@ -2,6 +2,7 @@
 // ---------------------------------------------------------
 // Milestone 1: Data Preparation & Vector DB (Weeks 1-2) ✅ COMPLETED
 // Milestone 2: Backend Auth & Search (Weeks 3-4) 🔵 IN PROGRESS
+// Milestone 3: RAG Pipeline & LLM (Weeks 5-6) ⏳ NOT STARTED
 // ---------------------------------------------------------
 
 // Team Members
@@ -9,6 +10,1091 @@ const teamMembers = [
     'Arshad Pasha', 'Depuru Joshika Reddy', 'Guru Karthik Reddy Marthala',
     'Kavya Ghantasala', 'Kushagra Bhargava', 'Mandha Shirisha',
     'Sri Saranya Chandrapati', 'Vinuthna Jangam'
+];
+
+// =====================================================
+// WEEK 6 TASKS (Module 6: RAG Pipeline & LLM Integration)
+// =====================================================
+const week6Tasks = [
+    // 1. Arshad (LEAD/HARD) - RAG Pipeline Implementation
+    {
+        id: 601,
+        title: 'Implement Complete RAG Pipeline',
+        assignee: 'Arshad Pasha',
+        priority: 'high',
+        status: 'not-started',
+        description: `<strong>Goal:</strong> Build the full RAG pipeline with role-based filtering.<br><br>
+1. Authenticate user and get role.<br>
+2. Filter documents by role permissions.<br>
+3. Retrieve relevant chunks from vector DB.<br>
+4. Augment prompt with context.<br>
+5. Generate response with LLM.<br><br>
+<strong>📌 Output:</strong> rag_pipeline.py with complete workflow.`,
+        deepExplanation: `
+<h3>📘 Complete Guide: RAG Pipeline Implementation</h3>
+<p style="color: #f87171; font-weight: bold;">⚠️ YOU ARE THE LEAD - This is the core RAG system!</p>
+<hr>
+
+<h4>🔹 STEP 1: Create Your Branch</h4>
+<pre><code>git checkout main
+git pull origin main
+git checkout -b arshad/week6</code></pre>
+
+<h4>🔹 STEP 2: Your Folder Structure</h4>
+<p><span style="background: #22c55e; color: black; padding: 2px 6px; border-radius: 4px;">GREEN = YOUR FILES</span></p>
+<pre style="background: #1e293b; padding: 1rem; border-radius: 8px;">
+RBAC_GP3/
+├── week 5/
+│   └── src/
+│       └── auth/                    ← Use authentication from Week 5
+├── week 6/                          ← Create this folder
+│   ├── src/
+│   │   └── <span style="background: #22c55e; color: black; padding: 2px 4px;">rag_pipeline.py</span>     ← YOUR FILE
+│   ├── config/
+│   │   └── <span style="background: #22c55e; color: black; padding: 2px 4px;">pipeline_config.json</span> ← YOUR CONFIG
+│   └── output/
+</pre>
+
+<h4>🔹 STEP 3: Create pipeline_config.json</h4>
+<pre><code>{
+  "max_chunks": 5,
+  "similarity_threshold": 0.3,
+  "max_response_tokens": 500,
+  "temperature": 0.7,
+  "include_sources": true
+}</code></pre>
+
+<h4>🔹 STEP 4: Create rag_pipeline.py</h4>
+
+<p><strong>📋 Copy this ChatGPT Prompt:</strong></p>
+<div style="background: #3b82f6; color: white; padding: 1rem; border-radius: 8px; margin: 1rem 0;">
+<strong>ChatGPT Prompt (Copy-Paste This):</strong><br><br>
+"Write a Python class RAGPipeline that:
+1. Takes user_id and query as input
+2. Authenticates user and gets their role
+3. Filters vector DB results by role permissions
+4. Retrieves top-K relevant chunks
+5. Builds augmented prompt with context
+6. Calls LLM API to generate response
+7. Adds source citations to response
+8. Returns: {response, sources, confidence_score, processing_time}
+
+Include methods:
+- authenticate_user(user_id)
+- filter_by_rbac(user_role, chunks)
+- build_context(query, chunks)
+- generate_response(prompt)
+- add_citations(response, sources)"
+</div>
+
+<h4>🔹 STEP 5: Commit & Push</h4>
+<pre><code>git add .
+git commit -m "Add RAG pipeline implementation - Week 6"
+git push origin arshad/week6</code></pre>
+
+<hr>
+<p style="color: #22c55e; font-weight: bold;">✅ SUCCESS: Complete RAG pipeline working end-to-end.</p>
+`
+    },
+
+    // 2. Bhargava (HARD) - LLM Integration
+    {
+        id: 602,
+        title: 'LLM Integration & API Management',
+        assignee: 'Kushagra Bhargava',
+        priority: 'high',
+        status: 'not-started',
+        description: `<strong>Goal:</strong> Integrate free LLM for response generation.<br><br>
+1. Select and configure LLM (HuggingFace/OpenAI free tier).<br>
+2. Create API wrapper for LLM calls.<br>
+3. Handle rate limiting and errors.<br>
+4. Implement response streaming.<br><br>
+<strong>📌 Output:</strong> llm_client.py with API integration.`,
+        deepExplanation: `
+<h3>📘 Complete Guide: LLM Integration</h3>
+<p style="color: #f87171; font-weight: bold;">⚠️ CRITICAL - This powers the chatbot responses!</p>
+<hr>
+
+<h4>🔹 STEP 1: Create Your Branch</h4>
+<pre><code>git checkout main
+git pull origin main
+git checkout -b bhargava/week6</code></pre>
+
+<h4>🔹 STEP 2: Your Folder Structure</h4>
+<pre style="background: #1e293b; padding: 1rem; border-radius: 8px;">
+RBAC_GP3/
+├── week 6/
+│   ├── src/
+│   │   └── <span style="background: #22c55e; color: black; padding: 2px 4px;">llm_client.py</span>       ← YOUR FILE
+│   └── config/
+│       └── <span style="background: #22c55e; color: black; padding: 2px 4px;">llm_config.json</span>     ← YOUR CONFIG
+</pre>
+
+<h4>🔹 STEP 3: Create llm_config.json</h4>
+<pre><code>{
+  "provider": "huggingface",
+  "model": "microsoft/DialoGPT-medium",
+  "max_tokens": 500,
+  "temperature": 0.7,
+  "api_key_env": "HF_API_KEY"
+}</code></pre>
+
+<h4>🔹 STEP 4: Create llm_client.py</h4>
+
+<p><strong>📋 Copy this ChatGPT Prompt:</strong></p>
+<div style="background: #3b82f6; color: white; padding: 1rem; border-radius: 8px; margin: 1rem 0;">
+<strong>ChatGPT Prompt (Copy-Paste This):</strong><br><br>
+"Write a Python class LLMClient that:
+1. Supports multiple LLM providers (HuggingFace, OpenAI free)
+2. Loads configuration from llm_config.json
+3. Has method generate(prompt, max_tokens, temperature)
+4. Handles API rate limiting with retry logic
+5. Implements timeout handling
+6. Logs all API calls (tokens used, latency)
+7. Falls back to alternative provider on failure
+
+Use requests library and proper error handling."
+</div>
+
+<h4>🔹 STEP 5: Install Dependencies</h4>
+<pre><code>pip install openai huggingface_hub transformers</code></pre>
+
+<h4>🔹 STEP 6: Commit & Push</h4>
+<pre><code>git add .
+git commit -m "Add LLM integration module - Week 6"
+git push origin bhargava/week6</code></pre>
+
+<hr>
+<p style="color: #22c55e; font-weight: bold;">✅ SUCCESS: LLM generates coherent responses.</p>
+`
+    },
+
+    // 3. Kavya (HARD) - Prompt Engineering
+    {
+        id: 603,
+        title: 'System Prompts & Context Templates',
+        assignee: 'Kavya Ghantasala',
+        priority: 'high',
+        status: 'not-started',
+        description: `<strong>Goal:</strong> Design effective prompts for RAG.<br><br>
+1. Create system prompt templates.<br>
+2. Design context injection format.<br>
+3. Build role-specific prompts.<br>
+4. Test prompt effectiveness.<br><br>
+<strong>📌 Output:</strong> prompt_templates.py + templates.json`,
+        deepExplanation: `
+<h3>📘 Complete Guide: Prompt Engineering</h3>
+<p style="color: #f87171; font-weight: bold;">⚠️ CRITICAL - Good prompts = Good answers!</p>
+<hr>
+
+<h4>🔹 STEP 1: Create Your Branch</h4>
+<pre><code>git checkout main
+git pull origin main
+git checkout -b kavya/week6</code></pre>
+
+<h4>🔹 STEP 2: Your Folder Structure</h4>
+<pre style="background: #1e293b; padding: 1rem; border-radius: 8px;">
+RBAC_GP3/
+├── week 6/
+│   ├── src/
+│   │   └── <span style="background: #22c55e; color: black; padding: 2px 4px;">prompt_templates.py</span> ← YOUR FILE
+│   └── config/
+│       └── <span style="background: #22c55e; color: black; padding: 2px 4px;">templates.json</span>       ← YOUR TEMPLATES
+</pre>
+
+<h4>🔹 STEP 3: Create templates.json</h4>
+<pre><code>{
+  "system_prompt": "You are an internal company assistant with access to confidential documents. Answer questions based ONLY on the provided context. Always cite your sources.",
+  "context_template": "CONTEXT:\\n{context}\\n\\nQUESTION: {query}\\n\\nANSWER:",
+  "role_prompts": {
+    "finance": "You have access to financial reports and data.",
+    "hr": "You have access to HR policies and employee data.",
+    "marketing": "You have access to marketing campaigns and analytics."
+  }
+}</code></pre>
+
+<h4>🔹 STEP 4: Create prompt_templates.py</h4>
+
+<p><strong>📋 Copy this ChatGPT Prompt:</strong></p>
+<div style="background: #3b82f6; color: white; padding: 1rem; border-radius: 8px; margin: 1rem 0;">
+<strong>ChatGPT Prompt (Copy-Paste This):</strong><br><br>
+"Write a Python class PromptBuilder that:
+1. Loads templates.json
+2. Has method build_prompt(query, context_chunks, user_role)
+3. Formats context with source citations
+4. Injects role-specific instructions
+5. Limits context to max token count
+6. Returns formatted prompt ready for LLM
+
+Include templates for:
+- Question answering
+- Summarization
+- Comparison queries"
+</div>
+
+<h4>🔹 STEP 5: Commit & Push</h4>
+<pre><code>git add .
+git commit -m "Add prompt templates module - Week 6"
+git push origin kavya/week6</code></pre>
+
+<hr>
+<p style="color: #22c55e; font-weight: bold;">✅ SUCCESS: Prompts generate accurate, sourced responses.</p>
+`
+    },
+
+    // 4. Joshika (MEDIUM) - Source Attribution
+    {
+        id: 604,
+        title: 'Source Citation & Document Attribution',
+        assignee: 'Depuru Joshika Reddy',
+        priority: 'medium',
+        status: 'not-started',
+        description: `<strong>Goal:</strong> Add source citations to responses.<br><br>
+1. Extract source metadata from chunks.<br>
+2. Format citations in response.<br>
+3. Link to original documents.<br>
+4. Display confidence scores.<br><br>
+<strong>📌 Output:</strong> citation_system.py`,
+        deepExplanation: `
+<h3>📘 Complete Guide: Source Attribution</h3>
+<p style="color: #fbbf24; font-weight: bold;">📁 Your task: Make responses transparent with sources</p>
+<hr>
+
+<h4>🔹 STEP 1: Create Your Branch</h4>
+<pre><code>git checkout main
+git pull origin main
+git checkout -b joshika/week6</code></pre>
+
+<h4>🔹 STEP 2: Your Folder Structure</h4>
+<pre style="background: #1e293b; padding: 1rem; border-radius: 8px;">
+RBAC_GP3/
+├── week 6/
+│   ├── src/
+│   │   └── <span style="background: #22c55e; color: black; padding: 2px 4px;">citation_system.py</span> ← YOUR FILE
+│   └── output/
+</pre>
+
+<h4>🔹 STEP 3: Create citation_system.py</h4>
+
+<p><strong>📋 Copy this ChatGPT Prompt:</strong></p>
+<div style="background: #3b82f6; color: white; padding: 1rem; border-radius: 8px; margin: 1rem 0;">
+<strong>ChatGPT Prompt (Copy-Paste This):</strong><br><br>
+"Write a Python class CitationSystem that:
+1. Takes retrieved chunks with metadata
+2. Extracts source file, department, page/section
+3. Generates numbered citations [1], [2], etc.
+4. Creates citation block at end of response
+5. Links citations to chunk IDs
+6. Formats output as: {text_with_citations, sources_list}
+
+Example output:
+'According to the Q4 report [1], revenue increased...'
+Sources:
+[1] Finance/quarterly_report.md - Section 3"
+</div>
+
+<h4>🔹 STEP 4: Commit & Push</h4>
+<pre><code>git add .
+git commit -m "Add citation system - Week 6"
+git push origin joshika/week6</code></pre>
+
+<hr>
+<p style="color: #22c55e; font-weight: bold;">✅ SUCCESS: Responses include proper source citations.</p>
+`
+    },
+
+    // 5. Vinuthna (MEDIUM) - Confidence Scoring
+    {
+        id: 605,
+        title: 'Confidence Scoring & Relevance Metrics',
+        assignee: 'Vinuthna Jangam',
+        priority: 'medium',
+        status: 'not-started',
+        description: `<strong>Goal:</strong> Calculate confidence scores for responses.<br><br>
+1. Score based on retrieval similarity.<br>
+2. Factor in source reliability.<br>
+3. Display confidence level to user.<br>
+4. Flag low-confidence responses.<br><br>
+<strong>📌 Output:</strong> confidence_scorer.py`,
+        deepExplanation: `
+<h3>📘 Complete Guide: Confidence Scoring</h3>
+<p style="color: #fbbf24; font-weight: bold;">📁 Your task: Help users know how confident to be</p>
+<hr>
+
+<h4>🔹 STEP 1: Create Your Branch</h4>
+<pre><code>git checkout main
+git pull origin main
+git checkout -b vinuthna/week6</code></pre>
+
+<h4>🔹 STEP 2: Your Folder Structure</h4>
+<pre style="background: #1e293b; padding: 1rem; border-radius: 8px;">
+RBAC_GP3/
+├── week 6/
+│   ├── src/
+│   │   └── <span style="background: #22c55e; color: black; padding: 2px 4px;">confidence_scorer.py</span> ← YOUR FILE
+│   └── config/
+│       └── <span style="background: #22c55e; color: black; padding: 2px 4px;">scoring_weights.json</span>  ← YOUR CONFIG
+</pre>
+
+<h4>🔹 STEP 3: Create scoring_weights.json</h4>
+<pre><code>{
+  "similarity_weight": 0.5,
+  "source_count_weight": 0.2,
+  "recency_weight": 0.1,
+  "specificity_weight": 0.2,
+  "thresholds": {
+    "high": 0.8,
+    "medium": 0.5,
+    "low": 0.3
+  }
+}</code></pre>
+
+<h4>🔹 STEP 4: Create confidence_scorer.py</h4>
+
+<p><strong>📋 Copy this ChatGPT Prompt:</strong></p>
+<div style="background: #3b82f6; color: white; padding: 1rem; border-radius: 8px; margin: 1rem 0;">
+<strong>ChatGPT Prompt (Copy-Paste This):</strong><br><br>
+"Write a Python class ConfidenceScorer that:
+1. Takes retrieved chunks with similarity scores
+2. Calculates weighted confidence score (0-1)
+3. Factors: avg_similarity, num_sources, content_specificity
+4. Returns: {score, level (high/medium/low), factors}
+5. Flags responses below threshold with warning
+6. Prints: 'Confidence: 0.85 (HIGH) ✅'"
+</div>
+
+<h4>🔹 STEP 5: Commit & Push</h4>
+<pre><code>git add .
+git commit -m "Add confidence scoring - Week 6"
+git push origin vinuthna/week6</code></pre>
+
+<hr>
+<p style="color: #22c55e; font-weight: bold;">✅ SUCCESS: Confidence scores accurately reflect answer quality.</p>
+`
+    },
+
+    // 6. Shirisha (MEDIUM) - RAG Testing
+    {
+        id: 606,
+        title: 'RAG Pipeline Testing & Validation',
+        assignee: 'Mandha Shirisha',
+        priority: 'medium',
+        status: 'not-started',
+        description: `<strong>Goal:</strong> Test complete RAG pipeline.<br><br>
+1. Create test queries for each role.<br>
+2. Validate response accuracy.<br>
+3. Test RBAC enforcement in RAG.<br>
+4. Measure end-to-end latency.<br><br>
+<strong>📌 Output:</strong> rag_tests.py + RAG_TEST_REPORT.md`,
+        deepExplanation: `
+<h3>📘 Complete Guide: RAG Pipeline Testing</h3>
+<p style="color: #fbbf24; font-weight: bold;">📁 Your task: Make sure the whole pipeline works!</p>
+<hr>
+
+<h4>🔹 STEP 1: Create Your Branch</h4>
+<pre><code>git checkout main
+git pull origin main
+git checkout -b shirisha/week6</code></pre>
+
+<h4>🔹 STEP 2: Your Folder Structure</h4>
+<pre style="background: #1e293b; padding: 1rem; border-radius: 8px;">
+RBAC_GP3/
+├── week 6/
+│   ├── tests/
+│   │   ├── <span style="background: #22c55e; color: black; padding: 2px 4px;">rag_tests.py</span>           ← YOUR FILE
+│   │   └── <span style="background: #22c55e; color: black; padding: 2px 4px;">test_queries.json</span>      ← YOUR QUERIES
+│   └── docs/
+│       └── <span style="background: #22c55e; color: black; padding: 2px 4px;">RAG_TEST_REPORT.md</span>     ← YOUR REPORT
+</pre>
+
+<h4>🔹 STEP 3: Create rag_tests.py</h4>
+
+<p><strong>📋 Copy this ChatGPT Prompt:</strong></p>
+<div style="background: #3b82f6; color: white; padding: 1rem; border-radius: 8px; margin: 1rem 0;">
+<strong>ChatGPT Prompt (Copy-Paste This):</strong><br><br>
+"Write a Python test suite for RAG pipeline that:
+1. Tests end-to-end: query → auth → retrieve → generate → cite
+2. Validates RBAC: Finance user shouldn't see HR data in response
+3. Checks citations are accurate
+4. Measures total latency (target < 3s)
+5. Tests with 10 sample queries across departments
+6. Saves results to test_results.json
+7. Prints pass/fail summary"
+</div>
+
+<h4>🔹 STEP 4: Commit & Push</h4>
+<pre><code>git add .
+git commit -m "Add RAG pipeline tests - Week 6"
+git push origin shirisha/week6</code></pre>
+
+<hr>
+<p style="color: #22c55e; font-weight: bold;">✅ SUCCESS: All RAG tests pass with < 3s latency.</p>
+`
+    },
+
+    // 7. Karthik (EASY) - Response Formatting
+    {
+        id: 607,
+        title: 'Response Formatting & Display',
+        assignee: 'Guru Karthik Reddy Marthala',
+        priority: 'low',
+        status: 'not-started',
+        description: `<strong>Goal:</strong> Format LLM responses for display.<br><br>
+1. Clean up raw LLM output.<br>
+2. Format markdown/HTML.<br>
+3. Highlight key information.<br>
+4. Structure source citations.<br><br>
+<strong>📌 Output:</strong> response_formatter.py`,
+        deepExplanation: `
+<h3>📘 Complete Guide: Response Formatting</h3>
+<p style="color: #22c55e; font-weight: bold;">📁 EASIER task - Format the output nicely!</p>
+<hr>
+
+<h4>🔹 STEP 1: Create Your Branch</h4>
+<pre><code>git checkout main
+git pull origin main
+git checkout -b karthik/week6</code></pre>
+
+<h4>🔹 STEP 2: Your Folder Structure</h4>
+<pre style="background: #1e293b; padding: 1rem; border-radius: 8px;">
+RBAC_GP3/
+├── week 6/
+│   └── src/
+│       └── <span style="background: #22c55e; color: black; padding: 2px 4px;">response_formatter.py</span> ← YOUR FILE
+</pre>
+
+<h4>🔹 STEP 3: Create response_formatter.py</h4>
+
+<p><strong>📋 Copy this ChatGPT Prompt:</strong></p>
+<div style="background: #3b82f6; color: white; padding: 1rem; border-radius: 8px; margin: 1rem 0;">
+<strong>ChatGPT Prompt (Copy-Paste This):</strong><br><br>
+"Write a Python class ResponseFormatter that:
+1. Takes raw LLM response text
+2. Converts markdown to HTML if needed
+3. Highlights important numbers/dates
+4. Formats citation references as links
+5. Adds confidence badge (high/medium/low)
+6. Returns formatted response ready for UI
+
+Simple input/output transformation."
+</div>
+
+<h4>🔹 STEP 4: Commit & Push</h4>
+<pre><code>git add .
+git commit -m "Add response formatter - Week 6"
+git push origin karthik/week6</code></pre>
+
+<hr>
+<p style="color: #22c55e; font-weight: bold;">✅ SUCCESS: Responses are nicely formatted.</p>
+`
+    },
+
+    // 8. Saranya (EASY) - Week 6 Documentation
+    {
+        id: 608,
+        title: 'Week 6 RAG Pipeline Documentation',
+        assignee: 'Sri Saranya Chandrapati',
+        priority: 'low',
+        status: 'not-started',
+        description: `<strong>Goal:</strong> Document the RAG pipeline.<br><br>
+1. Document pipeline architecture.<br>
+2. Create flow diagrams.<br>
+3. Document API endpoints.<br>
+4. Write usage examples.<br><br>
+<strong>📌 Output:</strong> RAG_PIPELINE_DOCS.md + WEEK6_SUMMARY.md`,
+        deepExplanation: `
+<h3>📘 Complete Guide: RAG Documentation</h3>
+<p style="color: #22c55e; font-weight: bold;">📁 EASIER task - Document everything!</p>
+<hr>
+
+<h4>🔹 STEP 1: Create Your Branch</h4>
+<pre><code>git checkout main
+git pull origin main
+git checkout -b saranya/week6</code></pre>
+
+<h4>🔹 STEP 2: Your Folder Structure</h4>
+<pre style="background: #1e293b; padding: 1rem; border-radius: 8px;">
+RBAC_GP3/
+├── week 6/
+│   └── docs/
+│       ├── <span style="background: #22c55e; color: black; padding: 2px 4px;">RAG_PIPELINE_DOCS.md</span>  ← YOUR FILE
+│       └── <span style="background: #22c55e; color: black; padding: 2px 4px;">WEEK6_SUMMARY.md</span>      ← YOUR FILE
+</pre>
+
+<h4>🔹 STEP 3: Create Documentation</h4>
+
+<p><strong>📋 Copy this ChatGPT Prompt:</strong></p>
+<div style="background: #3b82f6; color: white; padding: 1rem; border-radius: 8px; margin: 1rem 0;">
+<strong>ChatGPT Prompt (Copy-Paste This):</strong><br><br>
+"Create comprehensive RAG Pipeline documentation in Markdown:
+
+1. **Architecture Overview**
+   - ASCII diagram: User → Auth → Retrieve → Filter → Generate → Respond
+
+2. **Component Descriptions**
+   - LLM Client, Prompt Builder, Citation System, Confidence Scorer
+
+3. **API Reference**
+   - POST /rag/query - Full RAG pipeline
+   - Request/Response formats
+
+4. **Usage Examples**
+   - Finance user query example
+   - HR user query example
+
+5. **Configuration Guide**
+   - How to change LLM provider
+   - How to tune confidence thresholds"
+</div>
+
+<h4>🔹 STEP 4: Commit & Push</h4>
+<pre><code>git add .
+git commit -m "Add RAG pipeline documentation - Week 6"
+git push origin saranya/week6</code></pre>
+
+<hr>
+<p style="color: #22c55e; font-weight: bold;">✅ SUCCESS: Complete RAG documentation.</p>
+`
+    }
+];
+
+// =====================================================
+// WEEK 5 TASKS (Module 5: User Authentication & RBAC Middleware)
+// =====================================================
+const week5Tasks = [
+    // 1. Arshad (LEAD/HARD) - FastAPI Backend Setup
+    {
+        id: 501,
+        title: 'Initialize FastAPI Backend Application',
+        assignee: 'Arshad Pasha',
+        priority: 'high',
+        status: 'not-started',
+        description: `<strong>Goal:</strong> Set up FastAPI backend with middleware.<br><br>
+1. Initialize FastAPI project structure.<br>
+2. Configure CORS and middleware.<br>
+3. Set up routing and endpoints.<br>
+4. Integrate with existing modules.<br><br>
+<strong>📌 Output:</strong> main.py + FastAPI application structure.`,
+        deepExplanation: `
+<h3>📘 Complete Guide: FastAPI Backend Setup</h3>
+<p style="color: #f87171; font-weight: bold;">⚠️ YOU ARE THE LEAD - This is the backend foundation!</p>
+<hr>
+
+<h4>🔹 STEP 1: Create Your Branch</h4>
+<pre><code>git checkout main
+git pull origin main
+git checkout -b arshad/week5</code></pre>
+
+<h4>🔹 STEP 2: Your Folder Structure</h4>
+<p><span style="background: #22c55e; color: black; padding: 2px 6px; border-radius: 4px;">GREEN = YOUR FILES</span></p>
+<pre style="background: #1e293b; padding: 1rem; border-radius: 8px;">
+RBAC_GP3/
+├── week 5/                          ← Create this folder
+│   ├── src/
+│   │   ├── <span style="background: #22c55e; color: black; padding: 2px 4px;">main.py</span>             ← YOUR FILE (FastAPI app)
+│   │   ├── <span style="background: #22c55e; color: black; padding: 2px 4px;">config.py</span>           ← YOUR FILE (Settings)
+│   │   ├── routes/
+│   │   │   └── <span style="background: #22c55e; color: black; padding: 2px 4px;">__init__.py</span>     ← Route definitions
+│   │   └── middleware/
+│   │       └── <span style="background: #22c55e; color: black; padding: 2px 4px;">__init__.py</span>     ← Middleware setup
+│   └── requirements.txt
+</pre>
+
+<h4>🔹 STEP 3: Create main.py</h4>
+
+<p><strong>📋 Copy this ChatGPT Prompt:</strong></p>
+<div style="background: #3b82f6; color: white; padding: 1rem; border-radius: 8px; margin: 1rem 0;">
+<strong>ChatGPT Prompt (Copy-Paste This):</strong><br><br>
+"Write a FastAPI application that:
+1. Creates FastAPI app instance with title 'RBAC Chatbot API'
+2. Configures CORS for frontend access
+3. Adds logging middleware
+4. Includes routers for: /auth, /query, /health
+5. Has startup/shutdown events for DB connections
+6. Returns OpenAPI docs at /docs
+
+Include:
+- uvicorn run configuration
+- Environment variable loading
+- Proper error handlers"
+</div>
+
+<h4>🔹 STEP 4: Install Dependencies</h4>
+<pre><code>pip install fastapi uvicorn python-dotenv</code></pre>
+
+<h4>🔹 STEP 5: Run the Server</h4>
+<pre><code>cd "week 5/src"
+uvicorn main:app --reload</code></pre>
+
+<h4>🔹 STEP 6: Commit & Push</h4>
+<pre><code>git add .
+git commit -m "Add FastAPI backend setup - Week 5"
+git push origin arshad/week5</code></pre>
+
+<hr>
+<p style="color: #22c55e; font-weight: bold;">✅ SUCCESS: FastAPI running at http://localhost:8000</p>
+`
+    },
+
+    // 2. Bhargava (HARD) - JWT Authentication
+    {
+        id: 502,
+        title: 'JWT-Based Authentication System',
+        assignee: 'Kushagra Bhargava',
+        priority: 'high',
+        status: 'not-started',
+        description: `<strong>Goal:</strong> Implement secure JWT authentication.<br><br>
+1. Create JWT token generation/validation.<br>
+2. Implement login/logout endpoints.<br>
+3. Handle token refresh.<br>
+4. Secure password hashing.<br><br>
+<strong>📌 Output:</strong> auth.py with JWT implementation.`,
+        deepExplanation: `
+<h3>📘 Complete Guide: JWT Authentication</h3>
+<p style="color: #f87171; font-weight: bold;">⚠️ SECURITY CRITICAL - Handle with care!</p>
+<hr>
+
+<h4>🔹 STEP 1: Create Your Branch</h4>
+<pre><code>git checkout main
+git pull origin main
+git checkout -b bhargava/week5</code></pre>
+
+<h4>🔹 STEP 2: Your Folder Structure</h4>
+<pre style="background: #1e293b; padding: 1rem; border-radius: 8px;">
+RBAC_GP3/
+├── week 5/
+│   ├── src/
+│   │   └── auth/
+│   │       ├── <span style="background: #22c55e; color: black; padding: 2px 4px;">jwt_handler.py</span>   ← YOUR FILE
+│   │       ├── <span style="background: #22c55e; color: black; padding: 2px 4px;">password.py</span>      ← YOUR FILE
+│   │       └── <span style="background: #22c55e; color: black; padding: 2px 4px;">routes.py</span>        ← YOUR FILE
+│   └── config/
+│       └── <span style="background: #22c55e; color: black; padding: 2px 4px;">auth_config.json</span>     ← YOUR CONFIG
+</pre>
+
+<h4>🔹 STEP 3: Create auth_config.json</h4>
+<pre><code>{
+  "secret_key": "your-secret-key-here",
+  "algorithm": "HS256",
+  "access_token_expire_minutes": 30,
+  "refresh_token_expire_days": 7
+}</code></pre>
+
+<h4>🔹 STEP 4: Create jwt_handler.py</h4>
+
+<p><strong>📋 Copy this ChatGPT Prompt:</strong></p>
+<div style="background: #3b82f6; color: white; padding: 1rem; border-radius: 8px; margin: 1rem 0;">
+<strong>ChatGPT Prompt (Copy-Paste This):</strong><br><br>
+"Write Python JWT authentication module that:
+1. Uses PyJWT library
+2. Creates access and refresh tokens
+3. Encodes user_id, role, exp in token
+4. Validates tokens and returns payload
+5. Handles expired/invalid tokens with proper errors
+6. Uses bcrypt for password hashing
+
+Functions:
+- create_access_token(user_id, role)
+- create_refresh_token(user_id)
+- verify_token(token)
+- hash_password(password)
+- verify_password(plain, hashed)"
+</div>
+
+<h4>🔹 STEP 5: Install Dependencies</h4>
+<pre><code>pip install PyJWT bcrypt passlib</code></pre>
+
+<h4>🔹 STEP 6: Commit & Push</h4>
+<pre><code>git add .
+git commit -m "Add JWT authentication - Week 5"
+git push origin bhargava/week5</code></pre>
+
+<hr>
+<p style="color: #22c55e; font-weight: bold;">✅ SUCCESS: Secure JWT auth working.</p>
+`
+    },
+
+    // 3. Kavya (HARD) - RBAC Middleware
+    {
+        id: 503,
+        title: 'RBAC Middleware & Permission Verification',
+        assignee: 'Kavya Ghantasala',
+        priority: 'high',
+        status: 'not-started',
+        description: `<strong>Goal:</strong> Build RBAC middleware for endpoints.<br><br>
+1. Create middleware to check permissions.<br>
+2. Verify role before endpoint access.<br>
+3. Block unauthorized requests.<br>
+4. Log access attempts.<br><br>
+<strong>📌 Output:</strong> rbac_middleware.py`,
+        deepExplanation: `
+<h3>📘 Complete Guide: RBAC Middleware</h3>
+<p style="color: #f87171; font-weight: bold;">⚠️ SECURITY CRITICAL - Protects all endpoints!</p>
+<hr>
+
+<h4>🔹 STEP 1: Create Your Branch</h4>
+<pre><code>git checkout main
+git pull origin main
+git checkout -b kavya/week5</code></pre>
+
+<h4>🔹 STEP 2: Your Folder Structure</h4>
+<pre style="background: #1e293b; padding: 1rem; border-radius: 8px;">
+RBAC_GP3/
+├── week 5/
+│   ├── src/
+│   │   └── middleware/
+│   │       ├── <span style="background: #22c55e; color: black; padding: 2px 4px;">rbac_middleware.py</span>  ← YOUR FILE
+│   │       └── <span style="background: #22c55e; color: black; padding: 2px 4px;">dependencies.py</span>     ← YOUR FILE
+│   └── config/
+│       └── <span style="background: #22c55e; color: black; padding: 2px 4px;">permissions.json</span>        ← YOUR CONFIG
+</pre>
+
+<h4>🔹 STEP 3: Create permissions.json</h4>
+<pre><code>{
+  "endpoints": {
+    "/query/finance": ["finance", "c-level"],
+    "/query/hr": ["hr", "c-level"],
+    "/query/marketing": ["marketing", "c-level"],
+    "/query/general": ["employees", "finance", "hr", "marketing", "engineering", "c-level"]
+  }
+}</code></pre>
+
+<h4>🔹 STEP 4: Create rbac_middleware.py</h4>
+
+<p><strong>📋 Copy this ChatGPT Prompt:</strong></p>
+<div style="background: #3b82f6; color: white; padding: 1rem; border-radius: 8px; margin: 1rem 0;">
+<strong>ChatGPT Prompt (Copy-Paste This):</strong><br><br>
+"Write FastAPI RBAC middleware that:
+1. Extracts JWT from Authorization header
+2. Decodes token to get user role
+3. Checks if role is allowed for the requested endpoint
+4. Returns 403 Forbidden if unauthorized
+5. Logs all access attempts (allowed/denied)
+6. Uses FastAPI Depends() for injection
+
+Create decorator: @require_role(['finance', 'c-level'])"
+</div>
+
+<h4>🔹 STEP 5: Commit & Push</h4>
+<pre><code>git add .
+git commit -m "Add RBAC middleware - Week 5"
+git push origin kavya/week5</code></pre>
+
+<hr>
+<p style="color: #22c55e; font-weight: bold;">✅ SUCCESS: RBAC blocks unauthorized access.</p>
+`
+    },
+
+    // 4. Joshika (MEDIUM) - User Database
+    {
+        id: 504,
+        title: 'User Database & Data Storage',
+        assignee: 'Depuru Joshika Reddy',
+        priority: 'medium',
+        status: 'not-started',
+        description: `<strong>Goal:</strong> Set up SQLite user database.<br><br>
+1. Create user table schema.<br>
+2. Implement CRUD operations.<br>
+3. Add sample user accounts.<br>
+4. Hash stored passwords.<br><br>
+<strong>📌 Output:</strong> database.py + users.db`,
+        deepExplanation: `
+<h3>📘 Complete Guide: User Database</h3>
+<p style="color: #fbbf24; font-weight: bold;">📁 Your task: Store user data securely</p>
+<hr>
+
+<h4>🔹 STEP 1: Create Your Branch</h4>
+<pre><code>git checkout main
+git pull origin main
+git checkout -b joshika/week5</code></pre>
+
+<h4>🔹 STEP 2: Your Folder Structure</h4>
+<pre style="background: #1e293b; padding: 1rem; border-radius: 8px;">
+RBAC_GP3/
+├── week 5/
+│   ├── src/
+│   │   └── database/
+│   │       ├── <span style="background: #22c55e; color: black; padding: 2px 4px;">database.py</span>     ← YOUR FILE
+│   │       ├── <span style="background: #22c55e; color: black; padding: 2px 4px;">models.py</span>       ← YOUR FILE
+│   │       └── <span style="background: #22c55e; color: black; padding: 2px 4px;">seed_data.py</span>    ← YOUR FILE
+│   └── data/
+│       └── <span style="background: #22c55e; color: black; padding: 2px 4px;">users.db</span>            ← YOUR OUTPUT
+</pre>
+
+<h4>🔹 STEP 3: Create database.py</h4>
+
+<p><strong>📋 Copy this ChatGPT Prompt:</strong></p>
+<div style="background: #3b82f6; color: white; padding: 1rem; border-radius: 8px; margin: 1rem 0;">
+<strong>ChatGPT Prompt (Copy-Paste This):</strong><br><br>
+"Write Python SQLite database module that:
+1. Creates users table: id, username, email, password_hash, role, created_at
+2. Has CRUD functions: create_user, get_user, update_user, delete_user
+3. Includes seed_data.py with sample users for each role
+4. Uses SQLAlchemy ORM
+5. Passwords are hashed (never stored plain)
+
+Sample users to create:
+- admin@company.com (c-level)
+- finance@company.com (finance)
+- hr@company.com (hr)
+- marketing@company.com (marketing)
+- employee@company.com (employees)"
+</div>
+
+<h4>🔹 STEP 4: Commit & Push</h4>
+<pre><code>git add .
+git commit -m "Add user database - Week 5"
+git push origin joshika/week5</code></pre>
+
+<hr>
+<p style="color: #22c55e; font-weight: bold;">✅ SUCCESS: User database with sample accounts.</p>
+`
+    },
+
+    // 5. Vinuthna (MEDIUM) - Access Audit Logging
+    {
+        id: 505,
+        title: 'Access Audit Logging System',
+        assignee: 'Vinuthna Jangam',
+        priority: 'medium',
+        status: 'not-started',
+        description: `<strong>Goal:</strong> Log all access attempts for audit.<br><br>
+1. Log login attempts (success/fail).<br>
+2. Log endpoint access with role.<br>
+3. Log permission denials.<br>
+4. Create audit report generator.<br><br>
+<strong>📌 Output:</strong> audit_logger.py + audit.log`,
+        deepExplanation: `
+<h3>📘 Complete Guide: Audit Logging</h3>
+<p style="color: #fbbf24; font-weight: bold;">📁 Your task: Track all access for security</p>
+<hr>
+
+<h4>🔹 STEP 1: Create Your Branch</h4>
+<pre><code>git checkout main
+git pull origin main
+git checkout -b vinuthna/week5</code></pre>
+
+<h4>🔹 STEP 2: Your Folder Structure</h4>
+<pre style="background: #1e293b; padding: 1rem; border-radius: 8px;">
+RBAC_GP3/
+├── week 5/
+│   ├── src/
+│   │   └── <span style="background: #22c55e; color: black; padding: 2px 4px;">audit_logger.py</span>  ← YOUR FILE
+│   └── logs/
+│       └── <span style="background: #22c55e; color: black; padding: 2px 4px;">audit.log</span>        ← YOUR OUTPUT
+</pre>
+
+<h4>🔹 STEP 3: Create audit_logger.py</h4>
+
+<p><strong>📋 Copy this ChatGPT Prompt:</strong></p>
+<div style="background: #3b82f6; color: white; padding: 1rem; border-radius: 8px; margin: 1rem 0;">
+<strong>ChatGPT Prompt (Copy-Paste This):</strong><br><br>
+"Write Python audit logging module that:
+1. Logs to both file and console
+2. Logs: timestamp, user_id, role, action, endpoint, status
+3. Has methods: log_login, log_access, log_denial
+4. Rotates log files daily
+5. Creates summary report function
+6. Format: [2024-01-19 10:30:00] [INFO] user=123 role=finance action=query endpoint=/query/finance status=allowed"
+</div>
+
+<h4>🔹 STEP 4: Commit & Push</h4>
+<pre><code>git add .
+git commit -m "Add audit logging - Week 5"
+git push origin vinuthna/week5</code></pre>
+
+<hr>
+<p style="color: #22c55e; font-weight: bold;">✅ SUCCESS: All access is logged for audit.</p>
+`
+    },
+
+    // 6. Shirisha (MEDIUM) - Authentication Testing
+    {
+        id: 506,
+        title: 'Authentication & Authorization Testing',
+        assignee: 'Mandha Shirisha',
+        priority: 'medium',
+        status: 'not-started',
+        description: `<strong>Goal:</strong> Test auth system thoroughly.<br><br>
+1. Test login/logout flows.<br>
+2. Test JWT token validation.<br>
+3. Test RBAC permission checks.<br>
+4. Document test results.<br><br>
+<strong>📌 Output:</strong> auth_tests.py + AUTH_TEST_REPORT.md`,
+        deepExplanation: `
+<h3>📘 Complete Guide: Auth Testing</h3>
+<p style="color: #fbbf24; font-weight: bold;">📁 Your task: Make sure auth is bulletproof!</p>
+<hr>
+
+<h4>🔹 STEP 1: Create Your Branch</h4>
+<pre><code>git checkout main
+git pull origin main
+git checkout -b shirisha/week5</code></pre>
+
+<h4>🔹 STEP 2: Your Folder Structure</h4>
+<pre style="background: #1e293b; padding: 1rem; border-radius: 8px;">
+RBAC_GP3/
+├── week 5/
+│   ├── tests/
+│   │   ├── <span style="background: #22c55e; color: black; padding: 2px 4px;">auth_tests.py</span>        ← YOUR FILE
+│   │   └── <span style="background: #22c55e; color: black; padding: 2px 4px;">test_config.json</span>     ← YOUR CONFIG
+│   └── docs/
+│       └── <span style="background: #22c55e; color: black; padding: 2px 4px;">AUTH_TEST_REPORT.md</span>  ← YOUR REPORT
+</pre>
+
+<h4>🔹 STEP 3: Create auth_tests.py</h4>
+
+<p><strong>📋 Copy this ChatGPT Prompt:</strong></p>
+<div style="background: #3b82f6; color: white; padding: 1rem; border-radius: 8px; margin: 1rem 0;">
+<strong>ChatGPT Prompt (Copy-Paste This):</strong><br><br>
+"Write pytest test suite for authentication that tests:
+1. Login with valid credentials → returns JWT
+2. Login with invalid password → 401 error
+3. Access protected endpoint with valid token → 200
+4. Access protected endpoint without token → 401
+5. Access finance endpoint as HR user → 403
+6. Access finance endpoint as C-Level → 200
+7. Expired token → 401
+
+Use httpx or requests library, print pass/fail summary."
+</div>
+
+<h4>🔹 STEP 4: Commit & Push</h4>
+<pre><code>git add .
+git commit -m "Add auth tests - Week 5"
+git push origin shirisha/week5</code></pre>
+
+<hr>
+<p style="color: #22c55e; font-weight: bold;">✅ SUCCESS: All auth tests pass.</p>
+`
+    },
+
+    // 7. Karthik (EASY) - Login Endpoints
+    {
+        id: 507,
+        title: 'Login & Session Endpoints',
+        assignee: 'Guru Karthik Reddy Marthala',
+        priority: 'low',
+        status: 'not-started',
+        description: `<strong>Goal:</strong> Create basic login endpoints.<br><br>
+1. POST /auth/login endpoint.<br>
+2. POST /auth/logout endpoint.<br>
+3. GET /auth/me (current user).<br>
+4. POST /auth/refresh token.<br><br>
+<strong>📌 Output:</strong> auth_routes.py`,
+        deepExplanation: `
+<h3>📘 Complete Guide: Auth Endpoints</h3>
+<p style="color: #22c55e; font-weight: bold;">📁 EASIER task - Create standard auth routes!</p>
+<hr>
+
+<h4>🔹 STEP 1: Create Your Branch</h4>
+<pre><code>git checkout main
+git pull origin main
+git checkout -b karthik/week5</code></pre>
+
+<h4>🔹 STEP 2: Your Folder Structure</h4>
+<pre style="background: #1e293b; padding: 1rem; border-radius: 8px;">
+RBAC_GP3/
+├── week 5/
+│   └── src/
+│       └── routes/
+│           └── <span style="background: #22c55e; color: black; padding: 2px 4px;">auth_routes.py</span>  ← YOUR FILE
+</pre>
+
+<h4>🔹 STEP 3: Create auth_routes.py</h4>
+
+<p><strong>📋 Copy this ChatGPT Prompt:</strong></p>
+<div style="background: #3b82f6; color: white; padding: 1rem; border-radius: 8px; margin: 1rem 0;">
+<strong>ChatGPT Prompt (Copy-Paste This):</strong><br><br>
+"Write FastAPI auth routes that:
+1. POST /auth/login - takes username/password, returns JWT
+2. POST /auth/logout - invalidates token
+3. GET /auth/me - returns current user info from token
+4. POST /auth/refresh - exchanges refresh token for new access token
+
+Use Pydantic models for request/response schemas.
+Import and use jwt_handler from Bhargava's code."
+</div>
+
+<h4>🔹 STEP 4: Commit & Push</h4>
+<pre><code>git add .
+git commit -m "Add auth routes - Week 5"
+git push origin karthik/week5</code></pre>
+
+<hr>
+<p style="color: #22c55e; font-weight: bold;">✅ SUCCESS: Auth endpoints working.</p>
+`
+    },
+
+    // 8. Saranya (EASY) - Week 5 Documentation
+    {
+        id: 508,
+        title: 'Week 5 Authentication Documentation',
+        assignee: 'Sri Saranya Chandrapati',
+        priority: 'low',
+        status: 'not-started',
+        description: `<strong>Goal:</strong> Document the authentication system.<br><br>
+1. Document auth flow with diagrams.<br>
+2. API endpoint reference.<br>
+3. Security best practices.<br>
+4. Week 5 summary report.<br><br>
+<strong>📌 Output:</strong> AUTH_DOCS.md + WEEK5_SUMMARY.md`,
+        deepExplanation: `
+<h3>📘 Complete Guide: Auth Documentation</h3>
+<p style="color: #22c55e; font-weight: bold;">📁 EASIER task - Document the auth system!</p>
+<hr>
+
+<h4>🔹 STEP 1: Create Your Branch</h4>
+<pre><code>git checkout main
+git pull origin main
+git checkout -b saranya/week5</code></pre>
+
+<h4>🔹 STEP 2: Your Folder Structure</h4>
+<pre style="background: #1e293b; padding: 1rem; border-radius: 8px;">
+RBAC_GP3/
+├── week 5/
+│   └── docs/
+│       ├── <span style="background: #22c55e; color: black; padding: 2px 4px;">AUTH_DOCS.md</span>       ← YOUR FILE
+│       └── <span style="background: #22c55e; color: black; padding: 2px 4px;">WEEK5_SUMMARY.md</span>   ← YOUR FILE
+</pre>
+
+<h4>🔹 STEP 3: Create Documentation</h4>
+
+<p><strong>📋 Copy this ChatGPT Prompt:</strong></p>
+<div style="background: #3b82f6; color: white; padding: 1rem; border-radius: 8px; margin: 1rem 0;">
+<strong>ChatGPT Prompt (Copy-Paste This):</strong><br><br>
+"Create comprehensive Authentication documentation in Markdown:
+
+1. **Authentication Flow**
+   - ASCII diagram: Login → JWT → Request → Verify → Access
+
+2. **API Endpoints**
+   - POST /auth/login
+   - POST /auth/logout
+   - GET /auth/me
+   - POST /auth/refresh
+
+3. **JWT Token Structure**
+   - Header, Payload, Signature explanation
+
+4. **RBAC Permission Matrix**
+   - Which roles can access which endpoints
+
+5. **Security Considerations**
+   - Token expiration
+   - Password hashing
+   - HTTPS requirement"
+</div>
+
+<h4>🔹 STEP 4: Commit & Push</h4>
+<pre><code>git add .
+git commit -m "Add authentication documentation - Week 5"
+git push origin saranya/week5</code></pre>
+
+<hr>
+<p style="color: #22c55e; font-weight: bold;">✅ SUCCESS: Complete auth documentation.</p>
+`
+    }
 ];
 
 // =====================================================
@@ -1988,8 +3074,8 @@ const week1Tasks = [
     }
 ];
 
-// Combine all tasks (Milestone 2 first, then Milestone 1)
-const defaultTasks = [...week4Tasks, ...week3Tasks, ...week2Tasks, ...week1Tasks];
+// Combine all tasks (Milestone 3 first, then Milestone 2, then Milestone 1)
+const defaultTasks = [...week6Tasks, ...week5Tasks, ...week4Tasks, ...week3Tasks, ...week2Tasks, ...week1Tasks];
 
 // STATE
 let tasks = [];
@@ -1998,7 +3084,9 @@ let editingTaskId = null;
 let week1Collapsed = true;
 let week2Collapsed = true;
 let week3Collapsed = true;
-let week4Collapsed = false;
+let week4Collapsed = true;
+let week5Collapsed = true;
+let week6Collapsed = true;
 
 // DOM Elements
 const taskModal = document.getElementById('taskModal');
@@ -2020,7 +3108,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 function loadTasks() {
-    const stored = localStorage.getItem('rbac_tasks_milestone2_v1');
+    const stored = localStorage.getItem('rbac_tasks_milestone3_v1');
     if (stored) {
         tasks = JSON.parse(stored);
     } else {
@@ -2032,18 +3120,19 @@ function loadTasks() {
 }
 
 function saveTasks() {
-    localStorage.setItem('rbac_tasks_milestone2_v1', JSON.stringify(tasks));
+    localStorage.setItem('rbac_tasks_milestone3_v1', JSON.stringify(tasks));
     renderTasks();
     updateStats();
 }
 
 function seedDatabase() {
-    if (confirm("Reload ALL tasks with NEW Milestone 2 guides? This resets changes.")) {
+    if (confirm("Reload ALL tasks with Milestone 3 (Weeks 5-6)? This resets all changes.")) {
         // Clear old localStorage
         localStorage.removeItem('rbac_tasks_milestone1_v3');
+        localStorage.removeItem('rbac_tasks_milestone2_v1');
         tasks = [...defaultTasks];
         saveTasks();
-        alert("Tasks reloaded with Milestone 2 (Week 3 & 4)!");
+        alert("Tasks reloaded with all 3 Milestones (Weeks 1-6)!");
     }
 }
 window.seedDatabase = seedDatabase;
@@ -2116,6 +3205,10 @@ function toggleWeek(weekNum) {
         week3Collapsed = !week3Collapsed;
     } else if (weekNum === 4) {
         week4Collapsed = !week4Collapsed;
+    } else if (weekNum === 5) {
+        week5Collapsed = !week5Collapsed;
+    } else if (weekNum === 6) {
+        week6Collapsed = !week6Collapsed;
     }
     renderTasks();
 }
@@ -2144,15 +3237,48 @@ function handleFormSubmit(e) {
 
 // RENDER
 function renderTasks() {
+    const week6 = tasks.filter(t => t.id >= 600 && t.id < 700);
+    const week5 = tasks.filter(t => t.id >= 500 && t.id < 600);
     const week4 = tasks.filter(t => t.id >= 400 && t.id < 500);
     const week3 = tasks.filter(t => t.id >= 300 && t.id < 400);
     const week2 = tasks.filter(t => t.id >= 200 && t.id < 300);
     const week1 = tasks.filter(t => t.id >= 100 && t.id < 200);
 
     let html = `
-    <!-- MILESTONE 2: Backend Auth & Search (Current) -->
-    <div class="milestone-header">
-        <h2>🎯 Milestone 2: Backend Auth & Search (Weeks 3-4)</h2>
+    <!-- MILESTONE 3: RAG Pipeline & LLM (Not Started) -->
+    <div class="milestone-header" style="background: linear-gradient(135deg, rgba(148, 163, 184, 0.15), rgba(100, 116, 139, 0.1)); border-color: rgba(148, 163, 184, 0.3);">
+        <h2 style="color: #94a3b8;">⏳ Milestone 3: RAG Pipeline & LLM (Weeks 5-6) - NOT STARTED</h2>
+    </div>
+
+    <!-- WEEK 5 (Not Started) -->
+    <div class="week-section">
+        <div class="week-header" onclick="toggleWeek(5)">
+            <span class="week-toggle">${week5Collapsed ? '▶' : '▼'}</span>
+            <h3>📅 Week 5: User Authentication & RBAC Middleware</h3>
+            <span class="week-status" style="background: rgba(148, 163, 184, 0.2); color: #94a3b8; border: 1px solid rgba(148, 163, 184, 0.4);">⏳ Not Started</span>
+            <span class="task-count">${week5.length} tasks</span>
+        </div>
+        <div class="week-tasks ${week5Collapsed ? 'collapsed' : ''}">
+            ${week5.map(task => createTaskHTML(task)).join('')}
+        </div>
+    </div>
+
+    <!-- WEEK 6 (Not Started) -->
+    <div class="week-section">
+        <div class="week-header" onclick="toggleWeek(6)">
+            <span class="week-toggle">${week6Collapsed ? '▶' : '▼'}</span>
+            <h3>📅 Week 6: RAG Pipeline & LLM Integration</h3>
+            <span class="week-status" style="background: rgba(148, 163, 184, 0.2); color: #94a3b8; border: 1px solid rgba(148, 163, 184, 0.4);">⏳ Not Started</span>
+            <span class="task-count">${week6.length} tasks</span>
+        </div>
+        <div class="week-tasks ${week6Collapsed ? 'collapsed' : ''}">
+            ${week6.map(task => createTaskHTML(task)).join('')}
+        </div>
+    </div>
+
+    <!-- MILESTONE 2: Backend Auth & Search (In Progress) -->
+    <div class="milestone-header" style="margin-top: 3rem;">
+        <h2>🎯 Milestone 2: Backend Auth & Search (Weeks 3-4) - IN PROGRESS</h2>
     </div>
 
     <!-- WEEK 3 (Completed) -->
@@ -2168,7 +3294,7 @@ function renderTasks() {
         </div>
     </div>
 
-    <!-- WEEK 4 (In Progress - Current) -->
+    <!-- WEEK 4 (In Progress) -->
     <div class="week-section">
         <div class="week-header" onclick="toggleWeek(4)">
             <span class="week-toggle">${week4Collapsed ? '▶' : '▼'}</span>
@@ -2229,6 +3355,8 @@ function createTaskHTML(task) {
         statusBadge = `<span style="background: rgba(34, 197, 94, 0.2); color: #22c55e; padding: 4px 10px; border-radius: 9999px; font-size: 0.75rem; font-weight: 600; border: 1px solid rgba(34, 197, 94, 0.4);">✅ Completed</span>`;
     } else if (task.status === 'in-progress') {
         statusBadge = `<span style="background: rgba(59, 130, 246, 0.2); color: #3b82f6; padding: 4px 10px; border-radius: 9999px; font-size: 0.75rem; font-weight: 600; border: 1px solid rgba(59, 130, 246, 0.4);">🔵 In Progress</span>`;
+    } else if (task.status === 'not-started') {
+        statusBadge = `<span style="background: rgba(148, 163, 184, 0.2); color: #94a3b8; padding: 4px 10px; border-radius: 9999px; font-size: 0.75rem; font-weight: 600; border: 1px solid rgba(148, 163, 184, 0.4);">⏳ Not Started</span>`;
     }
 
     return `
