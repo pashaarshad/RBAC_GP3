@@ -1,8 +1,6 @@
-// RBAC Group 3 - Offline Task Manager (Manual Mode)
-// ---------------------------------------------------------
 // Milestone 1: Data Preparation & Vector DB (Weeks 1-2) ✅ COMPLETED
-// Milestone 2: Backend Auth & Search (Weeks 3-4) 🔵 IN PROGRESS
-// Milestone 3: RAG Pipeline & LLM (Weeks 5-6) ⏳ NOT STARTED
+// Milestone 2: Backend Auth & Search (Weeks 3-4) ✅ COMPLETED
+// Milestone 3: RAG Pipeline & LLM (Weeks 5-6) ✅ COMPLETED
 // ---------------------------------------------------------
 
 // Team Members
@@ -22,7 +20,7 @@ const week6Tasks = [
         title: 'Implement Complete RAG Pipeline',
         assignee: 'Arshad Pasha',
         priority: 'high',
-        status: 'not-started',
+        status: 'completed',
         description: `<strong>Goal:</strong> Build the full RAG pipeline with role-based filtering.<br><br>
 1. Authenticate user and get role.<br>
 2. Filter documents by role permissions.<br>
@@ -103,7 +101,7 @@ git push origin arshad/week6</code></pre>
         title: 'LLM Integration & API Management',
         assignee: 'Kushagra Bhargava',
         priority: 'high',
-        status: 'not-started',
+        status: 'completed',
         description: `<strong>Goal:</strong> Integrate free LLM for response generation.<br><br>
 1. Select and configure LLM (HuggingFace/OpenAI free tier).<br>
 2. Create API wrapper for LLM calls.<br>
@@ -175,7 +173,7 @@ git push origin bhargava/week6</code></pre>
         title: 'System Prompts & Context Templates',
         assignee: 'Kavya Ghantasala',
         priority: 'high',
-        status: 'not-started',
+        status: 'completed',
         description: `<strong>Goal:</strong> Design effective prompts for RAG.<br><br>
 1. Create system prompt templates.<br>
 2. Design context injection format.<br>
@@ -248,7 +246,7 @@ git push origin kavya/week6</code></pre>
         title: 'Source Citation & Document Attribution',
         assignee: 'Depuru Joshika Reddy',
         priority: 'medium',
-        status: 'not-started',
+        status: 'completed',
         description: `<strong>Goal:</strong> Add source citations to responses.<br><br>
 1. Extract source metadata from chunks.<br>
 2. Format citations in response.<br>
@@ -309,7 +307,7 @@ git push origin joshika/week6</code></pre>
         title: 'Confidence Scoring & Relevance Metrics',
         assignee: 'Vinuthna Jangam',
         priority: 'medium',
-        status: 'not-started',
+        status: 'completed',
         description: `<strong>Goal:</strong> Calculate confidence scores for responses.<br><br>
 1. Score based on retrieval similarity.<br>
 2. Factor in source reliability.<br>
@@ -379,7 +377,7 @@ git push origin vinuthna/week6</code></pre>
         title: 'RAG Pipeline Testing & Validation',
         assignee: 'Mandha Shirisha',
         priority: 'medium',
-        status: 'not-started',
+        status: 'completed',
         description: `<strong>Goal:</strong> Test complete RAG pipeline.<br><br>
 1. Create test queries for each role.<br>
 2. Validate response accuracy.<br>
@@ -438,7 +436,7 @@ git push origin shirisha/week6</code></pre>
         title: 'Response Formatting & Display',
         assignee: 'Guru Karthik Reddy Marthala',
         priority: 'low',
-        status: 'not-started',
+        status: 'completed',
         description: `<strong>Goal:</strong> Format LLM responses for display.<br><br>
 1. Clean up raw LLM output.<br>
 2. Format markdown/HTML.<br>
@@ -495,7 +493,7 @@ git push origin karthik/week6</code></pre>
         title: 'Week 6 RAG Pipeline Documentation',
         assignee: 'Sri Saranya Chandrapati',
         priority: 'low',
-        status: 'not-started',
+        status: 'completed',
         description: `<strong>Goal:</strong> Document the RAG pipeline.<br><br>
 1. Document pipeline architecture.<br>
 2. Create flow diagrams.<br>
@@ -568,7 +566,7 @@ const week5Tasks = [
         title: 'Initialize FastAPI Backend Application',
         assignee: 'Arshad Pasha',
         priority: 'high',
-        status: 'not-started',
+        status: 'completed',
         description: `<strong>Goal:</strong> Set up FastAPI backend with middleware.<br><br>
 1. Initialize FastAPI project structure.<br>
 2. Configure CORS and middleware.<br>
@@ -642,7 +640,7 @@ git push origin arshad/week5</code></pre>
         title: 'JWT-Based Authentication System',
         assignee: 'Kushagra Bhargava',
         priority: 'high',
-        status: 'not-started',
+        status: 'completed',
         description: `<strong>Goal:</strong> Implement secure JWT authentication.<br><br>
 1. Create JWT token generation/validation.<br>
 2. Implement login/logout endpoints.<br>
@@ -720,7 +718,7 @@ git push origin bhargava/week5</code></pre>
         title: 'RBAC Middleware & Permission Verification',
         assignee: 'Kavya Ghantasala',
         priority: 'high',
-        status: 'not-started',
+        status: 'completed',
         description: `<strong>Goal:</strong> Build RBAC middleware for endpoints.<br><br>
 1. Create middleware to check permissions.<br>
 2. Verify role before endpoint access.<br>
@@ -791,7 +789,7 @@ git push origin kavya/week5</code></pre>
         title: 'User Database & Data Storage',
         assignee: 'Depuru Joshika Reddy',
         priority: 'medium',
-        status: 'not-started',
+        status: 'completed',
         description: `<strong>Goal:</strong> Set up SQLite user database.<br><br>
 1. Create user table schema.<br>
 2. Implement CRUD operations.<br>
@@ -857,7 +855,7 @@ git push origin joshika/week5</code></pre>
         title: 'Access Audit Logging System',
         assignee: 'Vinuthna Jangam',
         priority: 'medium',
-        status: 'not-started',
+        status: 'completed',
         description: `<strong>Goal:</strong> Log all access attempts for audit.<br><br>
 1. Log login attempts (success/fail).<br>
 2. Log endpoint access with role.<br>
@@ -914,7 +912,7 @@ git push origin vinuthna/week5</code></pre>
         title: 'Authentication & Authorization Testing',
         assignee: 'Mandha Shirisha',
         priority: 'medium',
-        status: 'not-started',
+        status: 'completed',
         description: `<strong>Goal:</strong> Test auth system thoroughly.<br><br>
 1. Test login/logout flows.<br>
 2. Test JWT token validation.<br>
@@ -975,7 +973,7 @@ git push origin shirisha/week5</code></pre>
         title: 'Login & Session Endpoints',
         assignee: 'Guru Karthik Reddy Marthala',
         priority: 'low',
-        status: 'not-started',
+        status: 'completed',
         description: `<strong>Goal:</strong> Create basic login endpoints.<br><br>
 1. POST /auth/login endpoint.<br>
 2. POST /auth/logout endpoint.<br>
@@ -1032,7 +1030,7 @@ git push origin karthik/week5</code></pre>
         title: 'Week 5 Authentication Documentation',
         assignee: 'Sri Saranya Chandrapati',
         priority: 'low',
-        status: 'not-started',
+        status: 'completed',
         description: `<strong>Goal:</strong> Document the authentication system.<br><br>
 1. Document auth flow with diagrams.<br>
 2. API endpoint reference.<br>
@@ -1282,7 +1280,7 @@ git push origin bhargava/week4</code></pre>
         title: 'Relevant Chunk Selection Algorithm',
         assignee: 'Guru Karthik Reddy Marthala',
         priority: 'medium',
-        status: 'in-progress',
+        status: 'completed',
         description: `<strong>Goal:</strong> Select most relevant chunks for each query.<br><br>
 1. Implement similarity scoring with thresholds.<br>
 2. Rank chunks by relevance score.<br>
@@ -1352,7 +1350,7 @@ git push origin karthik/week4</code></pre>
         title: 'Role Permission Validation & Testing',
         assignee: 'Kavya Ghantasala',
         priority: 'high',
-        status: 'in-progress',
+        status: 'completed',
         description: `<strong>Goal:</strong> Test and validate role-based access.<br><br>
 1. Create test cases for each role.<br>
 2. Verify Finance cannot access HR docs.<br>
@@ -1427,7 +1425,7 @@ git push origin kavya/week4</code></pre>
         title: 'Integrate Search Pipeline Components',
         assignee: 'Mandha Shirisha',
         priority: 'medium',
-        status: 'in-progress',
+        status: 'completed',
         description: `<strong>Goal:</strong> Combine all search components into pipeline.<br><br>
 1. Integrate query processor → embedding → search → RBAC filter.<br>
 2. Create unified search interface.<br>
@@ -3108,7 +3106,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 function loadTasks() {
-    const stored = localStorage.getItem('rbac_tasks_milestone3_v1');
+    const stored = localStorage.getItem('rbac_tasks_milestone3_v2');
     if (stored) {
         tasks = JSON.parse(stored);
     } else {
@@ -3120,7 +3118,7 @@ function loadTasks() {
 }
 
 function saveTasks() {
-    localStorage.setItem('rbac_tasks_milestone3_v1', JSON.stringify(tasks));
+    localStorage.setItem('rbac_tasks_milestone3_v2', JSON.stringify(tasks));
     renderTasks();
     updateStats();
 }
@@ -3130,6 +3128,7 @@ function seedDatabase() {
         // Clear old localStorage
         localStorage.removeItem('rbac_tasks_milestone1_v3');
         localStorage.removeItem('rbac_tasks_milestone2_v1');
+        localStorage.removeItem('rbac_tasks_milestone3_v1');
         tasks = [...defaultTasks];
         saveTasks();
         alert("Tasks reloaded with all 3 Milestones (Weeks 1-6)!");
@@ -3245,30 +3244,17 @@ function renderTasks() {
     const week1 = tasks.filter(t => t.id >= 100 && t.id < 200);
 
     let html = `
-    <!-- MILESTONE 3: RAG Pipeline & LLM (Not Started) -->
-    <div class="milestone-header" style="background: linear-gradient(135deg, rgba(148, 163, 184, 0.15), rgba(100, 116, 139, 0.1)); border-color: rgba(148, 163, 184, 0.3);">
-        <h2 style="color: #94a3b8;">⏳ Milestone 3: RAG Pipeline & LLM (Weeks 5-6) - NOT STARTED</h2>
+    <!-- MILESTONE 3: RAG Pipeline & LLM (Completed) -->
+    <div class="milestone-header" style="background: linear-gradient(135deg, rgba(34, 197, 94, 0.15), rgba(22, 163, 74, 0.1)); border-color: rgba(34, 197, 94, 0.3);">
+        <h2 style="color: #22c55e;">✅ Milestone 3: RAG Pipeline & LLM (Weeks 5-6) - COMPLETED</h2>
     </div>
 
-    <!-- WEEK 5 (Not Started) -->
-    <div class="week-section">
-        <div class="week-header" onclick="toggleWeek(5)">
-            <span class="week-toggle">${week5Collapsed ? '▶' : '▼'}</span>
-            <h3>📅 Week 5: User Authentication & RBAC Middleware</h3>
-            <span class="week-status" style="background: rgba(148, 163, 184, 0.2); color: #94a3b8; border: 1px solid rgba(148, 163, 184, 0.4);">⏳ Not Started</span>
-            <span class="task-count">${week5.length} tasks</span>
-        </div>
-        <div class="week-tasks ${week5Collapsed ? 'collapsed' : ''}">
-            ${week5.map(task => createTaskHTML(task)).join('')}
-        </div>
-    </div>
-
-    <!-- WEEK 6 (Not Started) -->
-    <div class="week-section">
+    <!-- WEEK 6 (Completed) -->
+    <div class="week-section week-completed">
         <div class="week-header" onclick="toggleWeek(6)">
             <span class="week-toggle">${week6Collapsed ? '▶' : '▼'}</span>
             <h3>📅 Week 6: RAG Pipeline & LLM Integration</h3>
-            <span class="week-status" style="background: rgba(148, 163, 184, 0.2); color: #94a3b8; border: 1px solid rgba(148, 163, 184, 0.4);">⏳ Not Started</span>
+            <span class="week-status completed">✅ Completed</span>
             <span class="task-count">${week6.length} tasks</span>
         </div>
         <div class="week-tasks ${week6Collapsed ? 'collapsed' : ''}">
@@ -3276,9 +3262,35 @@ function renderTasks() {
         </div>
     </div>
 
-    <!-- MILESTONE 2: Backend Auth & Search (In Progress) -->
-    <div class="milestone-header" style="margin-top: 3rem;">
-        <h2>🎯 Milestone 2: Backend Auth & Search (Weeks 3-4) - IN PROGRESS</h2>
+    <!-- WEEK 5 (Completed) -->
+    <div class="week-section week-completed">
+        <div class="week-header" onclick="toggleWeek(5)">
+            <span class="week-toggle">${week5Collapsed ? '▶' : '▼'}</span>
+            <h3>📅 Week 5: User Authentication & RBAC Middleware</h3>
+            <span class="week-status completed">✅ Completed</span>
+            <span class="task-count">${week5.length} tasks</span>
+        </div>
+        <div class="week-tasks ${week5Collapsed ? 'collapsed' : ''}">
+            ${week5.map(task => createTaskHTML(task)).join('')}
+        </div>
+    </div>
+
+    <!-- MILESTONE 2: Backend Auth & Search (Completed) -->
+    <div class="milestone-header" style="background: linear-gradient(135deg, rgba(34, 197, 94, 0.15), rgba(22, 163, 74, 0.1)); border-color: rgba(34, 197, 94, 0.3); margin-top: 3rem;">
+        <h2 style="color: #22c55e;">✅ Milestone 2: Backend Auth & Search (Weeks 3-4) - COMPLETED</h2>
+    </div>
+
+    <!-- WEEK 4 (Completed) -->
+    <div class="week-section week-completed">
+        <div class="week-header" onclick="toggleWeek(4)">
+            <span class="week-toggle">${week4Collapsed ? '▶' : '▼'}</span>
+            <h3>📅 Week 4: Role-Based Search & Query Processing</h3>
+            <span class="week-status completed">✅ Completed</span>
+            <span class="task-count">${week4.length} tasks</span>
+        </div>
+        <div class="week-tasks ${week4Collapsed ? 'collapsed' : ''}">
+            ${week4.map(task => createTaskHTML(task)).join('')}
+        </div>
     </div>
 
     <!-- WEEK 3 (Completed) -->
@@ -3291,19 +3303,6 @@ function renderTasks() {
         </div>
         <div class="week-tasks ${week3Collapsed ? 'collapsed' : ''}">
             ${week3.map(task => createTaskHTML(task)).join('')}
-        </div>
-    </div>
-
-    <!-- WEEK 4 (In Progress) -->
-    <div class="week-section">
-        <div class="week-header" onclick="toggleWeek(4)">
-            <span class="week-toggle">${week4Collapsed ? '▶' : '▼'}</span>
-            <h3>📅 Week 4: Role-Based Search & Query Processing</h3>
-            <span class="week-status active">🔵 In Progress</span>
-            <span class="task-count">${week4.length} tasks</span>
-        </div>
-        <div class="week-tasks ${week4Collapsed ? 'collapsed' : ''}">
-            ${week4.map(task => createTaskHTML(task)).join('')}
         </div>
     </div>
 
