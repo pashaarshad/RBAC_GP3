@@ -3732,6 +3732,34 @@ function renderTasks() {
         <h2>🎯 Milestone 4: Frontend & Deployment (Weeks 7-8) - IN PROGRESS</h2>
     </div>
 
+    <!-- 🚨 IMPORTANT INSTRUCTIONS FOR WEEK 7 🚨 -->
+    <div style="background: linear-gradient(to right, rgba(30, 41, 59, 1), rgba(15, 23, 42, 1)); border-left: 5px solid #ef4444; padding: 1.5rem; margin: 1.5rem 0; border-radius: 8px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5); border: 1px solid rgba(239, 68, 68, 0.2);">
+        <h3 style="color: #ef4444; margin-top: 0; display: flex; align-items: center; gap: 10px; font-size: 1.2rem; text-transform: uppercase; letter-spacing: 0.5px;">
+            ⚠️ Critical Protocol: Milestone 4 (Week 7)
+        </h3>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 1rem;">
+            <div>
+                <h4 style="color: #f8fafc; margin-bottom: 0.5rem; border-bottom: 1px solid #334155; padding-bottom: 0.5rem;">🛑 Technology Shift</h4>
+                <ul style="color: #cbd5e1; list-style: none; padding: 0; margin: 0; line-height: 1.8;">
+                    <li>❌ <strong>NO Streamlit:</strong> We have deprecated Streamlit.</li>
+                    <li>✅ <strong>Frontend:</strong> Next.js 14 (React) + Modern CSS.</li>
+                    <li>✅ <strong>Backend:</strong> Python FastAPI (Existing).</li>
+                </ul>
+            </div>
+            <div>
+                <h4 style="color: #f8fafc; margin-bottom: 0.5rem; border-bottom: 1px solid #334155; padding-bottom: 0.5rem;">⚙️ Workflow Rules</h4>
+                <ul style="color: #cbd5e1; list-style: none; padding: 0; margin: 0; line-height: 1.8;">
+                    <li>🌿 <strong>Branch Name:</strong> <code>&lt;yourname&gt;/week7</code> (e.g., <code>arshad/week7</code>)</li>
+                    <li>☁️ <strong>Deploy:</strong> Backend &to; Render | Frontend &to; Vercel.</li>
+                    <li>🤝 <strong>Connect:</strong> Frontend calls Backend via REST API.</li>
+                </ul>
+            </div>
+        </div>
+        <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid rgba(239, 68, 68, 0.2); color: #94a3b8; font-size: 0.9rem; font-style: italic;">
+            "We are building a Premium UI. Focus on aesthetics, smooth animations, and a seamless user experience."
+        </div>
+    </div>
+
     <!-- WEEK 8 (Not Started) -->
     <div class="week-section">
         <div class="week-header" onclick="toggleWeek(8)">
