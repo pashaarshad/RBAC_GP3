@@ -251,232 +251,146 @@ toast.success('Document processed successfully!');</code></pre>
 // WEEK 7 TASKS (Module 7: Premium Next.js Frontend)
 // =====================================================
 const week7Tasks = [
-    // 1. Arshad (LEAD) - Project Setup
+    // 0. LEAD TASK: Arshad Pasha (Project Architect)
     {
-        id: 701,
-        title: 'Initialize Next.js 14 + Shadcn/UI Project',
+        id: 700,
+        title: 'Project Setup & Team Guidance',
         assignee: 'Arshad Pasha',
         priority: 'high',
         status: 'not-started',
-        description: `<strong>Goal:</strong> Create the foundation for Premium UI.<br><br>
-1. Initialize Next.js App Router (TypeScript).<br>
-2. Install Tailwind CSS & Shadcn/UI.<br>
-3. Set up folder structure (components, lib, app).<br>
-4. Create global theme (Fonts, Colors).<br><br>
-<strong>📌 Output:</strong> Working Next.js repo ready for team.`,
+        description: `<strong>Goal:</strong> Initialize Repo & Mentor Teams.<br><br>
+1. <strong>Setup:</strong> Initialize Next.js 14 + Shadcn/UI repo.<br>
+2. <strong>Architecture:</strong> Define folder structure & API routes.<br>
+3. <strong>Mentorship:</strong> Guide Alpha, Beta, & Gamma teams.<br>
+4. <strong>Review:</strong> Merge PRs from all teams.<br><br>
+<strong>📌 Output:</strong> The <code>main</code> branch foundation & guidance.`,
         deepExplanation: `
-<h3>📘 Lead Task: Project Initialization</h3>
-<p style="color: #f87171; font-weight: bold;">⚠️ FOUNDATION TASK - Do this first!</p>
+<h3>👑 Lead Architect Protocol</h3>
+<p style="color: #f87171; font-weight: bold;">Arshad Pasha (Solo)</p>
 <hr>
-<h4>🔹 STEP 1: Create Project</h4>
-<pre><code>npx create-next-app@latest rbac-frontend --typescript --tailwind --eslint</code></pre>
+<p>You are the bridge between all teams. Your job is to set the stage and let them perform.</p>
 
-<h4>🔹 STEP 2: Install UI Library</h4>
-<pre><code>npx shadcn-ui@latest init</code></pre>
-Select <strong>Slate</strong> or <strong>Zinc</strong> color theme.
+<h4>🔹 Step 1: Foundation Setup</h4>
+<pre><code>npx create-next-app@latest rbac-frontend --typescript --tailwind
+npx shadcn-ui@latest init</code></pre>
+<p>Push this to the <code>main</code> branch so teams can fork/clone it.</p>
 
-<h4>🔹 STEP 3: Install Core Deps</h4>
-<pre><code>npm install framer-motion lucide-react axios clsx tailwind-merge</code></pre>
-
-<h4>🔹 STEP 4: Create Folder Structure</h4>
-<pre style="background: #1e293b; padding: 1rem; border-radius: 8px;">
-src/
-├── app/          (Next.js App Router)
-├── components/   (Reusable UI parts)
-│   ├── ui/       (Shadcn basic components: buttons, inputs)
-│   ├── premium/  (Custom complex components)
-├── lib/          (Utils, API clients)
-├── public/       (Images, fonts)
-</pre>
-
-<h4>🔹 STEP 5: Push to GitHub</h4>
-Create <code>rbac-frontend</code> repo and push.
+<h4>🔹 Step 2: Mentorship Plan</h4>
+<ul>
+    <li><strong>Alpha (Auth):</strong> Guide them on Clerk/NextAuth integration.</li>
+    <li><strong>Beta (Chat):</strong> Help them with API responsiveness.</li>
+    <li><strong>Gamma (Vis):</strong> Assist with Recharts data formatting.</li>
+</ul>
 `
     },
 
-    // 2. Bhargava (HARD) - Auth UI
+    // 1. Team Alpha (Auth & Settings): Bhargava + Karthik
+    {
+        id: 701,
+        title: 'Team Alpha: Authentication & User Profile',
+        assignee: 'Bhargava + Karthik',
+        priority: 'high',
+        status: 'not-started',
+        description: `<strong>Goal:</strong> Secure Access & Personalization.<br><br>
+1. <strong>Bhargava:</strong> Design "Glassmorphism" Login Pages.<br>
+2. <strong>Karthik:</strong> Build User Settings Dashboard.<br>
+3. <strong>Collaboration:</strong> Ensure Login redirects to Settings on first use.<br>
+4. <strong>Support:</strong> Ask Arshad for architectural decisions.<br><br>
+<strong>📌 Output:</strong> Auth System & User Preferences.`,
+        deepExplanation: `
+<h3>🤝 Team Alpha Protocol</h3>
+<p style="color: #fbbf24; font-weight: bold;">Bhargava ⚡ Karthik</p>
+<hr>
+
+<h4>📡 Communication & Ideas</h4>
+<p><strong>Goal:</strong> Build the secure entry point. Feel free to innovate!</p>
+<div style="background: rgba(34, 197, 94, 0.1); border-left: 4px solid #22c55e; padding: 10px; margin: 10px 0;">
+    <strong>💡 Innovation Encouraged:</strong><br>
+    <em>Example:</em> Can you add biometric (Passkey) support? Or a "Welcome Back" animation?
+</div>
+
+<h4>🌿 Branching Strategy</h4>
+<p><strong>Step 1: Bhargava (Feature Lead) creates Team Branch:</strong></p>
+<pre><code>git checkout -b weekly/week7-alpha-merge</code></pre>
+
+<p><strong>Step 2: Individual Branches:</strong></p>
+<ul>
+    <li><strong>Bhargava:</strong> <code>git checkout -b bhargava/week7-login-ui</code></li>
+    <li><strong>Karthik:</strong> <code>git checkout -b karthik/week7-settings-ui</code></li>
+</ul>
+`
+    },
+
+    // 2. Team Beta (Chat & Navigation): Kavya + Joshika
     {
         id: 702,
-        title: 'Design Premium Login & Register Pages',
-        assignee: 'Kushagra Bhargava',
+        title: 'Team Beta: Chat Experience & Navigation',
+        assignee: 'Kavya Ghantasala + Joshika Reddy',
         priority: 'high',
         status: 'not-started',
-        description: `<strong>Goal:</strong> Create a "Wow" factor login screen.<br><br>
-1. Create <code>app/(auth)/login/page.tsx</code>.<br>
-2. Use Glassmorphism effects with Tailwind.<br>
-3. Add background animations (particles/gradients).<br>
-4. Build Login/Signup forms with validation.<br><br>
-<strong>📌 Output:</strong> /login and /register pages.`,
+        description: `<strong>Goal:</strong> The "Face" of the Chatbot.<br><br>
+1. <strong>Kavya:</strong> Build the ChatGPT-like Chat Interface.<br>
+2. <strong>Joshika:</strong> Create the Role-Based Sidebar.<br>
+3. <strong>Collaboration:</strong> Connect Sidebar Actions to Chat Context.<br><br>
+<strong>📌 Output:</strong> Responsive Chat UI.`,
         deepExplanation: `
-<h3>🎨 Premium Auth Design</h3>
+<h3>🤝 Team Beta Protocol</h3>
+<p style="color: #60a5fa; font-weight: bold;">Kavya ⚡ Joshika</p>
 <hr>
-<p><strong>Folder to Create:</strong> <code>src/app/(auth)/login/page.tsx</code></p>
-<p><strong>Design Tips:</strong></p>
-- Use a dark rich background with a glowing gradient mesh.
-- Make the login card translucent using <code>backdrop-blur-md bg-white/10</code>.
-- Use <strong>Framer Motion</strong> to slide the card up on load:
-<pre><code>
-<motion.div initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }}>
-  <LoginForm />
-</motion.div>
-</code></pre>
+
+<h4>📡 Communication & Ideas</h4>
+<p><strong>Goal:</strong> Make it conversational and natural.</p>
+<div style="background: rgba(34, 197, 94, 0.1); border-left: 4px solid #22c55e; padding: 10px; margin: 10px 0;">
+    <strong>💡 Innovation Encouraged:</strong><br>
+    <em>Example:</em> Add "Typing" wave animations. Use a unique font for code blocks!
+</div>
+
+<h4>🌿 Branching Strategy</h4>
+<p><strong>Step 1: Kavya (Feature Lead) creates Team Branch:</strong></p>
+<pre><code>git checkout -b weekly/week7-beta-merge</code></pre>
+
+<p><strong>Step 2: Individual Branches:</strong></p>
+<ul>
+    <li><strong>Kavya:</strong> <code>git checkout -b kavya/week7-chat-ui</code></li>
+    <li><strong>Joshika:</strong> <code>git checkout -b joshika/week7-sidebar-ui</code></li>
+</ul>
 `
     },
 
-    // 3. Kavya (HARD) - Chat Interface
+    // 3. Team Gamma (Data & Docs): Vinuthna + Shirisha + Saranya
     {
         id: 703,
-        title: 'Build Interactive Chat Interface',
-        assignee: 'Kavya Ghantasala',
+        title: 'Team Gamma: Data Viz & Knowledge Base',
+        assignee: 'Vinuthna + Shirisha + Saranya',
         priority: 'high',
         status: 'not-started',
-        description: `<strong>Goal:</strong> Build a ChatGPT-like experience.<br><br>
-1. Create <code>src/components/premium/ChatInterface.tsx</code>.<br>
-2. Message Bubble components (User/Bot styles).<br>
-3. Typing indicators (animated dots).<br>
-4. Markdown rendering for bot responses.<br><br>
-<strong>📌 Output:</strong> Main Chat Component.`,
+        description: `<strong>Goal:</strong> Visualizing the Data.<br><br>
+1. <strong>Vinuthna:</strong> Build Analytics Dashboard.<br>
+2. <strong>Shirisha:</strong> Create Document Browser Grid.<br>
+3. <strong>Saranya:</strong> Implement Citation Badges.<br><br>
+<strong>📌 Output:</strong> Visual Data Layer.`,
         deepExplanation: `
-<h3>💬 Chat UI Components</h3>
+<h3>🤝 Team Gamma Protocol</h3>
+<p style="color: #f472b6; font-weight: bold;">Vinuthna ⚡ Shirisha ⚡ Saranya</p>
 <hr>
-<p><strong>Folder to Create:</strong> <code>src/components/premium/ChatInterface.tsx</code></p>
-- <strong>Dependency:</strong> Install <code>react-markdown</code> for rendering AI responses.
-- <strong>Styling:</strong>
-  - User Bubble: <code>bg-blue-600 text-white rounded-tr-none</code>
-  - Bot Bubble: <code>bg-slate-800 text-slate-200 rounded-tl-none</code>
-- <strong>Animation:</strong> Use <code>AnimatePresence</code> from Framer Motion for smooth message entry.
-`
-    },
 
-    // 4. Joshika (HARD) - Sidebar Navigation
-    {
-        id: 704,
-        title: 'Dynamic Role-Based Sidebar',
-        assignee: 'Depuru Joshika Reddy',
-        priority: 'high',
-        status: 'not-started',
-        description: `<strong>Goal:</strong> Navigation that adapts to the user.<br><br>
-1. Create <code>src/components/premium/Sidebar.tsx</code>.<br>
-2. Show User Profile section (Avatar + Name).<br>
-3. Display Role Badge (e.g., "Finance Team").<br>
-4. List accessible document categories based on role.<br><br>
-<strong>📌 Output:</strong> Sidebar Component.`,
-        deepExplanation: `
-<h3>🧭 Smart Navigation</h3>
-<hr>
-<p><strong>Folder to Create:</strong> <code>src/components/premium/Sidebar.tsx</code></p>
-- <strong>Icons:</strong> Use <strong>Lucide React</strong> (e.g., <code><LayoutDashboard /></code>, <code><FileText /></code>).
-- <strong>Logic:</strong>
-<pre><code>
-const navItems = {
-  finance: [{ label: 'Q3 Reports', icon: <FileText /> }],
-  hr: [{ label: 'Resumes', icon: <UserPlus /> }]
-};
-// Render items based on currentUser.role
-</code></pre>
-`
-    },
+<h4>📡 Communication & Ideas</h4>
+<p><strong>Goal:</strong> Make data beautiful and easy to read.</p>
+<div style="background: rgba(34, 197, 94, 0.1); border-left: 4px solid #22c55e; padding: 10px; margin: 10px 0;">
+    <strong>💡 Innovation Encouraged:</strong><br>
+    <em>Example:</em> Animated charts on load? Dark mode specific color palettes for graphs?
+</div>
 
-    // 5. Vinuthna (HARD) - Dashboard Widgets
-    {
-        id: 705,
-        title: 'Analytics Dashboard Widgets',
-        assignee: 'Vinuthna Jangam',
-        priority: 'high',
-        status: 'not-started',
-        description: `<strong>Goal:</strong> Visual data for C-Level users.<br><br>
-1. Create <code>src/components/premium/DashboardWidgets.tsx</code>.<br>
-2. Integrate <strong>Recharts</strong> library.<br>
-3. Create "Documents Indexed" chart.<br>
-4. Create "Recent Queries" list.<br><br>
-<strong>📌 Output:</strong> Dashboard Page components.`,
-        deepExplanation: `
-<h3>📊 Data Visualization</h3>
-<hr>
-<p><strong>Folder to Create:</strong> <code>src/components/premium/DashboardWidgets.tsx</code></p>
-- <strong>Dependency:</strong> <code>npm install recharts</code>
-- <strong>Components:</strong>
-  - <code><StatCard label="Total Queries" value="1,240" trend="+12%" /></code>
-  - <code><ActivityChart data={dailyUsageData} /></code>
-- <strong>Design:</strong> Use <code>bg-slate-900 border-slate-800</code> for dark mode cards.
-`
-    },
+<h4>🌿 Branching Strategy</h4>
+<p><strong>Step 1: Vinuthna (Feature Lead) creates Team Branch:</strong></p>
+<pre><code>git checkout -b weekly/week7-gamma-merge</code></pre>
 
-    // 6. Shirisha (HARD) - Document Browser
-    {
-        id: 706,
-        title: 'Document Source Browser UI',
-        assignee: 'Mandha Shirisha',
-        priority: 'high',
-        status: 'not-started',
-        description: `<strong>Goal:</strong> Interface to view knowledge base.<br><br>
-1. Create <code>src/app/documents/page.tsx</code>.<br>
-2. Create Grid/List view of documents.<br>
-3. Implement Search/Filter by department.<br>
-4. Add "View Content" modal using Shadcn Dialog.<br><br>
-<strong>📌 Output:</strong> Knowledge Base page.`,
-        deepExplanation: `
-<h3>📂 Document Explorer</h3>
-<hr>
-<p><strong>Folder to Create:</strong> <code>src/app/documents/page.tsx</code></p>
-- <strong>Components:</strong>
-  - <code><DocumentCard title="Q3 Financials" type="PDF" /></code>
-- <strong>Interaction:</strong>
-  - Add a "Search Documents" input bar using Shadcn Input.
-  - Clicking a document should open a <code><Dialog></code> with document details and metadata tags.
-`
-    },
-
-    // 7. Karthik (HARD) - User Settings
-    {
-        id: 707,
-        title: 'User Settings & Profile UI',
-        assignee: 'Guru Karthik Reddy Marthala',
-        priority: 'high',
-        status: 'not-started',
-        description: `<strong>Goal:</strong> Personalization options.<br><br>
-1. Create <code>src/app/settings/page.tsx</code>.<br>
-2. Dark/Light mode toggle (using next-themes).<br>
-3. Profile update form.<br>
-4. Change password UI.<br><br>
-<strong>📌 Output:</strong> Settings Page.`,
-        deepExplanation: `
-<h3>⚙️ Settings & Preferences</h3>
-<hr>
-<p><strong>Folder to Create:</strong> <code>src/app/settings/page.tsx</code></p>
-- <strong>Structure:</strong> Use <strong>Shadcn Tabs</strong> to separate:
-  - <strong>Account:</strong> Change Name, Email.
-  - <strong>Appearance:</strong> Theme Toggle (Sun/Moon).
-  - <strong>Security:</strong> Change Password.
-- <strong>Theme Toggle:</strong>
-<pre><code>const { setTheme } = useTheme()
-<Button onClick={() => setTheme("dark")}>Dark Mode</Button></code></pre>
-`
-    },
-
-    // 8. Saranya (HARD) - Citation UI
-    {
-        id: 708,
-        title: 'Source Attribution & Citation UI',
-        assignee: 'Sri Saranya Chandrapati',
-        priority: 'high',
-        status: 'not-started',
-        description: `<strong>Goal:</strong> Make RAG transparent.<br><br>
-1. Create <code>src/components/premium/CitationBadge.tsx</code>.<br>
-2. Design citation badges (e.g., [1]).<br>
-3. Create hover popovers showing source excerpt.<br>
-4. Ensure clean typography.<br><br>
-<strong>📌 Output:</strong> Citation Components.`,
-        deepExplanation: `
-<h3>📖 Citation UX</h3>
-<hr>
-<p><strong>Folder to Create:</strong> <code>src/components/premium/CitationBadge.tsx</code></p>
-- <strong>UX Pattern:</strong>
-  - When the bot says "Revenue is up [1]", user sees a small badge.
-  - Hovering [1] triggers a <strong>Shadcn HoverCard</strong>.
-- <strong>Content:</strong>
-  - Show "Source: Q3 Report.pdf (Page 4)"
-  - Show snippet of the text used for generation.
+<p><strong>Step 2: Individual Branches:</strong></p>
+<ul>
+    <li><strong>Vinuthna:</strong> <code>git checkout -b vinuthna/week7-dashboard</code></li>
+    <li><strong>Shirisha:</strong> <code>git checkout -b shirisha/week7-docs</code></li>
+    <li><strong>Saranya:</strong> <code>git checkout -b saranya/week7-citations</code></li>
+</ul>
 `
     }
 ];
@@ -3582,7 +3496,8 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 function loadTasks() {
-    const stored = localStorage.getItem('rbac_tasks_milestone4_v3');
+    // UPDATED KEY to force refresh for Week 7 Collaborative Update
+    const stored = localStorage.getItem('rbac_tasks_milestone4_week7_v7');
     if (stored) {
         tasks = JSON.parse(stored);
     } else {
@@ -3594,7 +3509,7 @@ function loadTasks() {
 }
 
 function saveTasks() {
-    localStorage.setItem('rbac_tasks_milestone4_v3', JSON.stringify(tasks));
+    localStorage.setItem('rbac_tasks_milestone4_week7_v7', JSON.stringify(tasks));
     renderTasks();
     updateStats();
 }
@@ -3688,7 +3603,9 @@ function toggleWeek(weekNum) {
     } else if (weekNum === 7) {
         week7Collapsed = !week7Collapsed;
     } else if (weekNum === 8) {
-        week8Collapsed = !week8Collapsed;
+        // week8Collapsed = !week8Collapsed; 
+        alert("🔒 Milestone 4 Focus: Finish Week 7 Tasks First!");
+        return;
     }
     renderTasks();
 }
@@ -3760,17 +3677,15 @@ function renderTasks() {
         </div>
     </div>
 
-    <!-- WEEK 8 (Not Started) -->
-    <div class="week-section">
-        <div class="week-header" onclick="toggleWeek(8)">
-            <span class="week-toggle">${week8Collapsed ? '▶' : '▼'}</span>
-            <h3>📅 Week 8: System Integration, Testing & Deployment</h3>
-            <span class="week-status" style="background: rgba(148, 163, 184, 0.2); color: #94a3b8; border: 1px solid rgba(148, 163, 184, 0.4);">⏳ Not Started</span>
+    <!-- WEEK 8 (LOCKED) -->
+    <div class="week-section" style="opacity: 0.5; pointer-events: none; filter: grayscale(1);">
+        <div class="week-header" onclick="toggleWeek(8)" style="cursor: not-allowed;">
+            <span class="week-toggle">🔒</span>
+            <h3>📅 Week 8: System Integration (LOCKED)</h3>
+            <span class="week-status" style="background: #334155; color: #94a3b8;">🔒 Locked</span>
             <span class="task-count">${week8.length} tasks</span>
         </div>
-        <div class="week-tasks ${week8Collapsed ? 'collapsed' : ''}">
-            ${week8.map(task => createTaskHTML(task)).join('')}
-        </div>
+        <!-- Collapsed by default and no tasks rendered -->
     </div>
 
     <!-- WEEK 7 (In Progress) -->
@@ -3886,9 +3801,77 @@ function renderTasks() {
     emptyState.style.display = 'none';
 }
 
+// VISUALS: Inject Custom Styles for Team Collaboration
+const collaborationStyles = `
+<style>
+    .team-container {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        margin-top: 10px;
+        background: rgba(30, 41, 59, 0.3);
+        padding: 10px;
+        border-radius: 8px;
+        border: 1px dashed rgba(148, 163, 184, 0.2);
+    }
+    .team-visual {
+        display: flex;
+        align-items: center;
+        gap: 0;
+    }
+    .team-avatar-wrapper {
+        position: relative;
+        display: flex;
+        align-items: center;
+    }
+    .team-member-avatar {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #3b82f6, #2563eb);
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.75rem;
+        font-weight: bold;
+        border: 2px solid #0f172a;
+        z-index: 2;
+        box-shadow: 0 0 10px rgba(59, 130, 246, 0.3);
+    }
+    .team-connector {
+        height: 2px;
+        width: 30px;
+        background: #334155;
+        position: relative;
+        margin: 0 -2px;
+        z-index: 1;
+        overflow: hidden;
+    }
+    .team-connector::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, #60a5fa, transparent);
+        animation: connectPulse 2s infinite linear;
+    }
+    .team-names-text {
+        font-size: 0.8rem;
+        color: #94a3b8;
+        margin-left: 0.5rem;
+    }
+    @keyframes connectPulse {
+        0% { left: -100%; }
+        100% { left: 100%; }
+    }
+</style>
+`;
+document.head.insertAdjacentHTML("beforeend", collaborationStyles);
+
 function createTaskHTML(task) {
-    const names = task.assignee.split(' ');
-    const initials = names.map(n => n[0]).join('').substring(0, 2).toUpperCase();
     const priorityClass = `priority-${task.priority}`;
 
     // Determine status badge
@@ -3899,6 +3882,47 @@ function createTaskHTML(task) {
         statusBadge = `<span style="background: rgba(59, 130, 246, 0.2); color: #3b82f6; padding: 4px 10px; border-radius: 9999px; font-size: 0.75rem; font-weight: 600; border: 1px solid rgba(59, 130, 246, 0.4);">🔵 In Progress</span>`;
     } else if (task.status === 'not-started') {
         statusBadge = `<span style="background: rgba(148, 163, 184, 0.2); color: #94a3b8; padding: 4px 10px; border-radius: 9999px; font-size: 0.75rem; font-weight: 600; border: 1px solid rgba(148, 163, 184, 0.4);">⏳ Not Started</span>`;
+    }
+
+    // Assignee Logic (Handle Partners vs Individual)
+    let assigneeContent = '';
+    if (task.assignee.includes('+')) {
+        // Multi-person team visualization
+        const members = task.assignee.split('+').map(m => m.trim());
+        const visualHTML = members.map((member, index) => {
+            const initials = member.split(' ').map(n => n[0]).join('').substring(0, 1).toUpperCase();
+            return `
+                <div class="team-avatar-wrapper title="${member}">
+                    <div class="team-member-avatar" style="background: hsl(${index * 60 + 210}, 70%, 50%)">${initials}</div>
+                    ${index < members.length - 1 ? '<div class="team-connector"></div>' : ''}
+                </div>
+            `;
+        }).join('');
+
+        assigneeContent = `
+            <div class="team-container">
+                <div class="team-visual">
+                    ${visualHTML}
+                </div>
+                <div class="team-names-text">
+                    ⚡ <strong>Squad:</strong> ${task.assignee}
+                </div>
+            </div>
+        `;
+    } else {
+        // Standard individual assignee
+        const names = task.assignee.split(' ');
+        const initials = names.map(n => n[0]).join('').substring(0, 2).toUpperCase();
+        assigneeContent = `
+            <div class="task-footer">
+                <div class="task-meta">
+                    <div class="task-assignee">
+                        <div class="assignee-avatar">${initials}</div>
+                        ${task.assignee}
+                    </div>
+                </div>
+            </div>
+        `;
     }
 
     return `
@@ -3920,14 +3944,7 @@ function createTaskHTML(task) {
 
         ${task.deepExplanation ? `<button class="deep-explain-btn" onclick="showDeepExplanation(${task.id})">📘 Deep Explanation (Step-by-Step)</button>` : ''}
 
-        <div class="task-footer">
-            <div class="task-meta">
-                <div class="task-assignee">
-                    <div class="assignee-avatar">${initials}</div>
-                    ${task.assignee}
-                </div>
-            </div>
-        </div>
+        ${assigneeContent}
     </div>
     `;
 }
