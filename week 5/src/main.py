@@ -26,7 +26,17 @@ except ImportError:
     print("Warning: SearchPipeline not found. Ensure Week 4 is complete.")
     pipeline = None
 
+from fastapi.middleware.cors import CORSMiddleware
+
 app = FastAPI(title="RBAC Chatbot API")
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:3000", "http://127.0.0.1:3000"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # Pydantic models
 class LoginRequest(BaseModel):
@@ -93,6 +103,10 @@ def query_general(request: QueryRequest, user: dict = Depends(RoleChecker(["empl
 @app.get("/health")
 def health_check():
     return {"status": "ok"}
+
+@app.get("/")
+def root():
+    return {"message": "RBAC Chatbot API is running. Go to /docs for Swagger UI."}
 
 if __name__ == "__main__":
     uvicorn.run(app, host="127.0.0.1", port=8000)
