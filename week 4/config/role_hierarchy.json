@@ -1,0 +1,44 @@
+{
+    "hierarchy": {
+        "c-level": 100,
+        "finance": 50,
+        "hr": 50,
+        "marketing": 50,
+        "engineering": 50,
+        "employees": 10
+    },
+    "department_access": {
+        "c-level": [
+            "Finance",
+            "HR",
+            "Marketing",
+            "Engineering",
+            "General",
+            "unknown"
+        ],
+        "finance": [
+            "Finance",
+            "General",
+            "unknown"
+        ],
+        "hr": [
+            "HR",
+            "General",
+            "unknown"
+        ],
+        "marketing": [
+            "Marketing",
+            "General",
+            "unknown"
+        ],
+        "engineering": [
+            "Engineering",
+            "General",
+            "unknown"
+        ],
+        "employees": [
+            "General",
+            "unknown"
+        ]
+    }
+}
