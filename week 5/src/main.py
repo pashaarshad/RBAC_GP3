@@ -1,0 +1,98 @@
+from fastapi import FastAPI, Depends, HTTPException, status
+from pydantic import BaseModel
+from typing import Optional
+import uvicorn
+import os
+import sys
+
+# Setup paths
+base_dir = os.path.dirname(os.path.abspath(__file__))
+sys.path.append(base_dir)
+
+# Week 4 integration
+week4_src = os.path.join(base_dir, '..', '..', 'week 4', 'src')
+sys.path.append(week4_src)
+
+from auth.jwt_handler import create_access_token
+from database.database import get_db, User, pwd_context
+from sqlalchemy.orm import Session
+from middleware.rbac_middleware import RoleChecker
+
+# Search Pipeline
+try:
+    from search_pipeline import SearchPipeline
+    pipeline = SearchPipeline()
+except ImportError:
+    print("Warning: SearchPipeline not found. Ensure Week 4 is complete.")
+    pipeline = None
+
+app = FastAPI(title="RBAC Chatbot API")
+
+# Pydantic models
+class LoginRequest(BaseModel):
+    username: str
+    password: str
+
+class Token(BaseModel):
+    access_token: str
+    token_type: str
+
+class QueryRequest(BaseModel):
+    query: str
+
+# Endpoints
+
+@app.post("/auth/login", response_model=Token)
+def login(request: LoginRequest, db: Session = Depends(get_db)):
+    user = db.query(User).filter(User.username == request.username).first()
+    if not user or not pwd_context.verify(request.password, user.hashed_password):
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Incorrect username or password",
+        )
+    
+    access_token = create_access_token(user_id=str(user.id), role=user.role)
+    return {"access_token": access_token, "token_type": "bearer"}
+
+@app.post("/query/finance")
+def query_finance(request: QueryRequest, user: dict = Depends(RoleChecker(["finance", "c-level"]))):
+    if not pipeline:
+        return {"error": "Search pipeline unavailable"}
+    
+    return pipeline.search(request.query, user["role"])
+
+@app.post("/query/hr")
+def query_hr(request: QueryRequest, user: dict = Depends(RoleChecker(["hr", "c-level"]))):
+    if not pipeline:
+        return {"error": "Search pipeline unavailable"}
+    
+    return pipeline.search(request.query, user["role"])
+
+@app.post("/query/marketing")
+def query_marketing(request: QueryRequest, user: dict = Depends(RoleChecker(["marketing", "c-level"]))):
+    if not pipeline:
+        return {"error": "Search pipeline unavailable"}
+    
+    return pipeline.search(request.query, user["role"])
+
+@app.post("/query/engineering")
+def query_engineering(request: QueryRequest, user: dict = Depends(RoleChecker(["engineering", "c-level"]))):
+    if not pipeline:
+        return {"error": "Search pipeline unavailable"}
+    
+    return pipeline.search(request.query, user["role"])
+
+@app.post("/query/general")
+def query_general(request: QueryRequest, user: dict = Depends(RoleChecker(["employees", "finance", "hr", "marketing", "engineering", "c-level"]))):
+    if not pipeline:
+        return {"error": "Search pipeline unavailable"}
+    
+    return pipeline.search(request.query, user["role"])
+
+# Health Check
+@app.get("/health")
+def health_check():
+    return {"status": "ok"}
+
+if __name__ == "__main__":
+    uvicorn.run(app, host="127.0.0.1", port=8000)
