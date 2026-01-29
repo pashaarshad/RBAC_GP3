@@ -18,13 +18,18 @@ from database.database import get_db, User, pwd_context
 from sqlalchemy.orm import Session
 from middleware.rbac_middleware import RoleChecker
 
-# Search Pipeline
+# Search & RAG Pipeline
 try:
     from search_pipeline import SearchPipeline
-    pipeline = SearchPipeline()
-except ImportError:
-    print("Warning: SearchPipeline not found. Ensure Week 4 is complete.")
-    pipeline = None
+    # Import RAG from week 6
+    sys.path.append(os.path.join(base_dir, '..', '..', 'week 6', 'src'))
+    from rag_pipeline import RAGPipeline
+    
+    # Initialize RAG (which initializes Search internally)
+    rag = RAGPipeline()
+except ImportError as e:
+    print(f"Warning: Pipeline not found: {e}")
+    rag = None
 
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -66,38 +71,28 @@ def login(request: LoginRequest, db: Session = Depends(get_db)):
 
 @app.post("/query/finance")
 def query_finance(request: QueryRequest, user: dict = Depends(RoleChecker(["finance", "c-level"]))):
-    if not pipeline:
-        return {"error": "Search pipeline unavailable"}
-    
-    return pipeline.search(request.query, user["role"])
+    if not rag: return {"error": "RAG unavailable"}
+    return rag.generate_response(request.query, user["role"])
 
 @app.post("/query/hr")
 def query_hr(request: QueryRequest, user: dict = Depends(RoleChecker(["hr", "c-level"]))):
-    if not pipeline:
-        return {"error": "Search pipeline unavailable"}
-    
-    return pipeline.search(request.query, user["role"])
+    if not rag: return {"error": "RAG unavailable"}
+    return rag.generate_response(request.query, user["role"])
 
 @app.post("/query/marketing")
 def query_marketing(request: QueryRequest, user: dict = Depends(RoleChecker(["marketing", "c-level"]))):
-    if not pipeline:
-        return {"error": "Search pipeline unavailable"}
-    
-    return pipeline.search(request.query, user["role"])
+    if not rag: return {"error": "RAG unavailable"}
+    return rag.generate_response(request.query, user["role"])
 
 @app.post("/query/engineering")
 def query_engineering(request: QueryRequest, user: dict = Depends(RoleChecker(["engineering", "c-level"]))):
-    if not pipeline:
-        return {"error": "Search pipeline unavailable"}
-    
-    return pipeline.search(request.query, user["role"])
+    if not rag: return {"error": "RAG unavailable"}
+    return rag.generate_response(request.query, user["role"])
 
 @app.post("/query/general")
 def query_general(request: QueryRequest, user: dict = Depends(RoleChecker(["employees", "finance", "hr", "marketing", "engineering", "c-level"]))):
-    if not pipeline:
-        return {"error": "Search pipeline unavailable"}
-    
-    return pipeline.search(request.query, user["role"])
+    if not rag: return {"error": "RAG unavailable"}
+    return rag.generate_response(request.query, user["role"])
 
 # Health Check
 @app.get("/health")
