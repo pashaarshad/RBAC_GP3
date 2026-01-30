@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RBAC Chatbot Analytics Dashboard</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #ffffff;
+            --bg-secondary: #f9fafb;
+            --bg-tertiary: #f3f4f6;
+            --text-primary: #1f2937;
+            --text-secondary: #6b7280;
+            --border-color: #e5e7eb;
+            --color-blue: #3B82F6;
+            --color-green: #10B981;
+            --color-amber: #F59E0B;
+            --color-red: #EF4444;
+            --color-purple: #8B5CF6;
+        }
+
+        body.dark-mode {
+            --bg-primary: #1f2937;
+            --bg-secondary: #111827;
+            --bg-tertiary: #374151;
+            --text-primary: #f3f4f6;
+            --text-secondary: #d1d5db;
+            --border-color: #4b5563;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--bg-secondary);
+            color: var(--text-primary);
+            transition: all 0.3s ease;
+            line-height: 1.6;
+        }
+
+        .analytics-dashboard {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .dashboard-header {
+            background: linear-gradient(135deg, var(--color-blue) 0%, #1e40af 100%);
+            color: white;
+            padding: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .header-content h1 {
+            font-size: 2rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .header-content p {
+            opacity: 0.9;
+        }
+
+        .theme-toggle {
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            font-size: 1.25rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .theme-toggle:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.05);
+        }
+
+        .metrics-section, .charts-section {
+            padding: 2rem;
+            flex: 1;
+        }
+
+        .section-title {
+            font-size: 1.75rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            border-bottom: 3px solid var(--color-blue);
+            padding-bottom: 0.75rem;
+            display: inline-block;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .metric-card {
+            background-color: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .metric-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            border-color: var(--color-blue);
+        }
+
+        .metric-icon {
+            font-size: 2.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .metric-label {
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-secondary);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .metric-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .metric-subtitle {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        .charts-container {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .chart-wrapper {
+            background-color: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .chart-wrapper:hover {
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            border-color: var(--color-blue);
+        }
+
+        .chart-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .chart-description {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+        }
+
+        .full-width {
+            width: 100%;
+        }
+
+        .charts-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 2rem;
+        }
+
+        .dashboard-footer {
+            background-color: var(--bg-primary);
+            border-top: 1px solid var(--border-color);
+            padding: 2rem;
+            text-align: center;
+            margin-top: auto;
+        }
+
+        .footer-text {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .chart-container {
+            position: relative;
+            height: 350px;
+        }
+
+        @media (max-width: 1024px) {
+            .charts-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .metrics-section, .charts-section {
+                padding: 1.5rem;
+            }
+
+            .metrics-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+            }
+
+            .metric-card {
+                padding: 1.25rem;
+            }
+
+            .metric-value {
+                font-size: 1.5rem;
+            }
+
+            .dashboard-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .theme-toggle {
+                align-self: flex-end;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .metrics-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.75rem;
+            }
+
+            .metric-card {
+                padding: 1rem;
+            }
+
+            .metric-icon {
+                font-size: 1.75rem;
+            }
+
+            .metric-value {
+                font-size: 1.25rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="analytics-dashboard">
+        <!-- Header -->
+        <header class="dashboard-header">
+            <div class="header-content">
+                <h1>📊 RBAC Chatbot Analytics Dashboard</h1>
+                <p>Real-time system usage and access control metrics</p>
+            </div>
+            <button class="theme-toggle" id="themeToggle" title="Toggle dark mode">🌙</button>
+        </header>
+
+        <!-- Metrics Section -->
+        <section class="metrics-section">
+            <h2 class="section-title">Key Metrics</h2>
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-icon">📈</div>
+                    <h3 class="metric-label">Total Queries</h3>
+                    <p class="metric-value">11,665</p>
+                    <p class="metric-subtitle">Last 30 Days</p>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-icon">✅</div>
+                    <h3 class="metric-label">Success Rate</h3>
+                    <p class="metric-value">98.5%</p>
+                    <p class="metric-subtitle">Query Success</p>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-icon">👥</div>
+                    <h3 class="metric-label">Active Users</h3>
+                    <p class="metric-value">245</p>
+                    <p class="metric-subtitle">Current Period</p>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-icon">⚡</div>
+                    <h3 class="metric-label">Avg Response Time</h3>
+                    <p class="metric-value">234ms</p>
+                    <p class="metric-subtitle">System Performance</p>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-icon">🚫</div>
+                    <h3 class="metric-label">Denied Access</h3>
+                    <p class="metric-value">235</p>
+                    <p class="metric-subtitle">RBAC Rejections</p>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-icon">🛡️</div>
+                    <h3 class="metric-label">System Uptime</h3>
+                    <p class="metric-value">99.8%</p>
+                    <p class="metric-subtitle">Availability</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Charts Section -->
+        <section class="charts-section">
+            <h2 class="section-title">Usage Analytics</h2>
+            <div class="charts-container">
+                <!-- Query Count Chart -->
+                <div class="chart-wrapper full-width">
+                    <h3 class="chart-title">Query Count Over Time</h3>
+                    <p class="chart-description">Total queries processed by the RBAC chatbot system (Last 30 Days)</p>
+                    <div class="chart-container">
+                        <canvas id="queryChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Department Usage and Access Trends -->
+                <div class="charts-row">
+                    <div class="chart-wrapper">
+                        <h3 class="chart-title">Department-wise Usage Distribution</h3>
+                        <p class="chart-description">Breakdown of chatbot queries by department</p>
+                        <div class="chart-container">
+                            <canvas id="deptChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="chart-wrapper">
+                        <h3 class="chart-title">Access Trends Over Time</h3>
+                        <p class="chart-description">Weekly breakdown of granted vs. denied access requests</p>
+                        <div class="chart-container">
+                            <canvas id="accessChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="dashboard-footer">
+            <p class="footer-text"><strong>Team Gamma</strong> • Data Visualization & Knowledge Base</p>
+            <p class="footer-text">RBAC Chatbot Analytics System • Last Updated: January 30, 2026</p>
+            <p class="footer-text" style="font-style: italic; color: var(--text-secondary);">
+                All data shown is sample/mock data for demonstration purposes.
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        // Dark mode toggle
+        document.getElementById('themeToggle').addEventListener('click', function() {
+            document.body.classList.toggle('dark-mode');
+            this.textContent = document.body.classList.contains('dark-mode') ? '☀️' : '🌙';
+            localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
+        });
+
+        // Check for saved dark mode preference
+        if (localStorage.getItem('darkMode') === 'true') {
+            document.body.classList.add('dark-mode');
+            document.getElementById('themeToggle').textContent = '☀️';
+        }
+
+        // Query Count Chart
+        const queryCtx = document.getElementById('queryChart').getContext('2d');
+        new Chart(queryCtx, {
+            type: 'line',
+            data: {
+                labels: ['Jan 1', 'Jan 3', 'Jan 5', 'Jan 7', 'Jan 9', 'Jan 11', 'Jan 13', 'Jan 15', 'Jan 17', 'Jan 19', 'Jan 21', 'Jan 23', 'Jan 25', 'Jan 27', 'Jan 29'],
+                datasets: [
+                    {
+                        label: 'Total Queries',
+                        data: [120, 165, 195, 280, 310, 340, 385, 450, 520, 580, 650, 700, 760, 850, 980],
+                        borderColor: '#3B82F6',
+                        backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                        tension: 0.4,
+                        fill: true,
+                        borderWidth: 3,
+                        pointRadius: 5,
+                        pointBackgroundColor: '#3B82F6'
+                    },
+                    {
+                        label: 'Successful Queries',
+                        data: [115, 160, 188, 272, 305, 335, 380, 445, 515, 570, 640, 690, 750, 840, 970],
+                        borderColor: '#10B981',
+                        backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                        tension: 0.4,
+                        fill: true,
+                        borderWidth: 3,
+                        pointRadius: 5,
+                        pointBackgroundColor: '#10B981'
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: true,
+                        labels: {
+                            usePointStyle: true,
+                            padding: 15,
+                            font: { size: 12 }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: { font: { size: 11 } }
+                    },
+                    x: {
+                        ticks: { font: { size: 11 } }
+                    }
+                }
+            }
+        });
+
+        // Department Usage Chart
+        const deptCtx = document.getElementById('deptChart').getContext('2d');
+        new Chart(deptCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Finance', 'HR', 'Engineering', 'Marketing', 'General'],
+                datasets: [{
+                    data: [3250, 2840, 2650, 2100, 920],
+                    backgroundColor: [
+                        '#3B82F6',
+                        '#10B981',
+                        '#F59E0B',
+                        '#EF4444',
+                        '#8B5CF6'
+                    ],
+                    borderColor: 'var(--bg-primary)',
+                    borderWidth: 3
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            padding: 15,
+                            font: { size: 12 }
+                        }
+                    }
+                }
+            }
+        });
+
+        // Access Trends Chart
+        const accessCtx = document.getElementById('accessChart').getContext('2d');
+        new Chart(accessCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5'],
+                datasets: [
+                    {
+                        label: 'Granted Access',
+                        data: [422, 645, 878, 1222, 1548],
+                        backgroundColor: '#10B981',
+                        borderRadius: 8
+                    },
+                    {
+                        label: 'Denied Access',
+                        data: [28, 35, 42, 58, 72],
+                        backgroundColor: '#EF4444',
+                        borderRadius: 8
+                    }
+                ]
+            },
+            options: {
+                indexAxis: 'x',
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: {
+                        stacked: true,
+                        ticks: { font: { size: 11 } }
+                    },
+                    y: {
+                        stacked: true,
+                        ticks: { font: { size: 11 } }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        labels: {
+                            usePointStyle: true,
+                            padding: 15,
+                            font: { size: 12 }
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
