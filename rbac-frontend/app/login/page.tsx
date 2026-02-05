@@ -1,4 +1,11 @@
+import LoginForm from "@/components/login-form";
+
 export default function LoginPage() {
-  // TODO: Implement login page
-  return <div></div>;
+  return (
+    <div className="min-h-screen flex items-center justify-center bg-background">
+      <div className="w-full max-w-md p-6">
+        <LoginForm />
+      </div>
+    </div>
+  );
 }
