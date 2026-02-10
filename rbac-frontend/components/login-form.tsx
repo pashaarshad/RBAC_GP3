@@ -66,81 +66,105 @@ export default function LoginForm() {
         })
     }
 
+    // Custom Logo Component
+    const ShieldLogo = () => (
+        <div className="relative w-16 h-16 flex items-center justify-center mx-auto mb-6">
+            <div className="absolute inset-0 bg-blue-500 blur-xl opacity-20 animate-pulse"></div>
+            <div className="relative z-10 w-12 h-12 bg-gradient-to-br from-blue-500/20 to-purple-600/20 rounded-xl border border-white/10 flex items-center justify-center backdrop-blur-md shadow-inner">
+                <svg viewBox="0 0 24 24" fill="none" className="w-8 h-8 text-blue-400 drop-shadow-[0_0_10px_rgba(59,130,246,0.5)]">
+                    <path d="M12 2L3 7V12C3 17.52 6.84 22.74 12 24C17.16 22.74 21 17.52 21 12V7L12 2Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                    <path d="M12 8V16" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                    <path d="M8 12H16" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+            </div>
+        </div>
+    )
+
     return (
-        <Card className="border-white/10 bg-black/40 text-white backdrop-blur-xl shadow-2xl">
-            <CardHeader className="text-center pb-2">
-                <div className="mx-auto mb-4 w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center shadow-lg shadow-blue-500/20">
-                    <Shield className="w-8 h-8 text-white" />
-                </div>
-                <CardTitle className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+        <Card className="border-white/10 bg-black/40 text-white backdrop-blur-xl shadow-2xl relative overflow-hidden">
+            {/* Ambient Background Glow */}
+            <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500/10 rounded-full blur-[80px] -translate-y-1/2 translate-x-1/2 pointer-events-none"></div>
+            <div className="absolute bottom-0 left-0 w-64 h-64 bg-purple-500/10 rounded-full blur-[80px] translate-y-1/2 -translate-x-1/2 pointer-events-none"></div>
+
+            <CardHeader className="text-center pb-2 relative z-10">
+                <ShieldLogo />
+                <CardTitle className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-indigo-400 to-purple-400">
                     Secure Access
                 </CardTitle>
                 <CardDescription className="text-gray-400">
                     Enterprise RBAC Authentication Portal
                 </CardDescription>
             </CardHeader>
-            <CardContent className="space-y-6">
+            <CardContent className="space-y-6 relative z-10">
                 {/* Quick Fill Demo Credentials */}
-                <div className="space-y-2">
-                    <Label className="text-xs text-gray-500 uppercase tracking-wider">Quick Demo Access</Label>
-                    <div className="grid grid-cols-2 gap-2">
+                <div className="space-y-3">
+                    <Label className="text-xs text-gray-500 uppercase tracking-widest font-semibold ml-1">Quick Demo Access</Label>
+                    <div className="grid grid-cols-2 gap-3">
                         {DEMO_CREDENTIALS.map((cred) => (
-                            <Button
+                            <button
                                 key={cred.username}
                                 type="button"
-                                variant="outline"
-                                size="sm"
                                 onClick={() => fillCredentials(cred)}
-                                className={`border-white/10 bg-gradient-to-r ${cred.color} bg-opacity-10 hover:bg-opacity-20 text-white text-xs h-9 justify-start gap-2 transition-all hover:scale-[1.02] active:scale-[0.98]`}
+                                className="group relative flex items-center gap-3 p-2 rounded-lg border border-white/5 bg-white/5 hover:bg-white/10 transition-all hover:border-white/10 overflow-hidden"
                             >
-                                <cred.icon className="w-3 h-3" />
-                                {cred.role}
-                            </Button>
+                                <div className={`w-8 h-8 rounded-full bg-gradient-to-br ${cred.color} bg-opacity-20 flex items-center justify-center shrink-0 shadow-lg`}>
+                                    <cred.icon className="w-4 h-4 text-white" />
+                                </div>
+                                <div className="text-left">
+                                    <p className="text-xs font-medium text-gray-300 group-hover:text-white transition-colors">{cred.role}</p>
+                                </div>
+                            </button>
                         ))}
                     </div>
                 </div>
 
-                <div className="relative">
+                <div className="relative py-2">
                     <div className="absolute inset-0 flex items-center">
-                        <span className="w-full border-t border-white/10" />
+                        <span className="w-full border-t border-white/5" />
                     </div>
                     <div className="relative flex justify-center text-xs uppercase">
-                        <span className="bg-black/40 px-2 text-gray-500">or enter manually</span>
+                        <span className="bg-transparent px-2 text-gray-600 font-mono">or enter manually</span>
                     </div>
                 </div>
 
                 <form onSubmit={handleLogin} className="space-y-4">
                     <div className="space-y-2">
-                        <Label htmlFor="username" className="text-sm">Username</Label>
-                        <Input
-                            id="username"
-                            placeholder="Enter username"
-                            value={username}
-                            onChange={(e) => setUsername(e.target.value)}
-                            className="border-white/10 bg-white/5 text-white placeholder:text-gray-600 focus:border-blue-500/50 focus:ring-blue-500/20 h-11"
-                        />
+                        <Label htmlFor="username" className="text-xs uppercase tracking-wide text-gray-500 ml-1">Username</Label>
+                        <div className="relative group">
+                            <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-xl blur opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                            <Input
+                                id="username"
+                                placeholder="Enter username"
+                                value={username}
+                                onChange={(e) => setUsername(e.target.value)}
+                                className="relative bg-black/40 border-white/10 text-white placeholder:text-gray-700 focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/20 h-12 text-sm rounded-xl pl-4 transition-all"
+                            />
+                        </div>
                     </div>
                     <div className="space-y-2">
-                        <Label htmlFor="password" className="text-sm">Password</Label>
-                        <Input
-                            id="password"
-                            type="password"
-                            placeholder="Enter password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            className="border-white/10 bg-white/5 text-white placeholder:text-gray-600 focus:border-blue-500/50 focus:ring-blue-500/20 h-11"
-                        />
+                        <Label htmlFor="password" className="text-xs uppercase tracking-wide text-gray-500 ml-1">Password</Label>
+                        <div className="relative group">
+                            <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-xl blur opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                            <Input
+                                id="password"
+                                type="password"
+                                placeholder="Enter password"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                className="relative bg-black/40 border-white/10 text-white placeholder:text-gray-700 focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/20 h-12 text-sm rounded-xl pl-4 transition-all"
+                            />
+                        </div>
                     </div>
                     <Button
                         type="submit"
-                        className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white border-0 h-11 text-base font-medium shadow-lg shadow-blue-500/20 transition-all hover:shadow-blue-500/30"
+                        className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white border-0 h-12 text-sm font-semibold tracking-wide shadow-lg shadow-blue-900/20 transition-all hover:shadow-blue-600/30 hover:scale-[1.01] active:scale-[0.99] rounded-xl mt-2"
                         disabled={loading || !username || !password}
                     >
                         {loading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : "Sign In Securely"}
                     </Button>
                 </form>
             </CardContent>
-            <CardFooter className="justify-center text-[10px] text-gray-600 border-t border-white/5 pt-4">
+            <CardFooter className="justify-center text-[10px] text-gray-600 border-t border-white/5 pt-4 pb-4">
                 Protected by Enterprise RBAC • AES-256 Encryption
             </CardFooter>
         </Card>
