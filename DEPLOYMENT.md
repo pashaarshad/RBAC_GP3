@@ -20,9 +20,13 @@
    - **Start Command:** `python "week 5/src/main.py"`
    - **Instance Type:** Free (or your preferred tier)
 
-5. Add Environment Variables (if needed):
+5. **Add Environment Variables (REQUIRED for AI responses):**
    - Click "Advanced" → "Add Environment Variable"
-   - Add any API keys or secrets from your `.env.example`
+   - **Required for LLM:**
+     - `LLM_API_KEY` = Your OpenRouter API key (get from: https://openrouter.ai/keys)
+     - `LLM_BASE_URL` = `https://openrouter.ai/api/v1`
+     - `LLM_MODEL` = `mistralai/mistral-7b-instruct`
+   - See `LLM_SETUP.md` for detailed LLM configuration guide
 
 6. Click **"Create Web Service"**
 7. Wait for deployment (5-10 minutes)
