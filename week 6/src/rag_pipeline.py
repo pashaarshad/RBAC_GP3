@@ -48,23 +48,47 @@ class RAGPipeline:
             context_text += f"\n[Doc {i+1} - {dept}]: {content}\n"
             sources.append(res)
             
-        # 3. Construct Prompt
-        system_prompt = """You are a secure internal enterprise assistant.
-        1. For greetings (e.g., 'Hi', 'Hello'), respond politely and concisely.
-        2. For questions asking for information, use ONLY the provided context.
-        3. If the answer is not in the context, say 'I cannot find this information in the documents you have access to.'
-        4. Do not answer general knowledge questions outside the context.
-        """
+        # 3. Construct Prompt with Strict Access Control
+        role_context = {
+            "c-level": "ALL departments (Finance, HR, Marketing, Engineering, General)",
+            "finance": "ONLY Finance department",
+            "hr": "ONLY HR department", 
+            "marketing": "ONLY Marketing department",
+            "engineering": "ONLY Engineering department",
+            "employees": "ONLY General company information"
+        }
+        
+        access_scope = role_context.get(user_role.lower(), "General information")
+        
+        system_prompt = f"""You are a secure RBAC-protected enterprise assistant with strict access control.
+
+ROLE-BASED ACCESS CONTROL:
+- Current User Role: {user_role.upper()}
+- Authorized Access: {access_scope}
+
+STRICT RULES:
+1. **Access Control**: Answer ONLY questions related to {access_scope}.
+2. **Out-of-Scope Rejection**: If the question is about departments the user CANNOT access, respond with:
+   "🚫 Access Denied: You do not have permission to access {{'department_name'}} information. Please ask questions related to {access_scope}."
+3. **Context-Only Answers**: Use ONLY the provided context documents. Never use external knowledge.
+4. **No Context Available**: If no relevant documents found, say:
+   "I cannot find this information in the {access_scope} documents you have access to."
+5. **Greetings**: For greetings ('Hi', 'Hello'), respond politely: "Hello! I'm your secure assistant. I can help you with {access_scope}. What would you like to know?"
+6. **Unrelated Questions**: If question is completely unrelated to company/work (e.g., weather, sports, recipes), say:
+   "❌ This question is not related to company information. Please ask about {access_scope}."
+
+REMEMBER: Strictly enforce access control. Reject unauthorized requests clearly.
+"""
         
         user_prompt = f"""
-        CONTEXT:
-        {context_text}
-        
-        QUESTION: 
-        {query}
-        
-        ANSWER:
-        """
+DEPARTMENT CONTEXT DOCUMENTS:
+{context_text if context_text.strip() else "[No documents found in authorized departments]"}
+
+USER QUESTION: 
+{query}
+
+YOUR ANSWER (following all STRICT RULES above):
+"""
         
         # 4. Call LLM or Fallback
         generated_text = ""
