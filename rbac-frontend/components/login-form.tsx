@@ -92,6 +92,7 @@ export default function LoginForm() {
                                 size="sm"
                                 onClick={() => fillCredentials(cred)}
                                 className={`border-white/10 bg-gradient-to-r ${cred.color} bg-opacity-10 hover:bg-opacity-20 text-white text-xs h-9 justify-start gap-2 transition-all hover:scale-[1.02] active:scale-[0.98]`}
+                                suppressHydrationWarning
                             >
                                 <cred.icon className="w-3 h-3" />
                                 {cred.role}
@@ -109,7 +110,7 @@ export default function LoginForm() {
                     </div>
                 </div>
 
-                <form onSubmit={handleLogin} className="space-y-4">
+                <form onSubmit={handleLogin} className="space-y-4" suppressHydrationWarning>
                     <div className="space-y-2">
                         <Label htmlFor="username" className="text-sm">Username</Label>
                         <Input
@@ -118,6 +119,7 @@ export default function LoginForm() {
                             value={username}
                             onChange={(e) => setUsername(e.target.value)}
                             className="border-white/10 bg-white/5 text-white placeholder:text-gray-600 focus:border-blue-500/50 focus:ring-blue-500/20 h-11"
+                            suppressHydrationWarning
                         />
                     </div>
                     <div className="space-y-2">
@@ -129,12 +131,14 @@ export default function LoginForm() {
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                             className="border-white/10 bg-white/5 text-white placeholder:text-gray-600 focus:border-blue-500/50 focus:ring-blue-500/20 h-11"
+                            suppressHydrationWarning
                         />
                     </div>
                     <Button
                         type="submit"
                         className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white border-0 h-11 text-base font-medium shadow-lg shadow-blue-500/20 transition-all hover:shadow-blue-500/30"
                         disabled={loading || !username || !password}
+                        suppressHydrationWarning
                     >
                         {loading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : "Sign In Securely"}
                     </Button>

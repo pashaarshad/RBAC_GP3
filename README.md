@@ -4,6 +4,21 @@ A secure internal chatbot system with Role-Based Access Control (RBAC) and Retri
 
 ---
 
+## 🌐 Live Demo & Delivery Instructions
+
+### Important Links (Add these to GitHub "About" section)
+- **Frontend (UI):** [https://rbac-infosys-internship.vercel.app/login](https://rbac-infosys-internship.vercel.app/login)
+- **Backend (API):** [https://rbac-gp3.onrender.com/](https://rbac-gp3.onrender.com/)
+
+### How to Access the Live App Effectively:
+> **⚠️ Render Free Tier Notice:** The backend API is hosted on Render's free tier, which goes to sleep after 15 minutes of inactivity. **It may take 1-2 minutes to wake up** on the first request.
+
+1. **Wake up the Backend:** First, click the [Backend Link](https://rbac-gp3.onrender.com/) and wait until you see `{"status": "ok", "message": "RBAC Secured API is running smoothly!"}` on the screen.
+2. **Open the Frontend:** Once the backend is awake, open the [Frontend Link](https://rbac-infosys-internship.vercel.app/login).
+3. **Log In:** Use the Quick Demo Access buttons or type in the credentials listed below to test different roles. The presentation can be accessed via the "Detailed Info" button on the login page!
+
+---
+
 ## 👥 The RBAC Group 3 Team
 **Led by Arshad Pasha | 8 Active Members**
 
@@ -125,12 +140,12 @@ npm run dev
 
 | Username | Password | Role | Access |
 |---|---|---|---|
-| `admin` | `admin123` | `c-level` | All Departments |
-| `finance_user` | `pass123` | `finance` | Finance + General |
-| `hr_user` | `pass123` | `hr` | HR + General |
-| `marketing_user` | `pass123` | `marketing` | Marketing + General |
-| `eng_user` | `pass123` | `engineering` | Engineering + General |
-| `employee` | `pass123` | `employees` | General Only |
+| `arshad@rbac.com` | `admin123` | `c-level` | All Departments |
+| `priyanshu@rbac.com` | `pass123` | `finance` | Finance + General |
+| `kanak@rbac.com` | `pass123` | `hr` | HR + General |
+| `shirisha@rbac.com` | `pass123` | `marketing` | Marketing + General |
+| `eng_user@rbac.com` | `pass123` | `engineering` | Engineering + General |
+| `employee@rbac.com` | `pass123` | `employees` | General Only |
 
 ## 🏗 Architecture
 - **Preprocessing**: LangChain + TikToken
