@@ -1,0 +1,6 @@
+{
+    "framework": "nextjs",
+    "buildCommand": "cd rbac-frontend && npm install && npm run build",
+    "outputDirectory": "rbac-frontend/.next",
+    "installCommand": "cd rbac-frontend && npm install"
+}
